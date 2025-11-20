@@ -1,3 +1,4 @@
+import type { OrderDirection } from "@decaf-ts/core";
 import type { FieldProperties, IPagedComponentProperties, CrudOperationKeys } from "@decaf-ts/ui-decorators";
 import type { Model } from "@decaf-ts/decorator-validation";
 import type { ComponentType } from "react";
@@ -23,6 +24,34 @@ export interface IComponentConfig {
   component: string;
   inputs: IComponentProperties;
   children?: IComponentConfig[];
+}
+
+export interface IFieldSetItem {
+  index: number;
+  title: string;
+  description?: string;
+}
+
+export interface IFieldSetValidationEvent {
+  formGroup: KeyValue;
+  value: unknown;
+  isValid: boolean;
+}
+
+export interface IFilterQueryItem {
+  index?: string;
+  condition?: string;
+  value?: string;
+}
+
+export interface ISortObject {
+  value: string;
+  direction: OrderDirection;
+}
+
+export interface IFilterQuery {
+  query: IFilterQueryItem[] | undefined;
+  sort: ISortObject;
 }
 
 export interface ReactDynamicOutput {

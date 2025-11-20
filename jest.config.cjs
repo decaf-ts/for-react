@@ -6,6 +6,7 @@ const config = {
   verbose: true,
   rootDir: __dirname,
   transform: { "^.+\\.tsx?$": "ts-jest" },
+  globals: { "ts-jest": { tsconfig: "./tsconfig.jest.json" } },
   testEnvironment: "node",
   testRegex: "/tests/.*\\.(test|spec)\\.(ts|tsx)$",
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],

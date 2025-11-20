@@ -53,4 +53,19 @@ export class ValidatorFactory {
     }
     return props;
   }
+
+  static supportedKeys(): string[] {
+    return Validation.keys();
+  }
+
+  static validatorsFromProps(fieldProps: FieldProperties, keys: string[]): (value: unknown) => string | undefined {
+    const validators = keys.map((key) => ValidatorFactory.spawn(fieldProps, key));
+    return (value: unknown) => {
+      for (const validator of validators) {
+        const result = validator(value);
+        if (result) return result;
+      }
+      return undefined;
+    };
+  }
 }

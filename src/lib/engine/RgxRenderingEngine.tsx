@@ -3,7 +3,7 @@ import type { Model } from "@decaf-ts/decorator-validation";
 import type { FieldDefinition } from "@decaf-ts/ui-decorators";
 import { RenderingEngine } from "@decaf-ts/ui-decorators";
 import { RgxComponentRegistry } from "./ComponentRegistry";
-import { ControlFieldProps, KeyValue } from "./types";
+import { ControlFieldProps } from "./types";
 import { RgxFormService } from "./RgxFormService";
 import { ReactEngineKeys } from "./constants";
 import { KeyValue } from "./types";
@@ -12,20 +12,28 @@ function generateRendererId() {
   return Math.random().toString(36).replace(".", "");
 }
 
-export class RgxRenderingEngine extends RenderingEngine {
+export class RgxRenderingEngine extends RenderingEngine<
+  React.ReactNode,
+  FieldDefinition<React.ReactNode>
+> {
   constructor() {
     super(ReactEngineKeys.FLAVOUR);
   }
 
-  initialize(): void {
+  async initialize(): Promise<void> {
     if (this.initialized) return;
     this.initialized = true;
   }
 
-  private renderChildren(children: FieldDefinition<ControlFieldProps>[] | undefined, parentRendererId: string) {
+  private renderChildren(
+    children: FieldDefinition<ControlFieldProps>[] | undefined,
+    parentRendererId: string
+  ) {
     if (!children?.length) return null;
     return children.map((child) => {
-      const childRendererId = child.rendererId ?? RgxFormService.mountFormIdPath(parentRendererId, child.props.childOf);
+      const childRendererId =
+        child.rendererId ??
+        RgxFormService.mountFormIdPath(parentRendererId, child.props.childOf);
       return this.fromFieldDefinition({
         ...child,
         rendererId: childRendererId,
@@ -33,13 +41,19 @@ export class RgxRenderingEngine extends RenderingEngine {
     });
   }
 
-  private fromFieldDefinition(def: FieldDefinition<ControlFieldProps>): React.ReactNode {
+  private fromFieldDefinition(
+    def: FieldDefinition<ControlFieldProps>
+  ): React.ReactNode {
     const rendererId = def.rendererId || generateRendererId();
     const form = RgxFormService.get(rendererId);
     const propsFromDef = { ...(def.props || {}) } as KeyValue;
     const definitionChildren =
-      (propsFromDef[ReactEngineKeys.CHILDREN_DEFINITIONS] as FieldDefinition<ControlFieldProps>[]) ||
-      (propsFromDef[ReactEngineKeys.CHILDREN] as FieldDefinition<ControlFieldProps>[]) ||
+      (propsFromDef[
+        ReactEngineKeys.CHILDREN_DEFINITIONS
+      ] as FieldDefinition<ControlFieldProps>[]) ||
+      (propsFromDef[
+        ReactEngineKeys.CHILDREN
+      ] as FieldDefinition<ControlFieldProps>[]) ||
       (def.children as FieldDefinition<ControlFieldProps>[]) ||
       [];
     delete propsFromDef[ReactEngineKeys.CHILDREN];
@@ -59,8 +73,14 @@ export class RgxRenderingEngine extends RenderingEngine {
       return null;
     }
 
-    const children = this.renderChildren(def.children as FieldDefinition<ControlFieldProps>[], rendererId);
-    const key = [rendererId, componentProps.path || componentProps.name || def.tag].join(".");
+    const children = this.renderChildren(
+      def.children as FieldDefinition<ControlFieldProps>[],
+      rendererId
+    );
+    const key = [
+      rendererId,
+      componentProps.path || componentProps.name || def.tag,
+    ].join(".");
 
     return (
       <Component key={key} {...componentProps}>
@@ -69,8 +89,14 @@ export class RgxRenderingEngine extends RenderingEngine {
     );
   }
 
-  render<M extends Model>(model: M, globalProps: Record<string, unknown> = {}): React.ReactNode {
-    const def = this.toFieldDefinition(model, globalProps) as unknown as FieldDefinition<ControlFieldProps>;
+  render<M extends Model>(
+    model: M,
+    globalProps: Record<string, unknown> = {}
+  ): React.ReactNode {
+    const def = this.toFieldDefinition(
+      model,
+      globalProps
+    ) as unknown as FieldDefinition<ControlFieldProps>;
     return this.fromFieldDefinition(def);
   }
 }

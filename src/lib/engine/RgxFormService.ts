@@ -1,5 +1,6 @@
 import { escapeHtml, HTML5CheckTypes, HTML5InputTypes, parseToNumber } from "@decaf-ts/ui-decorators";
 import { ControlFieldProps } from "./types";
+import { ValidatorFactory } from "./ValidatorFactory";
 
 const PARENT_TOKEN = "$parent";
 
@@ -56,6 +57,7 @@ export class RgxFormService {
   }
 
   addFormControl(props: ControlFieldProps): ControlFieldProps {
+    const { childOf } = props;
     const tokens = tokenize(props.path ?? props.name ?? "");
     const key = tokens[tokens.length - 1] || props.name || props.path || Math.random().toString(36).slice(2);
     const control: ControlFieldProps = {
@@ -64,6 +66,22 @@ export class RgxFormService {
       formId: this.formId,
       rendererId: props.rendererId ?? this.formId,
     };
+
+    // If control belongs to a child form, delegate creation to that form.
+    if (childOf && childOf !== this.getFormIdPath().path) {
+      const childForm = this.addChild(childOf);
+      return childForm.addFormControl(control);
+    }
+
+    // Attach validator if validation keys are present.
+    const validatorKeys = Object.keys(control).filter((k) =>
+      ValidatorFactory.supportedKeys().includes(k)
+    );
+    if (validatorKeys.length) {
+      const validateFn = ValidatorFactory.validatorsFromProps(control, validatorKeys);
+      control.validateFn = validateFn;
+    }
+
     this.controls.set(key, control);
     if (typeof control.defaultValue !== "undefined") {
       this.setInternalValue(control.path || key, control.defaultValue);
