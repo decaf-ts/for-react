@@ -1,0 +1,53 @@
+:root {
+  --dcf-empty-gap: 0.75rem;
+}
+
+.decaf-empty-state-component {
+  text-align: center;
+}
+
+.decaf-empty-state-component .dcf-icon-container {
+  transform: scale(1.25);
+  opacity: 0.75;
+  margin: 1.25rem 0 0.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.decaf-empty-state-component .dcf-ititle {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.decaf-empty-state-component .dcf-subtitle {
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.dcf-empty-state-button {
+  margin-top: var(--dcf-empty-gap);
+}
+
+.dcf-empty-state-button .dcf-button {
+  border: none;
+  border-radius: 6px;
+  padding: 0.55rem 1.25rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.dcf-button.solid {
+  color: #fff;
+  background: var(--ion-color-primary, #1c7ed6);
+}
+
+.dcf-button.clear {
+  color: var(--ion-color-primary, #1c7ed6);
+  background: transparent;
+}
+
+.dcf-button.outline {
+  color: var(--ion-color-primary, #1c7ed6);
+  background: transparent;
+  border: 1px solid var(--ion-color-primary, #1c7ed6);
+}

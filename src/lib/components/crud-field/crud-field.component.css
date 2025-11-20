@@ -1,0 +1,48 @@
+.dcf-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.dcf-form-label {
+  font-weight: 500;
+  color: var(--dcf-color-gray-6, #555);
+}
+
+.dcf-form-field input,
+.dcf-form-field select,
+.dcf-form-field textarea {
+  border: 1px solid var(--dcf-color-gray-3, #d8d8d8);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  width: 100%;
+  font-family: inherit;
+}
+
+.dcf-form-field textarea {
+  min-height: 4rem;
+}
+
+.dcf-input-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.dcf-options-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.dcf-required {
+  color: var(--ion-color-danger, #e03131);
+}
+
+.dcf-help-text {
+  font-size: 0.85rem;
+  color: var(--dcf-color-gray-5, #777);
+}

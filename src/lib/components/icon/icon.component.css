@@ -1,0 +1,41 @@
+.dcf-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dcf-icon-button {
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.dcf-icon-button.solid {
+  background: var(--ion-color-primary, #1c7ed6);
+  color: #fff;
+}
+
+.dcf-icon-button.outline {
+  border: 1px solid var(--ion-color-primary, #1c7ed6);
+  color: var(--ion-color-primary, #1c7ed6);
+}
+
+.dcf-icon-button.clear {
+  background: transparent;
+}
+
+.dcf-icon svg,
+.dcf-icon img {
+  display: inline-block;
+  width: var(--dcf-icon-width, 1.5rem);
+  height: auto;
+}
+
+.dcf-icon[data-inline="true"] {
+  display: inline-flex;
+}

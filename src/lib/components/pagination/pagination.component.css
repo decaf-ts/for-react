@@ -1,0 +1,32 @@
+.dcf-pagination {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.dcf-page,
+.dcf-page-nav {
+  border: 1px solid var(--dcf-color-gray-3, #d8d8d8);
+  border-radius: 6px;
+  padding: 0.35rem 0.6rem;
+  background: #fff;
+  cursor: pointer;
+  min-width: 2rem;
+}
+
+.dcf-page.active {
+  background: var(--ion-color-primary, #1c7ed6);
+  color: #fff;
+  border-color: transparent;
+}
+
+.dcf-page.separator {
+  border: none;
+  cursor: default;
+  background: transparent;
+}
+
+.dcf-page-nav:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

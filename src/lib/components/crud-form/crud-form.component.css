@@ -1,0 +1,47 @@
+.dcf-form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.dcf-form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.dcf-buttons-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.dcf-button {
+  border: none;
+  border-radius: 6px;
+  padding: 0.65rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.dcf-button.primary {
+  background: var(--ion-color-primary, #1c7ed6);
+  color: #fff;
+}
+
+.dcf-button.danger {
+  background: var(--ion-color-danger, #e03131);
+  color: #fff;
+}
+
+.dcf-button.link {
+  background: transparent;
+  color: var(--ion-color-primary, #1c7ed6);
+}
+
+.dcf-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
