@@ -8,6 +8,7 @@ import { RgxModelRenderer } from "./model-renderer/RgxModelRenderer";
 import { RgxIcon } from "./icon/RgxIcon";
 import { RgxEmptyState } from "./empty-state/RgxEmptyState";
 import { RgxPagination } from "./pagination/RgxPagination";
+import { RgxSearchbar } from "./searchbar/RgxSearchbar";
 
 let registered = false;
 
@@ -18,6 +19,7 @@ export function registerDefaultComponents(): void {
   RgxComponentRegistry.register("ngx-decaf-crud-form", RgxCrudForm);
   RgxComponentRegistry.register("ngx-decaf-layout", RgxLayout);
   RgxComponentRegistry.register("ngx-decaf-icon", RgxIcon);
+  RgxComponentRegistry.register("ngx-decaf-searchbar", RgxSearchbar);
   RgxComponentRegistry.register("ngx-decaf-empty-state", RgxEmptyState);
   RgxComponentRegistry.register("ngx-decaf-pagination", RgxPagination);
   RgxComponentRegistry.register("ngx-decaf-component-renderer", RgxComponentRenderer);
