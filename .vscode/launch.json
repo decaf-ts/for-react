@@ -7,7 +7,7 @@
       "request": "launch",
       "name": "Run All Jest Tests with Coverage",
       "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
-      "args": ["--testPathPattern=/tests", "--detectOpenHandles"],
+      "args": ["--testPathPatterns=/tests", "--detectOpenHandles"],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
@@ -68,7 +68,7 @@
       "runtimeExecutable": "npx",
       "runtimeArgs": [
         "jest",
-        "--testPathPattern=/tests/integration",
+        "--testPathPatterns=/tests/integration",
         "--detectOpenHandles"
       ],
       "console": "integratedTerminal"
@@ -104,7 +104,7 @@
       "runtimeExecutable": "npx",
       "runtimeArgs": [
         "jest",
-        "--testPathPattern=/tests/unit",
+        "--testPathPatterns=/tests/unit",
         "--detectOpenHandles"
       ],
       "env": {

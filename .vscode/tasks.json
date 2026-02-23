@@ -66,7 +66,7 @@
       "label": "Integration Tests",
       "type": "npm",
       "script": "test",
-      "args": ["--testPathPattern=/tests/integration", "--detectOpenHandles"],
+      "args": ["--testPathPatterns=/tests/integration", "--detectOpenHandles"],
       "problemMatcher": ["$jest-stderr", "$jest-parser"],
       "group": {
         "kind": "test",
@@ -107,7 +107,7 @@
       "label": "Unit Tests",
       "type": "npm",
       "script": "test",
-      "args": ["--testPathPattern=/tests/unit", "--detectOpenHandles"],
+      "args": ["--testPathPatterns=/tests/unit", "--detectOpenHandles"],
       "group": {
         "kind": "test",
         "isDefault": true
