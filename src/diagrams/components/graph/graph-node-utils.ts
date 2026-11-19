@@ -24,9 +24,27 @@ export function isGraphDefaultPort(port: { property: string; path?: string }): b
   return id === 'value' || id === 'default';
 }
 
+/**
+ * @description Side of a graph node on which a port zone is rendered.
+ * @summary One of the four React Flow handle sides a canvas port definition can
+ * declare.
+ * @memberOf module:for-react.diagrams
+ */
 export type GraphPortZoneSide = 'top' | 'bottom' | 'left' | 'right';
+
+/**
+ * @description Cross-axis alignment of the ports within a graph port zone.
+ * @summary Positions a zone's ports at the start, centre or end of its side.
+ * @memberOf module:for-react.diagrams
+ */
 export type GraphPortZoneAlign = 'start' | 'center' | 'end';
 
+/**
+ * @description Render zone carried by a canvas graph port definition.
+ * @summary Selects the node side, the cross-axis alignment and an optional
+ * ordering hint used to lay out a port on the React Flow canvas.
+ * @memberOf module:for-react.diagrams
+ */
 export interface GraphCanvasPortZone {
   side: GraphPortZoneSide;
   align?: GraphPortZoneAlign;

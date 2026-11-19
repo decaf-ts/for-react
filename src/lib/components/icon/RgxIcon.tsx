@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { safeImageSrc } from "../../pipes/safe-html.js";
 
 /**
  * @description Public props accepted by the {@link RgxIcon} component.
  * @summary Configures which icon to render, its color token or CSS value, its
  * layout slot and optional button styling, together with sizing, inline layout,
  * accessibility label and click handling.
+ * @property {string} [name] - Vector icon name, or an image URL when it contains
+ * a dot. Image names are validated with `safeImageSrc`; a rejected URL renders
+ * the vector fallback instead.
  * @memberOf module:for-react
  */
 export interface RgxIconProps {
@@ -89,8 +93,10 @@ function IconSvg({ name }: { name: string }) {
  * @description Renders a built-in vector icon or an image reference.
  * @summary Resolves `name` against the internal icon path map and renders an
  * inline SVG, falling back to a placeholder square when the name is unknown.
- * When `name` contains a dot it is treated as an image source and rendered as an
- * `<img>` instead. Named color tokens are mapped to CSS custom properties, and
+ * When `name` contains a dot it is treated as an image source, validated with
+ * `safeImageSrc`, and rendered as an `<img>` instead; a rejected URL (for
+ * example a `javascript:` scheme or a non-image `data:` payload) falls back to
+ * the vector icon path and is never bound as `src`. Named color tokens are mapped to CSS custom properties, and
  * any other `color` value is used verbatim. Setting `button` wraps the icon in a
  * button that uses `ariaLabel` (or `name`) as its label and forwards `onClick`.
  * Returns `null` when no `name` is supplied.
@@ -123,11 +129,12 @@ export const RgxIcon: React.FC<RgxIconProps> = ({
 
   const classes = ["dcf-icon", className].filter(Boolean).join(" ");
   const resolvedColor = COLOR_MAP[color] || color;
-  const content = isImage ? (
+  const imageSrc = isImage ? safeImageSrc(name) : null;
+  const content = imageSrc ? (
     <img
       aria-hidden="true"
       data-slot={slot}
-      src={name}
+      src={imageSrc}
       style={{ width }}
       alt=""
     />

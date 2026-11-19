@@ -4,6 +4,7 @@ import { KeyValue } from "../../engine/types.js";
 import { ComponentEventNames } from "../../engine/constants.js";
 import { RgxComponentRenderer } from "../component-renderer/RgxComponentRenderer.js";
 import { translateKey } from "../../services/RgxTranslateService.js";
+import { sanitizeHtmlContent } from "../../pipes/safe-html.js";
 
 /**
  * @description Detail object supplied to modal dismissal callbacks.
@@ -23,6 +24,10 @@ export interface RgxModalDismissDetail {
  * inline content, the tag-driven renderer used in place of children, and the
  * confirm/cancel affordances. Labels fall back to translated defaults provided
  * by the locale key prefix.
+ * @property {string | React.ReactNode} [inlineContent] - Content rendered above
+ * or below the main content according to `inlineContentPosition`. A string is
+ * treated as untrusted HTML and sanitized with `sanitizeHtmlContent` before
+ * `dangerouslySetInnerHTML`; a React node is rendered as a normal React node.
  * @memberOf module:for-react
  */
 export interface RgxModalProps {
@@ -60,7 +65,10 @@ export interface RgxModalProps {
  * While open it listens for the Escape key and dismisses with the `"cancel"`
  * role. Content is either the `tag`-driven {@link RgxComponentRenderer} or the
  * supplied children, optionally wrapped by inline content positioned above or
- * below. Dismissal invokes `onWillDismiss` then `onDismiss`, while the confirm
+ * below. String inline content is sanitized with `sanitizeHtmlContent` before
+ * being bound through `dangerouslySetInnerHTML`, preserving benign markup while
+ * stripping scripts, event handlers and dangerous URLs; ReactNode content is
+ * rendered as normal React nodes. Dismissal invokes `onWillDismiss` then `onDismiss`, while the confirm
  * button invokes `onConfirm` before dismissing with the `"confirm"` role.
  * @param {RgxModalProps} props - Values that control visibility and layout.
  * @returns {React.ReactPortal | null} The portal into `document.body`, or
@@ -123,7 +131,11 @@ export const RgxModal: React.FC<RgxModalProps> = ({
     const renderInline = (value: string | React.ReactNode | undefined) => {
       if (!value) return null;
       if (typeof value === "string") {
-        return <div dangerouslySetInnerHTML={{ __html: value }} />;
+        return (
+          <div
+            dangerouslySetInnerHTML={{ __html: sanitizeHtmlContent(value) }}
+          />
+        );
       }
       return <div>{value}</div>;
     };

@@ -1863,6 +1863,55 @@ describe("Gantt — custom grid columns", () => {
     expect(gridData?.textContent).toContain("BRAVO");
     expect(gridData?.textContent).not.toContain("Progress");
   });
+
+  it.each([
+    ["an img event handler", `<img src=x onerror=alert(1)>`],
+    ["an inline script", `<script>window.__f1Xss=true</script>`],
+    ["attribute breakout", `"><img src=x onload=alert(1)>`],
+  ])(
+    "escapes a host title in a template-less custom column (%s)",
+    async (_label, payload) => {
+      const items: Task[] = [
+        {
+          id: "xss",
+          title: payload,
+          start: "2026-10-01",
+          end: "2026-10-03",
+          progress: 0,
+        },
+      ];
+      const columns: GanttGridColumn<Task>[] = [
+        { name: "text", label: "Work item", tree: true, width: 160 },
+      ];
+
+      const { container } = mountGantt({ columns }, items);
+
+      await waitFor(() => {
+        const data = container.querySelector(".gantt_grid_data");
+        expect(data?.textContent).toContain(payload);
+      });
+
+      const grid = container.querySelector<HTMLElement>(".gantt_grid");
+      expect(grid).not.toBeNull();
+      const gridData = container.querySelector<HTMLElement>(".gantt_grid_data");
+      expect(gridData).not.toBeNull();
+
+      // The title still populates the cell rather than rendering empty.
+      expect((gridData as HTMLElement).textContent).not.toBe("");
+      expect((gridData as HTMLElement).textContent).toContain(payload);
+
+      // The escaped payload never becomes executable DOM.
+      expect(grid?.querySelector("img")).toBeNull();
+      expect(grid?.querySelector("script")).toBeNull();
+      expect(grid?.querySelector("[onerror]")).toBeNull();
+      expect(grid?.querySelector("[onload]")).toBeNull();
+      for (const element of Array.from(grid?.querySelectorAll("*") ?? [])) {
+        for (const attribute of Array.from(element.attributes)) {
+          expect(attribute.name.toLowerCase().startsWith("on")).toBe(false);
+        }
+      }
+    }
+  );
 });
 
 describe("buildGanttMapping — ff and sf dependencies", () => {

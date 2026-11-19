@@ -6,6 +6,7 @@
 import React, { type MouseEvent, type ReactNode } from "react";
 import { useAgentTranslate } from "../../react/AgentChatProvider.js";
 import { ChatIcon } from "../chat-icon/ChatIcon.js";
+import { safeHref } from "../../../lib/pipes/safe-html.js";
 
 /**
  * @description Props accepted by {@link ChatGreeting}.
@@ -16,7 +17,7 @@ import { ChatIcon } from "../chat-icon/ChatIcon.js";
  * @property {string} [message] - Message content or view rendered by the component.
  * @property {string} [icon] - Icon name.
  * @property {number} [iconSize] - Icon size in pixels.
- * @property {string} [linkHref] - Link target.
+ * @property {string} [linkHref] - Link target, validated with `safeHref`; a rejected scheme renders no link.
  * @property {string} [linkLabel] - Link label.
  * @property {boolean} [animated] - Whether the entrance animation runs.
  * @property {string} [className] - Extra CSS class name.
@@ -39,7 +40,10 @@ export interface ChatGreetingProps {
 
 /**
  * @description Greeting or informational empty-state card.
- * @summary React component for the agent chat surface.
+ * @summary React component for the agent chat surface. `linkHref` is validated
+ * with `safeHref`; when the URL is rejected (for example a `javascript:` or
+ * `data:` scheme, or a value containing control characters) no link is
+ * rendered and no navigation is possible.
  * @memberOf module:for-react.agent
  */
 export function ChatGreeting({
@@ -56,6 +60,7 @@ export function ChatGreeting({
   children,
 }: ChatGreetingProps) {
   const t = useAgentTranslate();
+  const href = safeHref(linkHref);
   const variantClass =
     variant === "info"
       ? " dcf-chat-greeting--info"
@@ -87,10 +92,10 @@ export function ChatGreeting({
 
       {children}
 
-      {linkHref ? (
+      {href ? (
         <a
           className="dcf-chat-greeting__link"
-          href={linkHref}
+          href={href}
           onClick={(event) => onLinkClick?.(event)}
         >
           <span>{linkLabel ?? t("agent.chat.greeting.link", "Learn more")}</span>

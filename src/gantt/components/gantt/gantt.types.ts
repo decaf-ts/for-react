@@ -901,7 +901,20 @@ export type GanttLocaleInput = GanttLocaleName | GanttCustomLocale;
 /**
  * @description A configurable side-table column.
  * @summary Templates receive the host task, not the renderer task object, so column content can read domain fields directly.
+ *
+ * A `template` result is **trusted raw dhtmlx markup**: it is inserted into the
+ * grid cell as-is, without escaping. Build templates only from
+ * developer-controlled markup and never from untrusted data; escape any dynamic
+ * value yourself before interpolating it. Columns **without** a `template` use
+ * the component's escaped task-title renderer, so their title text is safe by
+ * default.
  * @template T - Host task type rendered on the timeline.
+ * @property name - Column identifier passed to dhtmlx.
+ * @property label - Optional column header text.
+ * @property width - Optional fixed column width.
+ * @property tree - Whether the column renders the hierarchical tree affordance.
+ * @property align - Optional horizontal alignment of the cell content.
+ * @property template - Trusted raw markup renderer for the column; its returned string is inserted unescaped. Omit it to get the escaped task-title renderer.
  * @category Gantt
  * @memberOf module:for-react.gantt
  */

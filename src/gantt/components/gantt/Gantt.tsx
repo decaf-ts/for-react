@@ -152,7 +152,7 @@ function getGanttFactory(): GanttEnterprise {
  * @property {string} [keyboardHelp] - Help text announced for keyboard users.
  * @property {string} [instanceId=null] - Stable DOM instance id; generated when omitted.
  * @property {Object} [viewTypeLabels] - Partial overrides for the scale button labels.
- * @property {GanttGridColumn[]} [columns] - Custom side-grid columns; defaults to task and progress columns.
+ * @property {GanttGridColumn[]} [columns] - Custom side-grid columns; defaults to task and progress columns. A column `template` is trusted raw dhtmlx markup inserted as-is (never build one from untrusted data), while columns without a `template` fall back to the escaped task-title renderer.
  * @property {string} [className] - Extra CSS classes appended to the host.
  * @property {Object} [style] - Inline styles applied to the host.
  * @property {function(GanttBarTemplateContext): string} [renderBar] - Custom bar label renderer; the returned string is escaped before insertion.
@@ -939,7 +939,7 @@ function GanttImpl<T>(
                 ? column.template!(mapped.task)
                 : String(task.text ?? "");
             }
-          : undefined,
+          : (task: VendorTask) => escapeHtml(taskTitle(task)),
       }));
     } else {
       gantt.config.columns = [
