@@ -159,7 +159,7 @@
     "build": "vite build",
     "build:demo": "vite build",
     "preview": "vite preview",
-    "build:prod": "npx build-scripts --prod --buildMode build && node scripts/bundle-styles.mjs && node scripts/patch-barcode-exports.mjs",
+    "build:prod": "npx build-scripts --prod --buildMode build && node scripts/fix-declaration-specifiers.mjs && node scripts/bundle-styles.mjs && node scripts/patch-barcode-exports.mjs",
     "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.demo.json",
     "test": "npm run test:all",
     "test:unit": "NODE_ENV=test jest --watchman=false --testPathPatterns=\"/tests/unit\" --passWithNoTests --detectOpenHandles",
