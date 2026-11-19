@@ -1,6 +1,11 @@
-import { RamAdapter, RamConfig, RamStorage } from "@decaf-ts/core/ram";
+import { RamAdapter, RamConfig, RamContext, RamStorage } from "@decaf-ts/core/ram";
+import type { ContextualArgs } from "@decaf-ts/core";
+import { InternalError } from "@decaf-ts/db-decorators";
+import type { PrimaryKeyType } from "@decaf-ts/db-decorators";
+import type { Constructor } from "@decaf-ts/decoration";
+import { Model } from "@decaf-ts/decorator-validation";
 
-type Snapshot = Record<string, [string | number, unknown][]>;
+type Snapshot = Record<string, [PrimaryKeyType, unknown][]>;
 
 /**
  * @description Configuration accepted by {@link SessionRamAdapter}.
@@ -92,12 +97,16 @@ export class SessionRamAdapter extends RamAdapter {
    * @returns {Promise<Record<string, unknown>>} The created record.
    * @memberOf module:for-react
    */
-  override async create(
-    tableName: string,
-    id: string | number,
-    model: Record<string, unknown>
+  override async create<M extends Model>(
+    clazz: Constructor<M> | string,
+    id: PrimaryKeyType,
+    model: Record<string, unknown>,
+    ...args: ContextualArgs<RamContext>
   ): Promise<Record<string, unknown>> {
-    const result = await super.create(tableName, id, model);
+    if (typeof clazz === "string") {
+      return this.persistLegacyWrite(clazz, id, model);
+    }
+    const result = await super.create<M>(clazz, id, model, ...args);
     this.persistToStorage();
     return result;
   }
@@ -112,12 +121,16 @@ export class SessionRamAdapter extends RamAdapter {
    * @returns {Promise<Record<string, unknown>>} The updated record.
    * @memberOf module:for-react
    */
-  override async update(
-    tableName: string,
-    id: string | number,
-    model: Record<string, unknown>
+  override async update<M extends Model>(
+    clazz: Constructor<M> | string,
+    id: PrimaryKeyType,
+    model: Record<string, unknown>,
+    ...args: ContextualArgs<RamContext>
   ): Promise<Record<string, unknown>> {
-    const result = await super.update(tableName, id, model);
+    if (typeof clazz === "string") {
+      return this.persistLegacyWrite(clazz, id, model);
+    }
+    const result = await super.update<M>(clazz, id, model, ...args);
     this.persistToStorage();
     return result;
   }
@@ -131,13 +144,57 @@ export class SessionRamAdapter extends RamAdapter {
    * @returns {Promise<Record<string, unknown>>} The deleted record.
    * @memberOf module:for-react
    */
-  override async delete(
-    tableName: string,
-    id: string | number
+  override async delete<M extends Model>(
+    clazz: Constructor<M> | string,
+    id: PrimaryKeyType,
+    ...args: ContextualArgs<RamContext>
   ): Promise<Record<string, unknown>> {
-    const result = await super.delete(tableName, id);
+    if (typeof clazz === "string") {
+      const table = this.legacyTable(clazz);
+      const existing = (table.get(id) as Record<string, unknown>) ?? {};
+      table.delete(id);
+      this.persistToStorage();
+      return existing;
+    }
+    const result = await super.delete<M>(clazz, id, ...args);
     this.persistToStorage();
     return result;
+  }
+
+  override async read<M extends Model>(
+    clazz: Constructor<M> | string,
+    id: PrimaryKeyType,
+    ...args: ContextualArgs<RamContext>
+  ): Promise<Record<string, any>> {
+    if (typeof clazz === "string") {
+      const table = this.client.get(clazz);
+      if (!table || !table.has(id)) {
+        throw new InternalError(
+          `Record ${String(id)} not found in table ${clazz}`
+        );
+      }
+      return table.get(id);
+    }
+    return super.read<M>(clazz, id, ...args);
+  }
+
+  private legacyTable(tableName: string): Map<PrimaryKeyType, any> {
+    let table = this.client.get(tableName);
+    if (!table) {
+      table = new Map<PrimaryKeyType, any>();
+      this.client.set(tableName, table);
+    }
+    return table;
+  }
+
+  private persistLegacyWrite(
+    tableName: string,
+    id: PrimaryKeyType,
+    model: Record<string, unknown>
+  ): Record<string, unknown> {
+    this.legacyTable(tableName).set(id, model);
+    this.persistToStorage();
+    return model;
   }
 }
 

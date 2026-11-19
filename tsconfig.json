@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "paths": {
-      "@decaf-ts/core/ram": ["./node_modules/@decaf-ts/core/lib/ram/index.d.ts"]
+      "@decaf-ts/core/ram": ["./node_modules/@decaf-ts/core/lib/types/ram/index.d.mts"]
     },
     "target": "es2022",
     "lib": ["dom", "dom.iterable", "es2022"],

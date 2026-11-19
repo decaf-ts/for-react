@@ -1,6 +1,6 @@
-import { Metadata } from "@decaf-ts/decoration";
+import { Metadata, uses } from "@decaf-ts/decoration";
 import { Model } from "@decaf-ts/decorator-validation";
-import { Repository, uses } from "@decaf-ts/core";
+import { Repository } from "@decaf-ts/core";
 import { getOnWindow } from "../utils/helpers.js";
 import { DB_ADAPTER_PROVIDER } from "../for-react-common.js";
 import { DecafRepository } from "./types.js";

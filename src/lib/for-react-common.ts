@@ -1,6 +1,7 @@
 import * as DecafLogging from "@decaf-ts/logging";
-import { Repository, uses } from "@decaf-ts/core";
-import { Constructor, Model } from "@decaf-ts/decorator-validation";
+import { Repository } from "@decaf-ts/core";
+import { Constructor, uses } from "@decaf-ts/decoration";
+import { Model } from "@decaf-ts/decorator-validation";
 import { InternalError } from "@decaf-ts/db-decorators";
 import { FunctionLike, KeyValue } from "./engine/types.js";
 import { getWindow } from "./utils/window.js";

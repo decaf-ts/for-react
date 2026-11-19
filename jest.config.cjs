@@ -19,7 +19,10 @@ const config = {
     "\\.(css|scss|sass)$": "<rootDir>/tests/styleMock.cjs",
     "\\.(png|jpg|jpeg|gif|svg)$": "<rootDir>/tests/fileMock.cjs",
     "^@decaf-ts/core/ram$":
-      "<rootDir>/node_modules/@decaf-ts/core/lib/ram/index.cjs",
+      "<rootDir>/node_modules/@decaf-ts/core/lib/cjs/ram/index.cjs",
+    "^ofetch$": "<rootDir>/node_modules/ofetch/dist/node.cjs",
+    "^node-fetch-native$":
+      "<rootDir>/node_modules/node-fetch-native/dist/node.cjs",
   },
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
   collectCoverage: false,

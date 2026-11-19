@@ -1,12 +1,74 @@
 import React from "react";
 import type { Model } from "@decaf-ts/decorator-validation";
-import type { FieldDefinition } from "@decaf-ts/ui-decorators";
+import type {
+  DecafComponent,
+  DecafSpinnerOptions,
+  DecafToastOptions,
+  FieldDefinition,
+  IDecafModal,
+  IDecafRouter,
+  IDecafSpinner,
+  IDecafToast,
+} from "@decaf-ts/ui-decorators";
 import { RenderingEngine } from "@decaf-ts/ui-decorators";
 import { RgxComponentRegistry } from "./ComponentRegistry.js";
 import { ControlFieldProps } from "./types.js";
 import { RgxFormService } from "./RgxFormService.js";
 import { ReactEngineKeys } from "./constants.js";
 import { KeyValue } from "./types.js";
+import type { RgxModalProps } from "../components/modal/RgxModal.js";
+import { presentRgxModal } from "../components/modal/RgxModal.js";
+import { defaultRouterService } from "../services/RgxRouterService.js";
+import { getRgxToast } from "../utils/RgxToast.js";
+import { getRgxSpinner } from "../utils/RgxSpinner.js";
+
+function presentModalBridge(props: RgxModalProps): IDecafModal {
+  let handle: ReturnType<typeof presentRgxModal>;
+  const ensurePresented = () => {
+    if (!handle) handle = presentRgxModal({ ...props, isOpen: true });
+    return handle;
+  };
+  const bridge: Record<string, unknown> = {
+    isOpen: true,
+    title: props.title,
+    tag: props.tag,
+    options: props.options,
+    globals: props.globals,
+    inlineContent: props.inlineContent,
+    inlineContentPosition: props.inlineContentPosition ?? "bottom",
+    fullscreen: props.fullscreen ?? false,
+    expandable: props.expandable ?? false,
+    borders: props.borders ?? true,
+    lightBox: props.lightBox ?? false,
+    headerTransparent: props.headerTransparent ?? false,
+    headerBackground: props.headerBackground ?? "transparent",
+    showHeader: props.showHeader ?? true,
+    showCloseButton: props.showCloseButton ?? true,
+    expanded: false,
+    iconColor: "",
+    willDismissEvent: { emit: () => undefined },
+    ngOnInit: async () => undefined,
+    prepare: async () => undefined,
+    parseInlineContent: () => undefined,
+    create: async () => {
+      ensurePresented();
+      return bridge;
+    },
+    present: async () => {
+      ensurePresented();
+    },
+    handleEvent: async () => undefined,
+    handleWillDismiss: async () => ({}),
+    handleExpandToggle: () => undefined,
+    cancel: async () => {
+      ensurePresented()?.dismiss("cancel");
+    },
+    confirm: async (event?: unknown) => {
+      ensurePresented()?.dismiss("confirm", event);
+    },
+  };
+  return bridge as unknown as IDecafModal;
+}
 
 function generateRendererId() {
   return Math.random().toString(36).replace(".", "");
@@ -42,6 +104,53 @@ export class RgxRenderingEngine extends RenderingEngine<
   async initialize(): Promise<void> {
     if (this.initialized) return;
     this.initialized = true;
+  }
+
+  override router(): IDecafRouter {
+    return defaultRouterService as unknown as IDecafRouter;
+  }
+
+  override async getToast(options: DecafToastOptions): Promise<IDecafToast> {
+    const toast = getRgxToast(options);
+    return {
+      options,
+      error: (message: string) => toast.error(message),
+      warn: (message: string) => toast.warn(message),
+      success: async (message: string) => {
+        await toast.success(message);
+      },
+      show: async (message: string, overrides?: DecafToastOptions) => {
+        await toast.show(message, overrides);
+      },
+      create: async (overrides: DecafToastOptions) => {
+        await toast.show(overrides.message, overrides);
+        return {};
+      },
+    };
+  }
+
+  override async getSpinner(
+    options: DecafSpinnerOptions
+  ): Promise<IDecafSpinner> {
+    const spinner = getRgxSpinner(options);
+    return {
+      isVisible: () => spinner.isVisible(),
+      show: async (message, overrides) =>
+        spinner.show(message, overrides),
+      update: async (message, isProgressUpdate) =>
+        spinner.update(message, isProgressUpdate),
+      remove: async () => spinner.remove(),
+      getOptions: async (overrides, message) =>
+        spinner.getOptions(overrides, message),
+      getMessage: async () => spinner.getMessage(),
+    };
+  }
+
+  override async getModal<C extends DecafComponent<Model>>(
+    component: Partial<C>,
+    ..._args: unknown[]
+  ): Promise<IDecafModal> {
+    return presentModalBridge(component as unknown as RgxModalProps);
   }
 
   private renderChildren(

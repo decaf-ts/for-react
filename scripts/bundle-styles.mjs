@@ -54,3 +54,9 @@ bundle(
   path.join(root, "lib", "gantt", "styles.css"),
   "@decaf-ts/for-react/gantt adapter styles"
 );
+
+bundle(
+  path.join(root, "src", "diagrams"),
+  path.join(root, "lib", "diagrams", "styles.css"),
+  "@decaf-ts/for-react/diagrams adapter styles"
+);

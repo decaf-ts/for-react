@@ -1,0 +1,26 @@
+/** @module for-react/diagrams/catalog/GraphNodeCatalogReader
+ * @summary Frontend-safe node catalogue reader contracts (DECAF-50 §4.12/§4.13).
+ * @description The palette and the canonical diagram adapter read manifests only
+ * through this interface, so test fixtures, the HTTP-backed NestJS catalogue and the
+ * in-memory store are interchangeable without touching rendering code.
+ */
+import type { GraphNodeInstance } from '@decaf-ts/as-graph/shared';
+import type { GraphNodeManifest } from '@decaf-ts/as-graph/shared';
+import type { GraphResolvedNodeManifest } from '@decaf-ts/as-graph/shared';
+
+/**
+ * @description Read-only view over the node catalogue the canonical canvas consumes.
+ * @summary Read-only view over the node catalogue the canonical canvas consumes.
+ * @memberOf module:for-react.diagrams
+ */
+export interface GraphNodeManifestReader {
+  /** All registered manifests, deterministically kind-sorted. */
+  all(): GraphNodeManifest[];
+  /** Manifest of a single kind, if registered. */
+  get(kind: string): GraphNodeManifest | undefined;
+  /**
+   * Resolves a manifest for a concrete node instance (dynamic ports, credentials,
+   * parameter values). Throws a Decaf error when the kind is unknown.
+   */
+  resolve(instance: GraphNodeInstance): GraphResolvedNodeManifest;
+}

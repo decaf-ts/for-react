@@ -1,0 +1,198 @@
+/**
+ * @note Ported to for-react from for-angular `src/diagrams/components/graph/catalog/GraphNodeCatalogCompositeSource.spec.ts`.
+ *
+ * @module for-react/diagrams/catalog/GraphNodeCatalogCompositeSource.spec
+ * @summary Gate-2 P0 #8 (PR-H) — composite-source failure-class contract.
+ * @description Proves the composite catalogue source (DECAF-50 §4.23
+ * G3-26/G3-27, §4.24 P1 #8) never swallows a live-backend failure and
+ * distinguishes its two classes:
+ *
+ * - `backend-down` (a {@link GraphCatalogueUnavailableError}) and
+ *   `malformed-response` (any out-of-contract payload error) are classified by
+ *   {@link graphNodeCatalogFailureOf} and reported on the source's `failure()`
+ *   signal while the fixture set still serves the palette.
+ * - The fixture set is fetched FIRST (it stays authoritative), the live extras
+ *   merge in only when the backend answers, and a successful fetch clears a prior
+ *   failure.
+ */
+import { InternalError, SerializationError } from '@decaf-ts/db-decorators';
+import type { GraphNodeManifest } from '@decaf-ts/as-graph/shared';
+
+import {
+  GraphCatalogueUnavailableError,
+  GraphNodeCatalogApi,
+  graphNodeCatalogFailureOf,
+} from '../../../../src/diagrams/catalog/GraphNodeCatalogApi';
+import { GraphNodeCatalogCompositeSource } from '../../../../src/diagrams/catalog/GraphNodeCatalogCompositeSource';
+import { GraphNodeCatalogFixtureSource } from '../../../../src/diagrams/catalog/GraphNodeManifestFixtures';
+
+/** Minimal manifest literal. */
+function manifest(kind: string): GraphNodeManifest {
+  return { kind, title: kind, inputs: [], outputs: [], parameters: [] } as never;
+}
+
+/** Builds the composite source with the given live/fixture stubs injected. */
+function buildSource(live: unknown, fixed: unknown): GraphNodeCatalogCompositeSource {
+  // React port: plain constructor; live/fixture sources are passed directly.
+  return new GraphNodeCatalogCompositeSource(
+    live as GraphNodeCatalogApi | undefined,
+    fixed as GraphNodeCatalogFixtureSource,
+  );
+}
+
+describe('GraphNodeCatalogCompositeSource (G3-27 failure classes)', () => {
+  it('classifies a backend outage as backend-down', () => {
+    const failure = graphNodeCatalogFailureOf(
+      new GraphCatalogueUnavailableError('GET graph/node-types')
+    );
+    expect(failure).toMatchObject({ kind: 'backend-down' });
+  });
+
+  it('classifies an out-of-contract response as malformed-response', () => {
+    const failure = graphNodeCatalogFailureOf(
+      new SerializationError('list response is out of contract')
+    );
+    expect(failure).toMatchObject({ kind: 'malformed-response' });
+  });
+
+  it('serves the backend catalogue, not the bundled snapshot, when the backend answers', async () => {
+    const calls: string[] = [];
+    const fixed = {
+      fetchManifests: jest.fn(async () => {
+        calls.push('fixtures');
+        return [manifest('core.utility.code'), manifest('core.loop.foreach')];
+      }),
+    };
+    const live = {
+      fetchManifests: jest.fn(async () => {
+        calls.push('live');
+        return [manifest('core.loop.foreach'), manifest('backend.extra')];
+      }),
+    };
+    const source = buildSource(live, fixed);
+
+    const manifests = await source.fetchManifests();
+
+    // The backend is authoritative: it lists exactly the kinds the selected
+    // engine runs, with their current ports. A snapshot-only kind is not offered.
+    expect(calls).toEqual(['fixtures', 'live']);
+    expect(manifests.map((item) => item.kind)).toEqual([
+      'core.loop.foreach',
+      'backend.extra',
+    ]);
+    expect(source.failure()).toBeNull();
+  });
+
+  it('keeps the fixture set when the backend is down and reports backend-down', async () => {
+    const fixed = {
+      fetchManifests: jest.fn(async () => [manifest('core.utility.code')]),
+    };
+    const live = {
+      fetchManifests: jest.fn(async () => {
+        throw new GraphCatalogueUnavailableError('GET graph/node-types', 'offline');
+      }),
+    };
+    const source = buildSource(live, fixed);
+
+    const manifests = await source.fetchManifests();
+
+    expect(manifests.map((item) => item.kind)).toEqual(['core.utility.code']);
+    expect(source.failure()).toMatchObject({ kind: 'backend-down' });
+  });
+
+  it('keeps the fixture set on an out-of-contract response and reports malformed-response', async () => {
+    const fixed = {
+      fetchManifests: jest.fn(async () => [manifest('core.utility.code')]),
+    };
+    const live = {
+      fetchManifests: jest.fn(async () => {
+        throw new SerializationError('expected a manifest array');
+      }),
+    };
+    const source = buildSource(live, fixed);
+
+    const manifests = await source.fetchManifests();
+
+    expect(manifests.map((item) => item.kind)).toEqual(['core.utility.code']);
+    expect(source.failure()).toMatchObject({ kind: 'malformed-response' });
+  });
+
+  it('clears a prior failure after a successful live fetch', async () => {
+    const fixed = {
+      fetchManifests: jest.fn(async () => [manifest('core.utility.code')]),
+    };
+    let fail = true;
+    const live = {
+      fetchManifests: jest.fn(async () => {
+        if (fail) throw new GraphCatalogueUnavailableError('GET graph/node-types');
+        return [manifest('backend.extra')];
+      }),
+    };
+    const source = buildSource(live, fixed);
+
+    await source.fetchManifests();
+    expect(source.failure()).toMatchObject({ kind: 'backend-down' });
+
+    fail = false;
+    await source.fetchManifests();
+    expect(source.failure()).toBeNull();
+  });
+
+  it('serves the backend manifest of a kind, falling back to the snapshot only when the backend has none', async () => {
+    const fixed = {
+      fetchManifest: jest.fn(async (kind: string) =>
+        kind === 'core.utility.code' ? manifest(kind) : undefined
+      ),
+    };
+    const live = {
+      fetchManifest: jest.fn(async (kind: string) => manifest(kind)),
+    };
+    const source = buildSource(live, fixed);
+
+    const found = await source.fetchManifest('core.utility.code');
+
+    expect(found?.kind).toBe('core.utility.code');
+    expect(live.fetchManifest).toHaveBeenCalledWith('core.utility.code');
+    expect(fixed.fetchManifest).not.toHaveBeenCalled();
+
+    const offline = buildSource(
+      { fetchManifest: jest.fn(async () => undefined) },
+      fixed
+    );
+    expect((await offline.fetchManifest('core.utility.code'))?.kind).toBe(
+      'core.utility.code'
+    );
+  });
+
+  it('reports the live failure class when an unknown kind cannot be fetched', async () => {
+    const fixed = {
+      fetchManifest: jest.fn(async () => undefined),
+    };
+    const live = {
+      fetchManifest: jest.fn(async () => {
+        throw new InternalError('backend answered out of contract');
+      }),
+    };
+    const source = buildSource(live, fixed);
+
+    const found = await source.fetchManifest('backend.unknown');
+
+    expect(found).toBeUndefined();
+    expect(source.failure()).toMatchObject({ kind: 'malformed-response' });
+  });
+
+  it('reports no failure when no live source is bound', async () => {
+    const fixed = {
+      fetchManifests: jest.fn(async () => [manifest('core.utility.code')]),
+    };
+    const source = new GraphNodeCatalogCompositeSource(
+      undefined,
+      fixed as GraphNodeCatalogFixtureSource,
+    );
+
+    const manifests = await source.fetchManifests();
+
+    expect(manifests).toHaveLength(1);
+    expect(source.failure()).toBeNull();
+  });
+});

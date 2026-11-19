@@ -1,4 +1,14 @@
 import "@testing-library/jest-dom";
+import { TextDecoder as NodeTextDecoder, TextEncoder as NodeTextEncoder } from "node:util";
+
+// jsdom does not expose the Encoding API; browser-styled render caps measure
+// UTF-8 bytes with it, so polyfill it for the diagram I/O viewer tests.
+if (typeof globalThis.TextEncoder === "undefined") {
+  Object.defineProperty(globalThis, "TextEncoder", { value: NodeTextEncoder, configurable: true, writable: true });
+}
+if (typeof globalThis.TextDecoder === "undefined") {
+  Object.defineProperty(globalThis, "TextDecoder", { value: NodeTextDecoder, configurable: true, writable: true });
+}
 import { I18nLoader } from "../src/lib/i18n/Loader";
 
 if (typeof Range !== "undefined") {
