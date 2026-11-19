@@ -11,6 +11,16 @@ import { expect, test } from "@playwright/test";
 
 const STORAGE_KEY = "dashboard-builder:composition";
 
+/*
+ * The demo shell is a fixed Ionic layout (`@ionic/react/css/structure.css`
+ * sets `body { position: fixed; overflow: hidden; height: 100% }`), so the
+ * document cannot scroll. The dashboard builder page is ~990px tall at this
+ * width; rendering it at the default 1280x720 viewport clips the footer and
+ * makes the Save button unreachable. Use a viewport tall enough to show the
+ * whole page so these behavioural assertions can actually run.
+ */
+test.use({ viewport: { width: 1280, height: 1000 } });
+
 test.describe("dashboard builder", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/dashboard-builder");
