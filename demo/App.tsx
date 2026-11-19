@@ -10,6 +10,7 @@ import { useTranslate } from "../src/lib";
 import { Header } from "./components/Header";
 import { AppMenu } from "./constants";
 import { DashboardPage } from "./pages/DashboardPage";
+import { DashboardBuilderPage } from "./pages/DashboardBuilderPage";
 import { CrudPage } from "./pages/CrudPage";
 import { FieldsetPage } from "./pages/FieldsetPage";
 import { StepsFormPage } from "./pages/StepsFormPage";
@@ -28,6 +29,7 @@ const titles: Record<string, string> = {
   "/fieldset": "menu.fieldset",
   "/steps-form": "menu.steps_form",
   "/model-builder": "menu.model_builder",
+  "/dashboard-builder": "dashboard-builder.title",
   "/list-model": "menu.list_model",
   "/model": "menu.model",
   "/components": "menu.components",
@@ -66,6 +68,7 @@ export function App() {
             <Route path="/fieldset" element={<FieldsetPage />} />
             <Route path="/steps-form" element={<StepsFormPage />} />
             <Route path="/model-builder" element={<ModelBuilderPage />} />
+            <Route path="/dashboard-builder" element={<DashboardBuilderPage />} />
             <Route path="/list-model" element={<ListModelPage />} />
             <Route path="/model" element={<ModelPage />} />
             <Route path="/components" element={<ComponentsPage />} />

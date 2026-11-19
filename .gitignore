@@ -23,3 +23,7 @@
 /build
 /dist-demo
 /.vite
+
+# Playwright artifacts
+/test-results/
+/playwright-report/

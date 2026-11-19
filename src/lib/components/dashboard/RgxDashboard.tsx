@@ -5,6 +5,7 @@ import { translateKey } from "../../services/RgxTranslateService.js";
 import { DashDocument, DashPaletteEntry, DashPlacement } from "./dashboard.types";
 import {
   canPlace,
+  restorePlacements,
   serializeDocument,
   snapDrag,
   snapResize,
@@ -37,16 +38,41 @@ interface DragState {
   target?: { col: number; row: number; cols: number; rows: number } | null;
 }
 
+function tilePositionLabel(box: {
+  col: number;
+  row: number;
+  cols: number;
+  rows: number;
+}): string {
+  const key = "component.dashboard.tile_position";
+  const translated = translateKey(key, box);
+  return translated && translated !== key
+    ? translated
+    : `Column ${box.col}, row ${box.row}, ${box.cols} by ${box.rows} cells`;
+}
+
+function tileKeyboardHint(): string {
+  const key = "component.dashboard.tile_keyboard_hint";
+  const translated = translateKey(key);
+  return translated && translated !== key
+    ? translated
+    : "Use the arrow keys to move; hold Shift with the arrow keys to resize";
+}
+
 /**
  * @description Editable grid dashboard for arranging components on a layout.
  * @summary Maintains grid dimensions and placements from the supplied
- * `document` (falling back to `cols`/`rows`) and renders each placement through
- * `renderPlacement` or {@link RgxComponentRenderer}. For `CREATE`/`UPDATE` it
- * shows a palette that inserts entries into the first free cell, supports
- * pointer drag and resize gestures snapped and validated by
- * {@link snapDrag}/{@link snapResize}, and confirms removal of a placement.
- * Every placement mutation recomputes a serialized document and reports it via
- * `onChange`; the save button sends the serialized document to `onSave`.
+ * `document` (falling back to `cols`/`rows`), restoring persisted placements
+ * through {@link restorePlacements} so unknown tags and unsafe keys are dropped,
+ * and renders each placement through `renderPlacement` or
+ * {@link RgxComponentRenderer}. For `CREATE`/`UPDATE` it shows a palette that
+ * inserts entries into the first free cell, supports pointer drag and resize
+ * gestures snapped and validated by {@link snapDrag}/{@link snapResize},
+ * supports arrow-key movement (Shift plus an arrow resizes) with a per-tile
+ * position label announced to assistive technology, and confirms removal of a
+ * placement. Every placement mutation recomputes a serialized document and
+ * reports it via `onChange`; the save button sends the serialized document to
+ * `onSave`.
  * `READ` renders an empty message when there are no placements and `DELETE`
  * exposes a delete button that calls `onDeleted`. Button labels and messages
  * are translated using the `locale` namespace.
@@ -76,10 +102,14 @@ export const RgxDashboard: React.FC<RgxDashboardProps> = ({
   onChange,
   renderPlacement,
 }) => {
+  const paletteTagKey = palette.map((entry) => entry.tag).join("\n");
   const [gridCols, setGridCols] = useState(document?.cols || cols);
   const [gridRows, setGridRows] = useState(document?.rows || rows);
-  const [placements, setPlacements] = useState<DashPlacement[]>(
-    document?.placements || []
+  const [placements, setPlacements] = useState<DashPlacement[]>(() =>
+    restorePlacements(
+      document?.placements,
+      paletteTagKey ? paletteTagKey.split("\n") : []
+    )
   );
   const [drag, setDrag] = useState<DragState | null>(null);
   const [pendingDelete, setPendingDelete] = useState<string | null>(null);
@@ -87,11 +117,16 @@ export const RgxDashboard: React.FC<RgxDashboardProps> = ({
 
   useEffect(() => {
     if (document?.placements) {
-      setPlacements(document.placements);
+      setPlacements(
+        restorePlacements(
+          document.placements,
+          paletteTagKey ? paletteTagKey.split("\n") : []
+        )
+      );
       setGridCols(document.cols || cols);
       setGridRows(document.rows || rows);
     }
-  }, [document, cols, rows]);
+  }, [document, cols, rows, paletteTagKey]);
 
   const editable =
     operation === OperationKeys.CREATE || operation === OperationKeys.UPDATE;
@@ -201,6 +236,82 @@ export const RgxDashboard: React.FC<RgxDashboardProps> = ({
     notify(placements.filter((item) => item.id !== id));
   };
 
+  const movePlacement = (
+    placement: DashPlacement,
+    dCol: number,
+    dRow: number
+  ) => {
+    const col = Math.min(
+      Math.max(placement.col + dCol, 1),
+      gridCols - placement.cols + 1
+    );
+    const row = Math.min(
+      Math.max(placement.row + dRow, 1),
+      gridRows - placement.rows + 1
+    );
+    if (col === placement.col && row === placement.row) return;
+    if (!canPlace(placement, col, row, placements, gridCols, gridRows)) return;
+    notify(
+      placements.map((item) =>
+        item.id === placement.id ? { ...item, col, row } : item
+      )
+    );
+  };
+
+  const resizePlacement = (
+    placement: DashPlacement,
+    dCol: number,
+    dRow: number
+  ) => {
+    const nextCols = Math.min(
+      Math.max(placement.cols + dCol, 1),
+      gridCols - placement.col + 1
+    );
+    const nextRows = Math.min(
+      Math.max(placement.rows + dRow, 1),
+      gridRows - placement.row + 1
+    );
+    if (nextCols === placement.cols && nextRows === placement.rows) return;
+    const candidate = { ...placement, cols: nextCols, rows: nextRows };
+    if (
+      !canPlace(
+        candidate,
+        placement.col,
+        placement.row,
+        placements,
+        gridCols,
+        gridRows
+      )
+    )
+      return;
+    notify(
+      placements.map((item) =>
+        item.id === placement.id
+          ? { ...item, cols: nextCols, rows: nextRows }
+          : item
+      )
+    );
+  };
+
+  const onTileKeydown = (
+    placement: DashPlacement,
+    event: React.KeyboardEvent<HTMLDivElement>
+  ) => {
+    if (!editable) return;
+    if (event.target !== event.currentTarget) return;
+    const deltas: Record<string, [number, number]> = {
+      ArrowUp: [0, -1],
+      ArrowDown: [0, 1],
+      ArrowLeft: [-1, 0],
+      ArrowRight: [1, 0],
+    };
+    const delta = deltas[event.key];
+    if (!delta) return;
+    event.preventDefault();
+    if (event.shiftKey) resizePlacement(placement, delta[0], delta[1]);
+    else movePlacement(placement, delta[0], delta[1]);
+  };
+
   const handleSave = () => {
     onSave?.(serializeDocument("Dashboard", gridCols, gridRows, placements));
   };
@@ -220,20 +331,30 @@ export const RgxDashboard: React.FC<RgxDashboardProps> = ({
 
   return (
     <div className={["dcf-dashboard", className].filter(Boolean).join(" ")}>
-      {editable && palette.length > 0 && (
+      {editable && (
         <div className="dcf-dashboard-palette">
-          {palette.map((entry) => (
-            <button
-              key={entry.tag}
-              type="button"
-              className="dcf-button clear"
-              onClick={() => addPlacement(entry)}
-            >
-              {translateKey(entry.labelKey || entry.label || entry.tag) ||
-                entry.label ||
-                entry.tag}
-            </button>
-          ))}
+          <h4 className="dcf-dashboard-palette-title">
+            {translateKey(`${locale}.palette`) || "Components"}
+          </h4>
+          {palette.length ? (
+            palette.map((entry) => (
+              <button
+                key={entry.tag}
+                type="button"
+                className="dcf-button clear"
+                onClick={() => addPlacement(entry)}
+              >
+                {translateKey(entry.labelKey || entry.label || entry.tag) ||
+                  entry.label ||
+                  entry.tag}
+              </button>
+            ))
+          ) : (
+            <p className="dcf-dashboard-empty">
+              {translateKey(`${locale}.emptyPalette`) ||
+                "No dashboard components registered."}
+            </p>
+          )}
         </div>
       )}
 
@@ -262,7 +383,14 @@ export const RgxDashboard: React.FC<RgxDashboardProps> = ({
                 gridColumn: `${box.col} / span ${box.cols}`,
                 gridRow: `${box.row} / span ${box.rows}`,
               }}
+              role="group"
+              tabIndex={editable ? 0 : undefined}
+              aria-label={tilePositionLabel(box)}
+              onKeyDown={(event) => onTileKeydown(placement, event)}
             >
+              {editable && (
+                <span className="dcf-sr-only">{tileKeyboardHint()}</span>
+              )}
               <div
                 className="dcf-dashboard-placement-header"
                 onPointerDown={(event) => beginGesture(event, placement, "drag")}

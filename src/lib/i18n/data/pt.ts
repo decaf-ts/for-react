@@ -51,6 +51,21 @@ export const pt: Record<string, unknown> = {
       "error": "Erro ao eliminar o item com {0} {1}."
     }
   },
+  "dashboard-builder": {
+    "title": "Construtor de Dashboard",
+    "create": "Criar",
+    "read": "Ler",
+    "update": "Actualizar",
+    "delete": "Apagar",
+    "saved": "Dashboard guardado."
+  },
+  "dashboard": {
+    "demo": {
+      "stats": "Estatística",
+      "list": "Lista",
+      "note": "Nota"
+    }
+  },
   "component": {
     "fieldset": {
       "add": "Adicionar outro",
@@ -120,6 +135,17 @@ export const pt: Record<string, unknown> = {
         "not_allowed": "O arquivo {0} não é permitido.",
         "max_size": "O tamanho máximo permitido do ficheiro é {0} MB"
       }
+    },
+    "dashboard": {
+      "palette": "Componentes",
+      "emptyPalette": "Nenhum componente de dashboard registado.",
+      "deleteTitle": "Remover componente",
+      "deleteConfirm": "Tem a certeza que deseja remover este componente?",
+      "cancel": "Cancelar",
+      "delete": "Apagar",
+      "save": "Guardar Dashboard",
+      "tile_position": "Coluna {col}, linha {row}, {cols} por {rows} células",
+      "tile_keyboard_hint": "Use as setas para mover; segure Shift com as setas para redimensionar"
     }
   }
 };

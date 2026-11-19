@@ -51,6 +51,21 @@ export const en: Record<string, unknown> = {
       "error": "Error deleting item with {0} {1}."
     }
   },
+  "dashboard-builder": {
+    "title": "Dashboard Builder",
+    "create": "Create",
+    "read": "Read",
+    "update": "Update",
+    "delete": "Delete",
+    "saved": "Dashboard saved."
+  },
+  "dashboard": {
+    "demo": {
+      "stats": "Stat",
+      "list": "List",
+      "note": "Note"
+    }
+  },
   "component": {
     "fieldset": {
       "add": "Add another",
@@ -124,6 +139,17 @@ export const en: Record<string, unknown> = {
         "not_allowed": "File {0} is not allowed.",
         "max_size": "The maximum allowed file size is {0} MB"
       }
+    },
+    "dashboard": {
+      "palette": "Components",
+      "emptyPalette": "No dashboard components registered.",
+      "deleteTitle": "Remove component",
+      "deleteConfirm": "Are you sure you want to remove this component?",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "save": "Save Dashboard",
+      "tile_position": "Column {col}, row {row}, {cols} by {rows} cells",
+      "tile_keyboard_hint": "Use the arrow keys to move; hold Shift with the arrow keys to resize"
     }
   }
 };

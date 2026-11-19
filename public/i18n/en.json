@@ -150,9 +150,22 @@
     "submit": "Sign in",
     "success": "Signed in successfully"
   },
+  "dashboard-builder": {
+    "title": "Dashboard Builder",
+    "create": "Create",
+    "read": "Read",
+    "update": "Update",
+    "delete": "Delete",
+    "saved": "Dashboard saved."
+  },
   "dashboard": {
     "title": "Demo dashboard",
     "subtitle": "Metadata-driven layout rendered by the React engine",
+    "demo": {
+      "stats": "Stat",
+      "list": "List",
+      "note": "Note"
+    },
     "first_line": {
       "title": "Overview"
     },
@@ -176,7 +189,9 @@
     "confirm_remove": "Remove this component?",
     "confirm": "Confirm",
     "cancel": "Cancel",
-    "empty": "Empty dashboard"
+    "empty": "Empty dashboard",
+    "palette": "Components",
+    "emptyPalette": "No dashboard components registered."
   },
   "crud": {
     "title": "CRUD form",
@@ -238,6 +253,17 @@
       "preview_empty": "Build a model to preview it",
       "model_name": "Model name",
       "invalid": "Every property needs a name"
+    },
+    "dashboard": {
+      "palette": "Components",
+      "emptyPalette": "No dashboard components registered.",
+      "deleteTitle": "Remove component",
+      "deleteConfirm": "Are you sure you want to remove this component?",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "save": "Save Dashboard",
+      "tile_position": "Column {col}, row {row}, {cols} by {rows} cells",
+      "tile_keyboard_hint": "Use the arrow keys to move; hold Shift with the arrow keys to resize"
     }
   },
   "list_model": {

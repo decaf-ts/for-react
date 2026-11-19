@@ -2,6 +2,88 @@ import { Model } from "@decaf-ts/decorator-validation";
 import { DashDocument, DashPlacement, GridRange } from "./dashboard.types";
 
 /**
+ * @description Property names that can mutate an object's prototype chain.
+ * @summary Lists the keys rejected when a persisted dashboard document is read
+ * back, so restoring untrusted layout data cannot pollute `Object.prototype`.
+ * @type {string[]}
+ * @memberOf module:for-react
+ */
+export const UNSAFE_KEYS = ["__proto__", "constructor", "prototype"];
+
+/**
+ * @description Tests whether a property name is unsafe to copy from input.
+ * @summary Compares `key` against {@link UNSAFE_KEYS}.
+ * @param {string} key - Property name to test.
+ * @returns {boolean} `true` when the key is a prototype-pollution key.
+ * @memberOf module:for-react
+ */
+export function isUnsafeKey(key: string): boolean {
+  return UNSAFE_KEYS.includes(key);
+}
+
+/**
+ * @description Copies an object without its prototype-pollution keys.
+ * @summary Returns non-objects and arrays unchanged; otherwise copies the
+ * object's own enumerable keys, skipping {@link UNSAFE_KEYS}. The copy is
+ * shallow, so nested objects are referenced and must be sanitized separately
+ * when they also come from untrusted input.
+ * @template T - Type of the value being sanitized.
+ * @param {T} value - Value to sanitize.
+ * @returns {T} The sanitized shallow copy, or `value` itself when it is not a
+ * plain object.
+ * @memberOf module:for-react
+ * @example
+ * stripUnsafeKeys({ id: "stats", constructor: "polluted" }); // { id: "stats" }
+ */
+export function stripUnsafeKeys<T>(value: T): T {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return value;
+  const source = value as Record<string, unknown>;
+  const clean: Record<string, unknown> = {};
+  for (const key of Object.keys(source)) {
+    if (isUnsafeKey(key)) continue;
+    clean[key] = source[key];
+  }
+  return clean as T;
+}
+
+/**
+ * @description Restores persisted placements against a component whitelist.
+ * @summary Returns an empty list when `placements` is not an array; otherwise
+ * keeps only placements whose `tag` appears in `allowedTags`, then strips unsafe
+ * keys from both the placement and its `config`. Whitelisting prevents a stored
+ * document from instantiating components that the host did not register, and
+ * the key stripping prevents prototype pollution from tampered storage.
+ * @param {DashPlacement[] | undefined | null} placements - Persisted placements,
+ * possibly untrusted.
+ * @param {Iterable<string>} allowedTags - Tags the host permits; placements
+ * with any other tag are dropped.
+ * @returns {DashPlacement[]} Sanitized placements that are safe to render.
+ * @memberOf module:for-react
+ * @example
+ * const placements = restorePlacements(document?.placements, ["stats", "list"]);
+ */
+export function restorePlacements(
+  placements: DashPlacement[] | undefined | null,
+  allowedTags: Iterable<string>
+): DashPlacement[] {
+  if (!Array.isArray(placements)) return [];
+  const allowed = new Set(allowedTags);
+  return placements
+    .filter(
+      (placement) =>
+        !!placement &&
+        typeof placement === "object" &&
+        typeof placement.tag === "string" &&
+        allowed.has(placement.tag)
+    )
+    .map((placement) => {
+      const clean = stripUnsafeKeys(placement);
+      const config = stripUnsafeKeys(clean.config || {});
+      return { ...clean, config } as DashPlacement;
+    });
+}
+
+/**
  * @description Constrains a number to an inclusive range.
  * @summary Returns `min` when `n` is below it, `max` when above it, and `n`
  * otherwise.

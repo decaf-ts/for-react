@@ -150,9 +150,22 @@
     "submit": "Entrar",
     "success": "Sessão iniciada com sucesso"
   },
+  "dashboard-builder": {
+    "title": "Construtor de Dashboard",
+    "create": "Criar",
+    "read": "Ler",
+    "update": "Actualizar",
+    "delete": "Apagar",
+    "saved": "Dashboard guardado."
+  },
   "dashboard": {
     "title": "Painel de demonstração",
     "subtitle": "Layout orientado por metadados renderizado pelo motor React",
+    "demo": {
+      "stats": "Estatística",
+      "list": "Lista",
+      "note": "Nota"
+    },
     "first_line": {
       "title": "Visão geral"
     },
@@ -176,7 +189,9 @@
     "confirm_remove": "Remover este componente?",
     "confirm": "Confirmar",
     "cancel": "Cancelar",
-    "empty": "Painel vazio"
+    "empty": "Painel vazio",
+    "palette": "Componentes",
+    "emptyPalette": "Nenhum componente de dashboard registado."
   },
   "crud": {
     "title": "Formulário CRUD",
@@ -238,6 +253,17 @@
       "preview_empty": "Construa um modelo para o pré-visualizar",
       "model_name": "Nome do modelo",
       "invalid": "Cada propriedade precisa de um nome"
+    },
+    "dashboard": {
+      "palette": "Componentes",
+      "emptyPalette": "Nenhum componente de dashboard registado.",
+      "deleteTitle": "Remover componente",
+      "deleteConfirm": "Tem a certeza que deseja remover este componente?",
+      "cancel": "Cancelar",
+      "delete": "Apagar",
+      "save": "Guardar Dashboard",
+      "tile_position": "Coluna {col}, linha {row}, {cols} por {rows} células",
+      "tile_keyboard_hint": "Use as setas para mover; segure Shift com as setas para redimensionar"
     }
   },
   "list_model": {

@@ -5,6 +5,7 @@ import "../node_modules/@decaf-ts/styles/dist/main.min.css";
 import "../src/lib/components/card/card.component.css";
 import "../src/lib/components/crud-field/crud-field.component.css";
 import "../src/lib/components/crud-form/crud-form.component.css";
+import "../src/lib/components/dashboard/dashboard.component.css";
 import "../src/lib/components/empty-state/empty-state.component.css";
 import "../src/lib/components/icon/icon.component.css";
 import "../src/lib/components/layout/layout.component.css";
