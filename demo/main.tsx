@@ -4,7 +4,6 @@ import { BrowserRouter } from "react-router-dom";
 import "../node_modules/@decaf-ts/styles/dist/main.min.css";
 import "@ionic/react/css/core.css";
 import "@ionic/react/css/normalize.css";
-import "@ionic/react/css/structure.css";
 import "@ionic/react/css/typography.css";
 import "../src/lib/components/card/card.component.css";
 import "../src/lib/components/crud-field/crud-field.component.css";
