@@ -48,6 +48,12 @@
       },
       "default": "./lib/esm/diagrams/index.js"
     },
+    "./barcode": {
+      "import": {
+        "types": "./lib/types/barcode/index.d.mts",
+        "default": "./lib/esm/barcode/index.js"
+      }
+    },
     "./diagrams/styles.css": "./lib/diagrams/styles.css",
     "./gantt/styles.css": "./lib/gantt/styles.css",
     "./styles.css": "./lib/styles.css"
@@ -70,7 +76,7 @@
     "build": "vite build",
     "build:demo": "vite build",
     "preview": "vite preview",
-    "build:prod": "npx build-scripts --prod --buildMode build && node scripts/bundle-styles.mjs",
+    "build:prod": "npx build-scripts --prod --buildMode build && node scripts/bundle-styles.mjs && node scripts/patch-barcode-exports.mjs",
     "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.demo.json",
     "test": "npm run test:all",
     "test:unit": "NODE_ENV=test jest --watchman=false --testPathPatterns=\"/tests/unit\" --passWithNoTests --detectOpenHandles",
@@ -120,9 +126,11 @@
   "peerDependencies": {
     "@decaf-ts/as-graph": "^0.11.5",
     "react": ">=18.0.0",
-    "react-dom": ">=18.0.0"
+    "react-dom": ">=18.0.0",
+    "@bwip-js/browser": "^4.11.4"
   },
   "devDependencies": {
+    "@bwip-js/browser": "^4.11.4",
     "@decaf-ts/as-graph": "^0.11.5",
     "@decaf-ts/utils": "^2.3.0",
     "@eslint/js": "^8.57.1",
@@ -183,6 +191,9 @@
   ],
   "peerDependenciesMeta": {
     "@decaf-ts/as-graph": {
+      "optional": true
+    },
+    "@bwip-js/browser": {
       "optional": true
     }
   }

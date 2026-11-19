@@ -10,7 +10,16 @@ const config = {
       "ts-jest",
       { tsconfig: "./tsconfig.jest.json", isolatedModules: true },
     ],
+    "^.+\\.mjs$": [
+      "ts-jest",
+      {
+        tsconfig: "./tsconfig.jest.json",
+        isolatedModules: true,
+        diagnostics: false,
+      },
+    ],
   },
+  transformIgnorePatterns: ["/node_modules/(?!@bwip-js/)"],
   testEnvironment: "jsdom",
   setupFilesAfterEnv: ["<rootDir>/tests/setup.ts"],
   testRegex: "/tests/.*\\.(test|spec)\\.(ts|tsx)$",
@@ -23,6 +32,8 @@ const config = {
     "^ofetch$": "<rootDir>/node_modules/ofetch/dist/node.cjs",
     "^node-fetch-native$":
       "<rootDir>/node_modules/node-fetch-native/dist/node.cjs",
+    "^@bwip-js/browser$":
+      "<rootDir>/node_modules/@bwip-js/browser/dist/bwip-js.mjs",
   },
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
   collectCoverage: false,

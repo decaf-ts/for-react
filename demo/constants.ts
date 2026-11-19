@@ -15,6 +15,7 @@ export const AppMenu: IMenuItem[] = [
   },
   { label: "menu.components", icon: "ti-components", url: "/components" },
   { label: "menu.code_editor", icon: "ti-code", url: "/code-editor" },
+  { label: "menu.barcode", icon: "ti-barcode", url: "/barcode" },
   { label: "Gantt", icon: "ti-chart-bar", url: "/gantt" },
   { label: "menu.login", icon: "ti-login", url: "/login" },
 ];

@@ -20,7 +20,8 @@
     "components": "Componentes",
     "code_editor": "Editor de código",
     "login": "Entrar",
-    "not_found": "Não encontrado"
+    "not_found": "Não encontrado",
+    "barcode": "Código de barras"
   },
   "operations": {
     "read": {
@@ -351,5 +352,18 @@
     "title": "Página não encontrada",
     "subtitle": "A rota de demonstração pedida não existe",
     "back": "Voltar ao painel"
+  },
+  "barcode": {
+    "title": "Código de barras",
+    "intro": "Renderize cargas GS1 DataMatrix, DataMatrix e QR em SVG validado. Altere a carga, a simbologia ou a escala; cada renderização é validada antes de chegar ao DOM.",
+    "payload_label": "Carga",
+    "payload_placeholder": "Introduza a carga do código de barras",
+    "symbology_label": "Simbologia",
+    "scale_label": "Escala",
+    "reset": "Reiniciar",
+    "preview_aria": "Pré-visualização do código de barras",
+    "char_count": "{count} caracteres",
+    "error": "Esta carga não pode ser renderizada com a simbologia selecionada.",
+    "empty": "Introduza uma carga para renderizar um código de barras."
   }
 }

@@ -767,3 +767,95 @@ textarea {
   margin: 0;
   font-size: 0.9rem;
 }
+
+.barcode-page__layout {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 1fr);
+}
+
+@media (max-width: 960px) {
+  .barcode-page__layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.barcode-page__controls,
+.barcode-page__preview {
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.barcode-page__controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.barcode-page__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.barcode-page__field textarea,
+.barcode-page__field select {
+  border: 1px solid var(--app-border);
+  border-radius: 0.4rem;
+  padding: 0.45rem;
+  font: inherit;
+  font-weight: 400;
+  background: var(--app-surface);
+  color: var(--app-text);
+}
+
+.barcode-page__reset {
+  align-self: flex-start;
+  border: 1px solid var(--app-accent);
+  background: transparent;
+  color: var(--app-accent);
+  border-radius: 0.4rem;
+  padding: 0.45rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.barcode-page__preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 280px;
+}
+
+.barcode-page__canvas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  overflow: auto;
+}
+
+.barcode-page__canvas svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.barcode-page__meta,
+.barcode-page__empty {
+  margin: 0;
+  color: var(--app-muted);
+  font-size: 0.875rem;
+}
+
+.barcode-page__error {
+  margin: 0;
+  color: var(--app-danger);
+  font-weight: 600;
+  font-size: 0.875rem;
+}

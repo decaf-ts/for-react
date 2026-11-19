@@ -23,6 +23,10 @@
 - [`@decaf-ts/for-react/diagrams`](./src/diagrams/README.md) — Graph/diagram
   editor surfaces over `@xyflow/react` (React Flow). Importing the subpath is
   the only thing that loads React Flow; the root package does not include it.
+- [`@decaf-ts/for-react/barcode`](./src/barcode/README.md) — GS1 DataMatrix,
+  DataMatrix and QR SVG rendering over `@bwip-js/browser`, plus a thin
+  `<Barcode>` React component. Importing the subpath is the only thing that
+  loads the encoder; the root package does not include it.
 
 ### Diagrams
 
@@ -75,6 +79,34 @@ dependencies — installed with the package, one copy per app. The peer set is
 unchanged (`react`, `react-dom` `>= 18` plus the optional `@decaf-ts/as-graph`):
 consumers only need their application on the same current `@decaf-ts` line so
 npm resolves a single copy of each module.
+
+### Barcode
+
+The `./barcode` subpath renders GS1 DataMatrix, DataMatrix and QR payloads to
+validated SVG markup with `@bwip-js/browser` and exposes a thin `<Barcode>` React
+component. See [`src/barcode/README.md`](./src/barcode/README.md) for the full
+component, helper and validator contract.
+
+Install requirements:
+
+- `@bwip-js/browser@^4.11.4` is an **optional peer** of the package and is
+  **required by this subpath**: install it only in applications that import
+  `./barcode`; the root entry point never loads it.
+- The subpath is **ESM-only**: `@bwip-js/browser@4.11.4` publishes only `types`
+  and `import` export conditions, so `require('@decaf-ts/for-react/barcode')`
+  throws `ERR_PACKAGE_PATH_NOT_EXPORTED`. CommonJS hosts must use a dynamic
+  `import()`.
+
+Rendering is client-only: `renderBarcodeSvg` produces validated SVG markup and
+`<Barcode>` binds it through `dangerouslySetInnerHTML`, so both require a browser
+DOM. `validateBarcodeSvg` is a mandatory gate on every render path; it throws a
+`ValidationError` instead of emitting unvalidated markup.
+
+The demo app (`npm run dev`, `http://localhost:8111`) ships the barcode route:
+
+| Route | What it exercises |
+| --- | --- |
+| `/barcode` | [`./barcode`](./src/barcode/README.md): `<Barcode>` and `renderBarcodeSvg` over an editable payload with symbology (`BarcodeTypes`) and scale selectors, the validated SVG output and the error/empty states |
 
 ### Dashboard builder demo
 

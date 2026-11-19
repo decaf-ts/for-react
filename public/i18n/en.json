@@ -20,7 +20,8 @@
     "components": "Components",
     "code_editor": "Code editor",
     "login": "Login",
-    "not_found": "Not found"
+    "not_found": "Not found",
+    "barcode": "Barcode"
   },
   "operations": {
     "read": {
@@ -351,5 +352,18 @@
     "title": "Page not found",
     "subtitle": "The requested demo route does not exist",
     "back": "Back to dashboard"
+  },
+  "barcode": {
+    "title": "Barcode",
+    "intro": "Render GS1 DataMatrix, DataMatrix and QR payloads to validated SVG. Change the payload, symbology or scale; every render is gated before it reaches the DOM.",
+    "payload_label": "Payload",
+    "payload_placeholder": "Enter the barcode payload",
+    "symbology_label": "Symbology",
+    "scale_label": "Scale",
+    "reset": "Reset",
+    "preview_aria": "Rendered barcode preview",
+    "char_count": "{count} characters",
+    "error": "This payload cannot be rendered with the selected symbology.",
+    "empty": "Enter a payload to render a barcode."
   }
 }
