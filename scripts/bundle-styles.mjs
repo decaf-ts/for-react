@@ -72,3 +72,9 @@ bundle(
   path.join(root, "lib", "calendar", "styles.css"),
   "@decaf-ts/for-react/calendar component styles"
 );
+
+bundle(
+  path.join(root, "src", "kanban"),
+  path.join(root, "lib", "kanban", "styles.css"),
+  "@decaf-ts/for-react/kanban component styles"
+);

@@ -24,7 +24,8 @@
     "barcode": "Código de barras",
     "math": "Entrada matemática",
     "cron": "Expressão cron",
-    "calendar": "Calendário"
+    "calendar": "Calendário",
+    "kanban": "Kanban"
   },
   "calendar": {
     "title": "Calendário",
@@ -50,6 +51,32 @@
       "training": "Formação de segurança",
       "audit": "Auditoria de qualidade",
       "handover": "Entrega da obra"
+    }
+  },
+  "kanban": {
+    "title": "Kanban",
+    "intro": "Um quadro Kanban controlado, portado da entrada Angular. As tarefas, colunas, limites de trabalho em curso e estado pertencem ao host; o quadro apenas os apresenta e emite movimentos, reordenações e seleções pedidas.",
+    "demo_label": "Controlos da demonstração Kanban",
+    "label": "Quadro da sprint",
+    "add_card": "Adicionar cartão",
+    "reset": "Reiniciar",
+    "clear": "Limpar tarefas",
+    "read_only": "Apenas leitura",
+    "disabled": "Desativado",
+    "loading": "A carregar",
+    "error": "Erro",
+    "filter": "Apenas Ada",
+    "no_event": "Ainda sem eventos do quadro.",
+    "empty": "Sem tarefas",
+    "loading_message": "A carregar tarefas...",
+    "error_message": "Não foi possível carregar as tarefas.",
+    "retry": "Tentar novamente",
+    "keyboard_help": "Prima Espaço para levantar um cartão, use as setas para o mover, prima Enter para selecionar ou largar, prima Enter novamente para editar, prima E para editar e Escape para cancelar ou limpar a seleção.",
+    "columns": {
+      "todo": "A fazer",
+      "doing": "Em curso",
+      "review": "Revisão",
+      "done": "Concluído"
     }
   },
   "operations": {

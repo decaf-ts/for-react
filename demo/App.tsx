@@ -25,6 +25,7 @@ import { MathPage } from "./pages/MathPage";
 import { CronPage } from "./pages/CronPage";
 import { GanttPage } from "./pages/GanttPage";
 import { CalendarPage } from "./pages/CalendarPage";
+import { KanbanPage } from "./pages/KanbanPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 
 const titles: Record<string, string> = {
@@ -43,6 +44,7 @@ const titles: Record<string, string> = {
   "/cron": "menu.cron",
   "/gantt": "Gantt",
   "/calendar": "menu.calendar",
+  "/kanban": "menu.kanban",
   "/login": "menu.login",
 };
 
@@ -86,6 +88,7 @@ export function App() {
             <Route path="/cron" element={<CronPage />} />
             <Route path="/gantt" element={<GanttPage />} />
             <Route path="/calendar" element={<CalendarPage />} />
+            <Route path="/kanban" element={<KanbanPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/home" element={<Navigate to="/" replace />} />
             <Route path="*" element={<NotFoundPage />} />

@@ -39,6 +39,10 @@
   controlled month-grid calendar over `react-day-picker` and `date-fns`.
   Importing the subpath is the only thing that loads either library; the root
   package does not include them.
+- [`@decaf-ts/for-react/kanban`](./src/kanban/README.md) — Accessible
+  controlled Kanban board over `@dnd-kit/core` and `@dnd-kit/sortable`.
+  Importing the subpath is the only thing that loads dnd-kit; the root package
+  does not include it.
 
 ### Diagrams
 
@@ -238,6 +242,60 @@ route:
 | Route | What it exercises |
 | --- | --- |
 | `/calendar` | [`./calendar`](./src/calendar/README.md): `<Calendar>` over host-owned year/month/selection state with event markers, a details panel for the selected day and the Today gesture — with the locale and label strings resolved by the demo page through its own i18n |
+
+### Kanban
+
+The `./kanban` subpath hosts an accessible, controlled Kanban board over
+`@dnd-kit/core` and `@dnd-kit/sortable`, mirroring the Angular
+`@decaf-ts/for-angular/kanban` entry point. The board is **controlled and
+emit-only**: it owns no data and never mutates a task. The host supplies the
+task array, the task-to-column mapping and the column order/WIP limits
+(`KanbanConfig`), and applies the typed events the board emits
+(`onTaskMoved`, `onTaskReordered`, `onTaskSelected`, `onTaskEditRequested`,
+`onSelectionCleared`, `onTaskMoveRejected`, `onRetryRequested`) back to its
+own state. A refused interaction is never applied silently: the board calls
+`onTaskMoveRejected` with a deterministic `reason` (`cancelled`, `disabled`,
+`invalid-index`, `readonly`, `unchanged`, `unknown-column`, `wip-limit`) and
+leaves the task where it was. See
+[`src/kanban/README.md`](./src/kanban/README.md) for the full props, callbacks,
+render props and accessibility contract.
+
+Install requirements:
+
+- `@dnd-kit/core@6.3.1` and `@dnd-kit/sortable@10.0.0` are **regular
+  dependencies** of the package (the same model as `@xyflow/react` for
+  `./diagrams`): installed with the package and only loaded and evaluated when
+  this subpath is imported. Applications that import `./kanban` install
+  nothing extra, and a consumer such as `/scrum` composes the board with zero
+  new dependencies.
+- The subpath is **dual ESM + CJS**: both `import` and `require` conditions
+  are published, so `require('@decaf-ts/for-react/kanban')` works in CommonJS
+  hosts without a dynamic `import()`.
+
+Styles are consumer-wired — the subpath never imports CSS itself:
+
+```ts
+import "@decaf-ts/for-react/kanban/styles.css"; // kanban theme
+```
+
+The board is **prop-driven** — i18n is wired by the host, never by the
+component:
+
+- Every label prop (`label`, `emptyMessage`, `loadingMessage`, `errorMessage`,
+  `retryLabel`, `keyboardHelp`) is a plain string with an English default. The
+  subpath ships no locale files and never touches a translation provider.
+- Applications that follow the surrounding language resolve the translated
+  labels themselves — at the page level — and pass the resolved values down,
+  as the demo page does.
+- The Angular template directives (card / column-header / empty) become
+  `renderCard`, `renderColumnHeader` and `renderEmpty` render props with
+  identical context objects.
+
+The demo app (`npm run dev`, `http://localhost:8111`) ships the kanban route:
+
+| Route | What it exercises |
+| --- | --- |
+| `/kanban` | [`./kanban`](./src/kanban/README.md): `<KanbanBoard>` over host-owned task/selection/read-only/disabled/loading/error/filter state with add-card, reset and clear controls, an event log of emitted events and WIP-limit rejection feedback — with the label strings resolved by the demo page through its own i18n |
 
 ### Dashboard builder demo
 

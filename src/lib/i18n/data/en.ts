@@ -111,6 +111,33 @@ export const en: Record<string, unknown> = {
       "handover": "Project handover"
     }
   },
+  "kanban": {
+    "title": "Kanban",
+    "intro": "A controlled Kanban board ported from the Angular entry point. Tasks, columns, WIP limits and state stay with the host; the board only renders them and emits requested moves, reorders and selections.",
+    "demo_label": "Kanban demo controls",
+    "label": "Sprint board",
+    "add_card": "Add card",
+    "reset": "Reset",
+    "clear": "Clear tasks",
+    "read_only": "Read only",
+    "disabled": "Disabled",
+    "loading": "Loading",
+    "error": "Error",
+    "filter": "Only Ada",
+    "no_event": "No board event yet.",
+    "empty": "No tasks",
+    "loading_message": "Loading tasks...",
+    "error_message": "Unable to load tasks.",
+    "retry": "Retry",
+    "keyboard_help": "Press Space to pick up a card, use the arrow keys to move it, press Enter to select or drop, press Enter again to edit, press E to edit, and Escape to cancel or clear the selection.",
+    "columns": {
+      "todo": "To do",
+      "doing": "In progress",
+      "review": "Review",
+      "done": "Done"
+    }
+  },
+
   "component": {
     "fieldset": {
       "add": "Add another",

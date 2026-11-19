@@ -20,6 +20,7 @@ export const AppMenu: IMenuItem[] = [
   { label: "menu.cron", icon: "ti-clock", url: "/cron" },
   { label: "Gantt", icon: "ti-chart-bar", url: "/gantt" },
   { label: "menu.calendar", icon: "ti-calendar", url: "/calendar" },
+  { label: "menu.kanban", icon: "ti-layout-kanban", url: "/kanban" },
   { label: "menu.login", icon: "ti-login", url: "/login" },
 ];
 
