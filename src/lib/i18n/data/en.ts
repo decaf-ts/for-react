@@ -137,6 +137,59 @@ export const en: Record<string, unknown> = {
       "done": "Done"
     }
   },
+  "scrum": {
+    "title": "Scrum",
+    "intro": "Backlog and sprint views composed from the Kanban board. The host owns tasks, sprints, selection and assignment; the components only render and emit typed requests.",
+    "demo_label": "Scrum demo controls",
+    "reset": "Reset",
+    "search": "Search",
+    "search_placeholder": "Filter tasks",
+    "read_only": "Read only",
+    "loading": "Loading",
+    "error": "Error",
+    "no_event": "No scrum event yet.",
+    "sprint_selection": "Sprint selection",
+    "sprint_label": "Sprint",
+    "sprint_placeholder": "Select a sprint",
+    "backlog": "Backlog",
+    "backlog_tasks": "Backlog tasks",
+    "sprint_board": "Sprint board",
+    "sprint_board_tasks": "Sprint board tasks",
+    "select_sprint_hint": "Select a sprint to open its board.",
+    "assign_to_sprint": "Assign to sprint",
+    "assign_placeholder": "Select a sprint",
+    "empty_backlog": "No backlog tasks",
+    "loading_backlog": "Loading backlog...",
+    "error_backlog": "Unable to load the backlog.",
+    "empty_sprint": "No tasks in this sprint",
+    "loading_sprint": "Loading sprint...",
+    "error_sprint": "Unable to load the sprint.",
+    "retry": "Retry",
+    "error_message": "The sprint could not be loaded. Try again.",
+    "sprints": {
+      "sprint_1": "Sprint 1 — Now",
+      "sprint_2": "Sprint 2 — Next",
+      "sprint_3": "Sprint 3 — Later"
+    },
+    "tasks": {
+      "t1": "Refine backlog ordering rules",
+      "t2": "Document sprint scoping contract",
+      "t3": "Triage sprint assignment feedback",
+      "t4": "Align filter predicates with search",
+      "t5": "Compose sprint board from Kanban",
+      "t6": "Reuse Kanban drag/drop mechanics",
+      "t7": "Sprint selector keyboard flow",
+      "t8": "Typed sprint assignment events",
+      "t9": "Velocity follow-on spike",
+      "t10": "Backlog grooming session"
+    },
+    "columns": {
+      "todo": "To do",
+      "doing": "In progress",
+      "review": "Review",
+      "done": "Done"
+    }
+  },
 
   "component": {
     "fieldset": {

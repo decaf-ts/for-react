@@ -78,3 +78,9 @@ bundle(
   path.join(root, "lib", "kanban", "styles.css"),
   "@decaf-ts/for-react/kanban component styles"
 );
+
+bundle(
+  path.join(root, "src", "scrum"),
+  path.join(root, "lib", "scrum", "styles.css"),
+  "@decaf-ts/for-react/scrum component styles"
+);

@@ -43,6 +43,9 @@
   controlled Kanban board over `@dnd-kit/core` and `@dnd-kit/sortable`.
   Importing the subpath is the only thing that loads dnd-kit; the root package
   does not include it.
+- [`@decaf-ts/for-react/scrum`](./src/scrum/README.md) — Backlog and sprint
+  views composed from the `/kanban` board. Importing the subpath adds no new
+  dependency: it renders through the shared Kanban implementation.
 
 ### Diagrams
 
@@ -296,6 +299,64 @@ The demo app (`npm run dev`, `http://localhost:8111`) ships the kanban route:
 | Route | What it exercises |
 | --- | --- |
 | `/kanban` | [`./kanban`](./src/kanban/README.md): `<KanbanBoard>` over host-owned task/selection/read-only/disabled/loading/error/filter state with add-card, reset and clear controls, an event log of emitted events and WIP-limit rejection feedback — with the label strings resolved by the demo page through its own i18n |
+
+### Scrum
+
+The `./scrum` subpath hosts backlog and sprint views for task-management
+screens, composed from the [`./kanban`](./src/kanban/README.md) board instead
+of shipping a second drag/drop engine: the `<SprintBoard>` renders the Kanban
+status columns scoped to one sprint, the `<Backlog>` renders a single backlog
+column with a per-card sprint-assignment select, and the `<SprintSelector>`
+picks the sprint whose board is shown. Both views are **controlled and
+emit-only**: the host owns tasks, sprints, selection and assignment, and
+applies the typed events the views emit (`onBacklogReordered`,
+`onSprintAssignmentRequested`, `onTaskMoved`, `onTaskReordered`,
+`onTaskSelected`, `onTaskEditRequested`, `onSelectionCleared`,
+`onTaskMoveRejected`, `onRetryRequested`) back to its own state. A refused
+interaction is never applied silently: backlog reorder refusals carry the
+Kanban rejection `reason` (`cancelled`, `disabled`, `invalid-index`,
+`readonly`, `unchanged`, `unknown-column`, `wip-limit`) and sprint-assignment
+refusals carry a deterministic `ScrumAssignmentRejectionReason` (`disabled`,
+`error`, `loading`, `readonly`, `unchanged`, `unknown-sprint`). Sprint ids are
+host-owned — only `null`, `undefined` and `''` map a task to the backlog — and
+every sprint-board event adds the board's `sprintId`. See
+[`src/scrum/README.md`](./src/scrum/README.md) for the full props, callbacks,
+rejection ladder and render-prop contract.
+
+Install requirements:
+
+- `@dnd-kit/core@6.3.1` and `@dnd-kit/sortable@10.0.0` are regular dependencies
+  of the package already required by `./kanban`: `/scrum` composes the board
+  with zero new dependencies, so applications that import `./scrum` install
+  nothing extra, and the root FESM stays scrum-free.
+- The subpath is **dual ESM + CJS**: both `import` and `require` conditions are
+  published, so `require('@decaf-ts/for-react/scrum')` works in CommonJS hosts
+  without a dynamic `import()`.
+
+Styles are consumer-wired — the subpath never imports CSS itself:
+
+```ts
+import "@decaf-ts/for-react/kanban/styles.css"; // kanban theme
+import "@decaf-ts/for-react/scrum/styles.css"; // scrum layout on top
+```
+
+The views are **prop-driven** — i18n is wired by the host, never by the
+components:
+
+- Every label prop (`label`, `columnTitle`, `emptyMessage`, `loadingMessage`,
+  `errorMessage`, `retryLabel`, `assignmentLabel`, `assignmentPlaceholder`) is
+  a plain string with an English default. The subpath ships no locale files and
+  never touches a translation provider.
+- Both views accept the same `filter` predicate as `/kanban`, so a host search
+  box can feed selector, backlog and sprint board.
+- The `readonly` prop name from the Angular entry point is also accepted as an
+  alias for `readOnly`.
+
+The demo app (`npm run dev`, `http://localhost:8111`) ships the scrum route:
+
+| Route | What it exercises |
+| --- | --- |
+| `/scrum` | [`./scrum`](./src/scrum/README.md): `<SprintSelector>`, `<Backlog>` and `<SprintBoard>` over host-owned task/sprint/selection state with read-only, disabled, loading and error toggles, a search filter, reset and clear controls, an event log of emitted events and sprint-assignment feedback — with the label strings resolved by the demo page through its own i18n |
 
 ### Dashboard builder demo
 

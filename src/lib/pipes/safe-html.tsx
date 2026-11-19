@@ -1,5 +1,5 @@
 /**
- * @module lib/pipes/safe-html
+ * @file React helpers used to render trusted library-generated HTML.
  * @description React helpers used to render trusted library-generated HTML.
  * @summary Exposes {@link safeHtml} and {@link DecafSafeHtml} for icon and
  * content markup bindings.

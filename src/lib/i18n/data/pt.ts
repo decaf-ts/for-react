@@ -137,6 +137,59 @@ export const pt: Record<string, unknown> = {
       "done": "Concluído"
     }
   },
+  "scrum": {
+    "title": "Scrum",
+    "intro": "Vistas de backlog e sprint compostas a partir do quadro Kanban. As tarefas, sprints, seleção e atribuição pertencem ao host; os componentes apenas apresentam e emitem pedidos tipados.",
+    "demo_label": "Controlos da demonstração Scrum",
+    "reset": "Reiniciar",
+    "search": "Pesquisar",
+    "search_placeholder": "Filtrar tarefas",
+    "read_only": "Apenas leitura",
+    "loading": "A carregar",
+    "error": "Erro",
+    "no_event": "Ainda sem eventos de Scrum.",
+    "sprint_selection": "Seleção de sprint",
+    "sprint_label": "Sprint",
+    "sprint_placeholder": "Selecionar uma sprint",
+    "backlog": "Backlog",
+    "backlog_tasks": "Tarefas do backlog",
+    "sprint_board": "Quadro da sprint",
+    "sprint_board_tasks": "Tarefas do quadro da sprint",
+    "select_sprint_hint": "Selecione uma sprint para abrir o respetivo quadro.",
+    "assign_to_sprint": "Atribuir à sprint",
+    "assign_placeholder": "Selecionar uma sprint",
+    "empty_backlog": "Sem tarefas no backlog",
+    "loading_backlog": "A carregar o backlog...",
+    "error_backlog": "Não foi possível carregar o backlog.",
+    "empty_sprint": "Sem tarefas nesta sprint",
+    "loading_sprint": "A carregar a sprint...",
+    "error_sprint": "Não foi possível carregar a sprint.",
+    "retry": "Tentar novamente",
+    "error_message": "Não foi possível carregar a sprint. Tente novamente.",
+    "sprints": {
+      "sprint_1": "Sprint 1 — Agora",
+      "sprint_2": "Sprint 2 — A seguir",
+      "sprint_3": "Sprint 3 — Mais tarde"
+    },
+    "tasks": {
+      "t1": "Refinar regras de ordenação do backlog",
+      "t2": "Documentar contrato de âmbito da sprint",
+      "t3": "Triar feedback de atribuição à sprint",
+      "t4": "Alinhar predicados de filtro com a pesquisa",
+      "t5": "Compor quadro da sprint a partir do Kanban",
+      "t6": "Reutilizar mecânicas de arrastar/largar do Kanban",
+      "t7": "Fluxo de teclado do seletor de sprint",
+      "t8": "Eventos tipados de atribuição à sprint",
+      "t9": "Spike de seguimento de velocidade",
+      "t10": "Sessão de preparação do backlog"
+    },
+    "columns": {
+      "todo": "A fazer",
+      "doing": "Em curso",
+      "review": "Revisão",
+      "done": "Concluído"
+    }
+  },
 
   "component": {
     "fieldset": {
