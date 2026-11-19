@@ -95,6 +95,12 @@ Now you can create new repositories from this template and enjoy having everythi
   optional `echarts` and `@cortex-js/compute-engine` peers. Importing the
   subpath is the only thing that loads either engine; the root package does not
   include them.
+- [`@decaf-ts/for-react/agent`](./src/agent/README.md) — Agent conversation UI
+  over a graph workflow run: the `AgentChatProvider`/`useAgentChat` composition,
+  the `AgentChat` component families, the transport seam (graph-run, legacy
+  bridge and deterministic demo transports), the envelope fold and the Zustand
+  side-channel store. The subpath is the only entry point that loads
+  `@ai-sdk/react`, `ai` and `zustand`; the root package does not include them.
 
 ### Diagrams
 

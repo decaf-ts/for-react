@@ -96,3 +96,9 @@ bundle(
   path.join(root, "lib", "charts", "styles.css"),
   "@decaf-ts/for-react/charts component styles"
 );
+
+bundle(
+  path.join(root, "src", "agent"),
+  path.join(root, "lib", "agent", "styles.css"),
+  "@decaf-ts/for-react/agent component styles"
+);

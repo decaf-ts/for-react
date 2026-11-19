@@ -28,6 +28,9 @@ export default defineConfig({
     outDir: "dist-demo",
     emptyOutDir: true,
     sourcemap: true,
+    rollupOptions: {
+      external: [/^elkjs(\/|$)/],
+    },
   },
   server: {
     host: "0.0.0.0",

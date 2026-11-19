@@ -22,6 +22,7 @@ import "../src/kanban/kanban.css";
 import "../src/scrum/scrum.css";
 import "../src/storyboard/storyboard.css";
 import "../src/charts/charts.css";
+import "../src/agent/agent.css";
 import {
   registerDefaultComponents,
   RgxI18nProvider,

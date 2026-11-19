@@ -29,6 +29,7 @@ import { KanbanPage } from "./pages/KanbanPage";
 import { ScrumPage } from "./pages/ScrumPage";
 import { StoryboardPage } from "./pages/StoryboardPage";
 import { ChartsPage } from "./pages/ChartsPage";
+import { AgentPage } from "./pages/AgentPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 
 const titles: Record<string, string> = {
@@ -51,6 +52,7 @@ const titles: Record<string, string> = {
   "/scrum": "menu.scrum",
   "/storyboard": "menu.storyboard",
   "/charts": "menu.charts",
+  "/agent": "menu.agent",
   "/login": "menu.login",
 };
 
@@ -98,6 +100,7 @@ export function App() {
             <Route path="/scrum" element={<ScrumPage />} />
             <Route path="/storyboard" element={<StoryboardPage />} />
             <Route path="/charts" element={<ChartsPage />} />
+            <Route path="/agent" element={<AgentPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/home" element={<Navigate to="/" replace />} />
             <Route path="*" element={<NotFoundPage />} />

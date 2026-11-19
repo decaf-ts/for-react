@@ -24,6 +24,7 @@ export const AppMenu: IMenuItem[] = [
   { label: "menu.scrum", icon: "ti-layout-list", url: "/scrum" },
   { label: "menu.storyboard", icon: "ti-presentation", url: "/storyboard" },
   { label: "menu.charts", icon: "ti-chart-line", url: "/charts" },
+  { label: "menu.agent", icon: "ti-robot", url: "/agent" },
   { label: "menu.login", icon: "ti-login", url: "/login" },
 ];
 

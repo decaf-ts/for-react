@@ -28,7 +28,8 @@
     "kanban": "Kanban",
     "scrum": "Scrum",
     "storyboard": "Tutorial storyboard",
-    "charts": "Gráficos"
+    "charts": "Gráficos",
+    "agent": "Agente"
   },
   "calendar": {
     "title": "Calendário",
@@ -618,5 +619,446 @@
     "formula_label": "Fórmula",
     "formula_placeholder": "Por exemplo: x^2",
     "points_count": "{count} pontos de controlo"
+  },
+  "agent": {
+    "chat": {
+      "error": {
+        "backendUnavailable": "O backend do agente não está acessível. Reconecte e tente novamente."
+      },
+      "greeting": {
+        "title": "Como posso ajudar?",
+        "message": "Faça uma pergunta, anexe um ficheiro ou escolha uma sugestão para começar.",
+        "link": "Saber mais"
+      },
+      "agentStep": {
+        "title": "Passo do agente",
+        "input": "Entrada",
+        "output": "Saída"
+      },
+      "approval": {
+        "title": "Aprovação necessária",
+        "run": "Execução",
+        "payload": "Carga suspensa",
+        "emptyPayload": "Não foi fornecida qualquer carga.",
+        "actions": "Ações de aprovação",
+        "approve": "Aprovar",
+        "reject": "Rejeitar",
+        "status": {
+          "pending": "A aguardar aprovação",
+          "approved": "Aprovado",
+          "rejected": "Rejeitado"
+        }
+      },
+      "artifact": {
+        "title": "Artefacto",
+        "untitled": "Artefacto sem título",
+        "close": "Fechar artefacto",
+        "imageAlt": "Pré-visualização do artefacto",
+        "imageUnavailable": "Pré-visualização da imagem indisponível.",
+        "streaming": "A transmitir conteúdo…",
+        "console": {
+          "title": "Saída",
+          "resize": "Redimensionar consola de saída",
+          "clear": "Limpar saída",
+          "clearLabel": "Limpar",
+          "aria": "Saída da consola",
+          "empty": "Ainda sem saída.",
+          "line": "linha",
+          "lines": "linhas"
+        },
+        "diff": {
+          "label": "Alterações do artefacto",
+          "caption": "Anterior vs atual",
+          "added": "Linhas adicionadas",
+          "removed": "Linhas removidas",
+          "mode": "Modo de visualização da diferença",
+          "sideBySide": "Lado a lado",
+          "inline": "Em linha",
+          "noChanges": "Sem alterações",
+          "previous": "Anterior",
+          "current": "Atual"
+        },
+        "document": {
+          "label": "Artefacto de documento",
+          "toolCall": "Chamada de ferramenta",
+          "loading": "A obter documento…",
+          "retry": "Tentar novamente",
+          "empty": "O documento está vazio.",
+          "pending": "À espera do resultado da ferramenta…",
+          "status": {
+            "pending": "Pendente",
+            "loading": "Em curso",
+            "succeeded": "Pronto",
+            "failed": "Falhou"
+          },
+          "error": "Não foi possível carregar o documento."
+        },
+        "editor": {
+          "label": "Editor do artefacto",
+          "imageAlt": "Imagem do artefacto",
+          "emptyImage": "Pré-visualização de imagem indisponível.",
+          "kind": {
+            "text": "Texto",
+            "code": "Código",
+            "image": "Imagem",
+            "sheet": "Folha"
+          },
+          "editable": "Editável",
+          "readOnly": "Apenas leitura",
+          "placeholder": "Comece a escrever…"
+        },
+        "skeleton": {
+          "inline": "A carregar artefacto…",
+          "full": "A carregar painel do artefacto…"
+        },
+        "toolbar": {
+          "label": "Ferramentas do artefacto",
+          "text": "Texto",
+          "code": "Código",
+          "image": "Imagem",
+          "sheet": "Folha"
+        },
+        "version": {
+          "label": "Versões do artefacto",
+          "older": "Versão anterior",
+          "current": "Versão",
+          "of": "de",
+          "newer": "Versão seguinte"
+        },
+        "kind": {
+          "text": "Texto",
+          "code": "Código",
+          "image": "Imagem",
+          "sheet": "Folha"
+        },
+        "visibility": {
+          "private": "Privado",
+          "shared": "Partilhado",
+          "public": "Público"
+        }
+      },
+      "attachments": {
+        "add": "Anexar",
+        "pasteHint": "Largue ou cole ficheiros aqui",
+        "invalidType": "Alguns ficheiros não são suportados.",
+        "dropTitle": "Largue ficheiros para anexar",
+        "dropHint": "Apenas imagens e ficheiros de texto",
+        "label": "Anexos",
+        "remove": "Remover anexo"
+      },
+      "attachmentPart": {
+        "label": "Anexo",
+        "empty": "Pré-visualização de texto indisponível."
+      },
+      "codeBlock": {
+        "label": "Código",
+        "copy": "Copiar",
+        "copied": "Copiado"
+      },
+      "composer": {
+        "message": {
+          "label": "Mensagem",
+          "placeholder": "Escreva uma mensagem…"
+        },
+        "stop": "Parar resposta",
+        "send": "Enviar",
+        "cancel": "Cancelar",
+        "hint": "Enter para enviar, Shift+Enter para uma nova linha",
+        "runningHint": "O agente está a responder…"
+      },
+      "conversation": {
+        "aria": "Conversa",
+        "empty": "Inicie a conversa enviando uma mensagem.",
+        "scrollToBottom": "Ir para a mensagem mais recente",
+        "download": "Transferir transcrição"
+      },
+      "namespaces": {
+        "label": "Namespaces"
+      },
+      "history": {
+        "title": "Histórico de conversas",
+        "aria": "Histórico de conversas",
+        "newChat": "Nova conversa",
+        "close": "Fechar histórico de conversas",
+        "loading": "A carregar conversas…",
+        "empty": "Nenhuma conversa encontrada",
+        "loadMore": "Carregar mais",
+        "untitled": "Conversa sem título",
+        "item": {
+          "delete": "Eliminar conversa",
+          "confirm": "Eliminar esta conversa?",
+          "confirmDelete": "Eliminar",
+          "cancel": "Cancelar",
+          "visibility": {
+            "private": "Privada",
+            "shared": "Partilhada",
+            "public": "Pública"
+          },
+          "message": "mensagem",
+          "messages": "mensagens",
+          "open": "Abrir conversa"
+        }
+      },
+      "knowledge": {
+        "label": "Base de conhecimento"
+      },
+      "knowledgeBase": {
+        "aria": "Gerir base de conhecimento",
+        "title": "Gerir base de conhecimento",
+        "count": "Selecionados",
+        "upload": "Carregar ficheiro",
+        "close": "Fechar base de conhecimento",
+        "loading": "A carregar documentos…",
+        "empty": "Ainda sem documentos",
+        "selectAll": "Selecionar tudo",
+        "clear": "Limpar seleção",
+        "select": "Selecionar",
+        "delete": "Eliminar ficheiro",
+        "queue": "Fila de carregamento",
+        "dismiss": "Dispensar carregamento",
+        "selectedSuffix": "selecionados",
+        "done": "Concluir",
+        "status": {
+          "queued": "Em fila",
+          "uploading": "A carregar…",
+          "done": "Carregado",
+          "error": "Falhou"
+        }
+      },
+      "message": {
+        "streaming": "A transmitir…",
+        "toolDetails": "Detalhes da ferramenta"
+      },
+      "actions": {
+        "label": "Ações do agente"
+      },
+      "messageActions": {
+        "label": "Ações da mensagem",
+        "copy": "Copiar mensagem",
+        "voteUp": "Boa resposta",
+        "voteDown": "Má resposta",
+        "edit": "Editar mensagem",
+        "delete": "Eliminar mensagem"
+      },
+      "messageEditor": {
+        "label": "Editar mensagem",
+        "placeholder": "Atualize a sua mensagem…",
+        "save": "Guardar e reenviar",
+        "cancel": "Cancelar"
+      },
+      "modelSelector": {
+        "label": "Modelo",
+        "trigger": "Selecionar modelo",
+        "search": "Pesquisar modelos…",
+        "empty": "Nenhum modelo corresponde à pesquisa."
+      },
+      "nestedAgent": {
+        "title": "Agente aninhado",
+        "errors": "Erros de ferramenta"
+      },
+      "notification": {
+        "label": "Notificações",
+        "dismiss": "Dispensar notificação"
+      },
+      "progress": {
+        "title": "Progresso",
+        "empty": "A aguardar progresso…",
+        "label": "A trabalhar…"
+      },
+      "reasoning": {
+        "title": "Raciocínio",
+        "streaming": "A pensar…"
+      },
+      "slashCommands": {
+        "label": "Comandos de slash",
+        "empty": "Sem comandos correspondentes"
+      },
+      "structuredObject": {
+        "title": "Objeto estruturado",
+        "empty": {
+          "title": "Ainda sem dados estruturados",
+          "message": "Receba uma resposta estruturada para ver os campos aparecerem aqui.",
+          "line": "Sem dados estruturados."
+        },
+        "raw": "JSON em bruto",
+        "fields": "Campos recebidos",
+        "waiting": "À espera do próximo campo…",
+        "history": "Histórico",
+        "historyUntitled": "Execução sem título",
+        "ghost": "Pré-visualização em streaming",
+        "committed": "Confirmado"
+      },
+      "suggestedActions": {
+        "label": "Sugestões",
+        "title": "Experimente perguntar"
+      },
+      "suggestionDialog": {
+        "title": "Alteração sugerida",
+        "close": "Fechar",
+        "description": "Reveja a sugestão gerada pela IA antes de aplicar.",
+        "ignore": "Ignorar",
+        "apply": "Aplicar"
+      },
+      "telemetry": {
+        "title": "Telemetria da execução",
+        "replayed": "Repetida",
+        "tokensShort": "tokens",
+        "functionId": "Função",
+        "traceId": "Rastreio",
+        "promptTokens": "Tokens de entrada",
+        "completionTokens": "Tokens de saída",
+        "totalTokens": "Total de tokens",
+        "runtimeContext": "Contexto de execução",
+        "millisecondsShort": "ms",
+        "secondsShort": "s",
+        "show": "Telemetria",
+        "hide": "Ocultar telemetria"
+      },
+      "roundtrip": {
+        "empty": "Ainda sem interações.",
+        "label": "Ida e volta"
+      },
+      "thinking": {
+        "label": "A pensar…"
+      },
+      "tool": {
+        "input": "Entrada",
+        "output": "Saída",
+        "orders": {
+          "title": "Encomendas",
+          "empty": "Nenhuma encomenda encontrada."
+        },
+        "tracker": {
+          "title": "Acompanhamento da encomenda",
+          "progress": "Progresso da encomenda",
+          "status": {
+            "ordered": "Encomenda confirmada",
+            "shipped": "A caminho",
+            "delivered": "Entregue",
+            "cancelled": "Cancelada"
+          },
+          "step": {
+            "box": "Encomenda embalada",
+            "gps": "Em trânsito",
+            "home": "Entregue"
+          },
+          "description": {
+            "ordered": "A sua encomenda foi embalada e aguarda o estafeta.",
+            "shipped": "O estafeta recolheu a encomenda e está a caminho.",
+            "delivered": "A sua encomenda foi entregue. Obrigado pela preferência.",
+            "cancelled": "Esta entrega foi cancelada."
+          }
+        },
+        "weather": {
+          "title": "Meteorologia",
+          "loading": "A obter a previsão…",
+          "error": "A previsão não está disponível neste momento.",
+          "high": "Máx.",
+          "low": "Mín.",
+          "condition": {
+            "day": "Sol",
+            "night": "Noite limpa"
+          }
+        },
+        "state": {
+          "input-streaming": "A preparar dados…",
+          "input-available": "Dados prontos",
+          "output-available": "Concluído",
+          "output-error": "Falhou",
+          "output-denied": "Recusado"
+        },
+        "showDetails": "Mostrar detalhes",
+        "hideDetails": "Ocultar detalhes",
+        "status": {
+          "queued": "Em fila",
+          "running": "Em execução",
+          "succeeded": "Concluído",
+          "failed": "Falhou"
+        }
+      },
+      "visibility": {
+        "label": "Visibilidade da conversa",
+        "private": "Privada",
+        "shared": "Partilhada",
+        "privateHint": "Apenas você pode ver esta conversa.",
+        "sharedHint": "Qualquer pessoa com a ligação pode ver esta conversa."
+      },
+      "workflow": {
+        "title": "Estado do fluxo de trabalho",
+        "output": "Saída",
+        "empty": "Ainda sem passos do fluxo de trabalho.",
+        "status": {
+          "waiting": "A aguardar",
+          "running": "Em execução",
+          "success": "Concluído",
+          "failed": "Falhou",
+          "suspended": "Suspenso"
+        }
+      },
+      "status": {
+        "queued": "Em fila",
+        "running": "Em execução",
+        "succeeded": "Concluído",
+        "failed": "Falhou",
+        "cancelled": "Cancelado",
+        "replayed": "Reproduzido"
+      },
+      "demo": {
+        "suggestion": {
+          "orders": "Mostrar as minhas encomendas recentes",
+          "track": "Onde está a minha encomenda?",
+          "weather": "Qual é a previsão para Lisboa?"
+        },
+        "command": {
+          "summarize": "Resumir a conversa",
+          "translate": "Traduzir a última mensagem"
+        },
+        "model": {
+          "agent": "Agente de demonstração",
+          "agentDescription": "Transporte com guião determinístico",
+          "fast": "Agente rápido"
+        },
+        "chat": "Conversa com agente",
+        "workflow": "Fluxo de trabalho",
+        "toolResults": "Resultados das ferramentas",
+        "telemetry": "Telemetria",
+        "historyItem": "Item do histórico",
+        "artifacts": "Artefactos",
+        "artifact": {
+          "title": "Artefacto de rascunho"
+        },
+        "tool": {
+          "searchOrders": "Pesquisar encomendas"
+        },
+        "approval": {
+          "approved": "Aprovado",
+          "rejected": "Rejeitado",
+          "lastDecision": "Última decisão"
+        }
+      },
+      "title": "Conversa com agente",
+      "typing": "O agente está a responder…",
+      "transcript": {
+        "aria": "Transcrição da conversa",
+        "empty": "Inicie a conversa enviando uma mensagem.",
+        "content": {
+          "label": "Conteúdo",
+          "placeholder": "Conteúdo da mensagem"
+        },
+        "created": {
+          "label": "Criado em"
+        }
+      },
+      "role": {
+        "label": "Papel",
+        "user": "Você",
+        "assistant": "Agente",
+        "system": "Sistema",
+        "error": "Erro"
+      },
+      "structured": {
+        "title": "Objeto estruturado"
+      }
+    }
   }
 }
