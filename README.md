@@ -85,6 +85,11 @@ Now you can create new repositories from this template and enjoy having everythi
 - [`@decaf-ts/for-react/scrum`](./src/scrum/README.md) — Backlog and sprint
   views composed from the `/kanban` board. Importing the subpath adds no new
   dependency: it renders through the shared Kanban implementation.
+- [`@decaf-ts/for-react/storyboard`](./src/storyboard/README.md) — Guided
+  storyboard tutorial: the `StoryboardTutorial` host, the module-singleton
+  store with `useSyncExternalStore` hooks, the framework-agnostic engine,
+  completion/action detection and the focus/message strategies. Importing the
+  subpath adds no new dependency.
 
 ### Diagrams
 
@@ -396,6 +401,57 @@ The demo app (`npm run dev`, `http://localhost:8111`) ships the scrum route:
 | Route | What it exercises |
 | --- | --- |
 | `/scrum` | [`./scrum`](./src/scrum/README.md): `<SprintSelector>`, `<Backlog>` and `<SprintBoard>` over host-owned task/sprint/selection state with read-only, disabled, loading and error toggles, a search filter, reset and clear controls, an event log of emitted events and sprint-assignment feedback — with the label strings resolved by the demo page through its own i18n |
+
+### Storyboard
+
+The `./storyboard` subpath is the React port of the Angular
+`@decaf-ts/for-angular/storyboard` tutorial entry point. It ships the
+`<StoryboardTutorial>` host, a module-singleton `StoryboardTutorialStore` with
+`useStoryboardTutorial*` hooks built on `useSyncExternalStore`, the
+framework-agnostic `StoryboardTutorialEngine`, `resolveTutorialCompletion` and
+the DOM-aware `StoryboardTutorialActionDetector`, plus the
+`FadeFocusStrategy`/`HighlightFocusStrategy` and `BubbleMessageStrategy`
+plug-ins.
+
+- **Zero new runtime dependencies.** The port uses React 19's
+  `useSyncExternalStore` and a module singleton instead of a third-party tour
+  library; `react`, the package helpers and `@decaf-ts/db-decorators` are the
+  only imports.
+- The store is the Angular root service transliterated: it owns the engine,
+  mirrors state/status, persists a serializable snapshot to `sessionStorage`
+  (`dcf-storyboard-tutorial`) and survives host unmounts and route navigation.
+  A new host instance re-binds and resumes the same step; an unmount never
+  aborts the run.
+- Props: `scenario`, `autoStart`, `persist`, `focusStrategy`,
+  `messageStrategy`, `instanceId` and an optional isolated `store`; callbacks
+  `onStarted`, `onStepped`, `onFinished`. Labels live on the scenario and have
+  English defaults.
+- Whichever step is active, the overlay blocks page pointer and keyboard
+  interaction except the step's `whitelist` selectors (marked with
+  `data-dcf-tutorial-whitelisted`, with clip-path holes over their bounds).
+  Completion supports `timeout`, `minTime` and a `click`/`drag`/`input`/`keys`
+  action, with per-step overrides and `completion: false`.
+- **Trust and privacy:** step selectors are trusted app content (never derive
+  them from user input), and with `persist` enabled (the default) the scenario
+  `context` is serialized to `sessionStorage` — keep secrets and PII out of the
+  tutorial context or run those scenarios with `persist: false`. See the
+  security notes in [`src/storyboard/README.md`](./src/storyboard/README.md).
+
+Styles are consumer-wired:
+
+```ts
+import "@decaf-ts/for-react/storyboard/styles.css";
+```
+
+See [`src/storyboard/README.md`](./src/storyboard/README.md) for the full props,
+store, hooks and export surface.
+
+The demo app (`npm run dev`, `http://localhost:8111`) ships the storyboard
+route:
+
+| Route | What it exercises |
+| --- | --- |
+| `/storyboard` | [`./storyboard`](./src/storyboard/README.md): the four-step translated feature tour over an interactive playground with a non-blocking soft-spotlight focus strategy, plus scenario switches for placements, timeout, click, input, keys and custom labels/panel message; start/next/previous/abort/end controls, live status/active-step/last-event projection |
 
 ### Dashboard builder demo
 

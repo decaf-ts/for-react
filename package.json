@@ -109,12 +109,24 @@
       },
       "default": "./lib/esm/scrum/index.js"
     },
+    "./storyboard": {
+      "import": {
+        "types": "./lib/types/storyboard/index.d.mts",
+        "default": "./lib/esm/storyboard/index.js"
+      },
+      "require": {
+        "types": "./lib/types/storyboard/index.d.cts",
+        "default": "./lib/cjs/storyboard/index.cjs"
+      },
+      "default": "./lib/esm/storyboard/index.js"
+    },
     "./diagrams/styles.css": "./lib/diagrams/styles.css",
     "./gantt/styles.css": "./lib/gantt/styles.css",
     "./cron/styles.css": "./lib/cron/styles.css",
     "./calendar/styles.css": "./lib/calendar/styles.css",
     "./kanban/styles.css": "./lib/kanban/styles.css",
     "./scrum/styles.css": "./lib/scrum/styles.css",
+    "./storyboard/styles.css": "./lib/storyboard/styles.css",
     "./styles.css": "./lib/styles.css"
   },
   "main": "./lib/cjs/index.cjs",

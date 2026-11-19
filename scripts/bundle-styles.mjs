@@ -84,3 +84,9 @@ bundle(
   path.join(root, "lib", "scrum", "styles.css"),
   "@decaf-ts/for-react/scrum component styles"
 );
+
+bundle(
+  path.join(root, "src", "storyboard"),
+  path.join(root, "lib", "storyboard", "styles.css"),
+  "@decaf-ts/for-react/storyboard component styles"
+);
