@@ -22,7 +22,8 @@
     "login": "Entrar",
     "not_found": "Não encontrado",
     "barcode": "Código de barras",
-    "math": "Entrada matemática"
+    "math": "Entrada matemática",
+    "cron": "Expressão cron"
   },
   "operations": {
     "read": {
@@ -379,5 +380,19 @@
     "output_label": "LaTeX atual",
     "empty": "Campo vazio",
     "note": "O MathLive é carregado de forma preguiçosa após a montagem. Quando não está disponível, o campo permanece inerte em vez de lançar erro."
+  },
+  "cron": {
+    "title": "Expressão cron",
+    "intro": "Crie e pré-visualize horários cron com os componentes React CronSelector e CronBuilder. O seletor cria horários diários, por intervalo e semanais; o construtor edita cada campo cron com predefinições rápidas e acumulação de várias expressões.",
+    "options_label": "Opções de pré-visualização",
+    "describe_label": "Descrever horário",
+    "disabled_label": "Desativado",
+    "hide_daily": "Ocultar diário",
+    "hide_interval": "Ocultar intervalo",
+    "hide_weekly": "Ocultar semanal",
+    "selector_label": "Seletor de cron",
+    "builder_label": "Construtor de cron",
+    "builder_field_label": "Horário",
+    "note": "As descrições vêm do cronstrue e são recalculadas quando o idioma da demonstração muda. O Ionic React só é carregado pela subpath /cron."
   }
 }

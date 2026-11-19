@@ -43,6 +43,43 @@ if (typeof window !== "undefined" && !window.matchMedia) {
   });
 }
 
+class NoopObserver {
+  root = null;
+  rootMargin = "";
+  thresholds: number[] = [];
+  observe(): void {}
+  unobserve(): void {}
+  disconnect(): void {}
+  takeRecords(): [] {
+    return [];
+  }
+}
+
+for (const name of ["IntersectionObserver", "ResizeObserver"] as const) {
+  if (typeof globalThis[name] === "undefined") {
+    Object.defineProperty(globalThis, name, {
+      configurable: true,
+      writable: true,
+      value: NoopObserver,
+    });
+  }
+}
+
+// Ionic's <ion-datetime-button> resolves its target <ion-datetime> by id during
+// hydration. In jsdom the modal contents mount through a portal after the
+// button's first hydration pass, so the lookup logs a spurious error even
+// though the datetime element exists (asserted by the cron picker tests).
+const originalConsoleError = console.error.bind(console);
+console.error = (...args: unknown[]) => {
+  if (
+    typeof args[0] === "string" &&
+    args[0].includes("[ion-datetime-button] - No ion-datetime instance found")
+  ) {
+    return;
+  }
+  originalConsoleError(...args);
+};
+
 I18nLoader.cache["en"] = {
   HELLO: "Hello",
   "component.loading": "Loading...",

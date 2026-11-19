@@ -30,6 +30,11 @@
 - [`@decaf-ts/for-react/math`](./src/math/README.md) — MathLive-powered
   controlled math input field. Importing the subpath is the only thing that
   loads MathLive; the root package does not include it.
+- [`@decaf-ts/for-react/cron`](./src/cron/README.md) — Cron-expression
+  authoring surfaces: the standalone `<CronSelector>`, the five-field
+  `<CronBuilder>` and the `<CronSelectorField>` CRUD form adapter. Importing
+  the subpath is the only thing that loads `cronstrue` and Ionic React; the
+  root package does not include them.
 
 ### Diagrams
 
@@ -141,6 +146,45 @@ The demo app (`npm run dev`, `http://localhost:8111`) ships the math route:
 | Route | What it exercises |
 | --- | --- |
 | `/math` | [`./math`](./src/math/README.md): `<MathInput>` over an editable formula with value/placeholder/disabled controls, both change callbacks, a read-only toggle and reset button, and the rendered preview |
+
+### Cron
+
+The `./cron` subpath hosts the cron-expression editing surfaces: the standalone
+`<CronSelector>` (mode-based schedule editor over daily, hourly interval and
+weekly modes), the five-field `<CronBuilder>` (per-field editing with
+"every N" interval toggles, quick presets, copy-to-clipboard and `multiple`
+accumulation) and the `<CronSelectorField>` CRUD adapter for the for-react
+form-provider contract, plus `registerCronComponents()` to register the
+components with the rendering engine for model-driven forms. See
+[`src/cron/README.md`](./src/cron/README.md) for the full component, helper and
+registration contract.
+
+Install requirements:
+
+- `cronstrue@^3` and `@ionic/react@^9` are **optional peers** of the package
+  and are **required by this subpath**: install them only in applications that
+  import `./cron`; the root entry point never loads them.
+- The subpath is **dual ESM + CJS**: both `import` and `require` conditions are
+  published, so `require('@decaf-ts/for-react/cron')` works in CommonJS hosts
+  without a dynamic `import()`.
+
+Styles are consumer-wired — the subpath never imports CSS itself:
+
+```ts
+import "@ionic/react/css/core.css"; // Ionic base styles required by the Ion components
+import "@decaf-ts/for-react/cron/styles.css"; // cron theme on top
+```
+
+i18n: the `component.cron_selector`, `component.cron_builder`, `cron_selector`
+and `date` dictionaries ship with the package's English and Portuguese
+resources, so selector, builder and weekday/month labels — and the generated
+cronstrue descriptions — re-render when the active language changes.
+
+The demo app (`npm run dev`, `http://localhost:8111`) ships the cron route:
+
+| Route | What it exercises |
+| --- | --- |
+| `/cron` | [`./cron`](./src/cron/README.md): `<CronSelector>` and `<CronBuilder>` side by side with describe/disabled and hide-daily/interval/weekly toggles, and the generated expression output |
 
 ### Dashboard builder demo
 

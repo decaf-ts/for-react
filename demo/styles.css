@@ -957,3 +957,73 @@ textarea {
   color: var(--app-muted);
   font-size: 0.875rem;
 }
+
+.cron-page__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 0 0 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--app-border);
+  border-radius: 0.5rem;
+  background: var(--app-surface);
+}
+
+.cron-page__controls legend {
+  font-weight: 600;
+  padding: 0 0.35rem;
+}
+
+.cron-page__toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.cron-page__layout {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+@media (max-width: 960px) {
+  .cron-page__layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.cron-page__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 1px solid var(--app-border);
+  border-radius: 0.5rem;
+  background: var(--app-surface);
+  min-width: 0;
+}
+
+.cron-page__panel h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.cron-page__output {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.4rem;
+  background: rgba(31, 111, 235, 0.08);
+  color: var(--app-accent);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.875rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.cron-page__note {
+  margin-top: 1rem;
+  color: var(--app-muted);
+  font-size: 0.875rem;
+}

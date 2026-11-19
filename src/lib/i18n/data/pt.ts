@@ -51,6 +51,35 @@ export const pt: Record<string, unknown> = {
       "error": "Erro ao eliminar o item com {0} {1}."
     }
   },
+  "cron_selector": {
+    "title": "Seletor de cron",
+    "current_cron": "Cron atual:"
+  },
+  "date": {
+    "weekdays": {
+      "sunday": "Domingo",
+      "monday": "Segunda-feira",
+      "tuesday": "Terça-feira",
+      "wednesday": "Quarta-feira",
+      "thursday": "Quinta-feira",
+      "friday": "Sexta-feira",
+      "saturday": "Sábado"
+    },
+    "months": {
+      "january": "Janeiro",
+      "february": "Fevereiro",
+      "march": "Março",
+      "april": "Abril",
+      "may": "Maio",
+      "june": "Junho",
+      "july": "Julho",
+      "august": "Agosto",
+      "september": "Setembro",
+      "october": "Outubro",
+      "november": "Novembro",
+      "december": "Dezembro"
+    }
+  },
   "dashboard-builder": {
     "title": "Construtor de Dashboard",
     "create": "Criar",
@@ -135,6 +164,63 @@ export const pt: Record<string, unknown> = {
         "not_allowed": "O arquivo {0} não é permitido.",
         "max_size": "O tamanho máximo permitido do ficheiro é {0} MB"
       }
+    },
+    "cron_selector": {
+      "frequency": "Frequência da medicação",
+      "close": "Fechar",
+      "close_schedule": "Fechar plano",
+      "modes": {
+        "daily": "Diário",
+        "hourly": "Intervalo",
+        "weekly": "Semanal"
+      },
+      "dose": "Dose {0}",
+      "remove": "Remover",
+      "add_ocurrence": "Adicionar outro horário",
+      "add_time": "Adicionar outro horário",
+      "repeat_every": "Repetir a cada",
+      "start_date_time": "Data e hora de início",
+      "hours": "horas",
+      "time": "Hora",
+      "generated_schedule": "Horário gerado:",
+      "enable_schedule": "Ativar plano",
+      "disable_schedule": "Desativar plano",
+      "weekdays": {
+        "sunday": "Domingo",
+        "monday": "Segunda-feira",
+        "tuesday": "Terça-feira",
+        "wednesday": "Quarta-feira",
+        "thursday": "Quinta-feira",
+        "friday": "Sexta-feira",
+        "saturday": "Sábado"
+      }
+    },
+    "cron_builder": {
+      "quick_presets": "Predefinições rápidas",
+      "every": "A cada",
+      "minute": "minutos",
+      "hour": "hora",
+      "daily_at": "Diariamente às",
+      "weekdays_preset": "Dias úteis",
+      "all": "Todos",
+      "monthly": "Mensal",
+      "copy": "Copiar",
+      "fields": {
+        "minute": "Minuto",
+        "hour": "Hora",
+        "day": "Dia",
+        "month": "Mês",
+        "weekday": "Dia da semana"
+      },
+      "enable_step": "O 'A cada' só pode ser ativado para valores maiores ou iguais a 1. */0 é inválido.",
+      "copied": "Copiado!",
+      "add_another": "Adicionar outro",
+      "step_value": {
+        "hour": "Valor do intervalo em horas",
+        "minute": "Valor do intervalo em minutos"
+      },
+      "increment": "Aumentar valor",
+      "decrement": "Diminuir valor"
     },
     "dashboard": {
       "palette": "Componentes",

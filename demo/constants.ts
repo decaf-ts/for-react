@@ -17,6 +17,7 @@ export const AppMenu: IMenuItem[] = [
   { label: "menu.code_editor", icon: "ti-code", url: "/code-editor" },
   { label: "menu.barcode", icon: "ti-barcode", url: "/barcode" },
   { label: "menu.math", icon: "ti-math", url: "/math" },
+  { label: "menu.cron", icon: "ti-clock", url: "/cron" },
   { label: "Gantt", icon: "ti-chart-bar", url: "/gantt" },
   { label: "menu.login", icon: "ti-login", url: "/login" },
 ];

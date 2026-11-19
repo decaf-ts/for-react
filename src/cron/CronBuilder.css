@@ -1,0 +1,352 @@
+/* @decaf-ts/for-react/cron builder styles */
+.dcf-cron-builder:not(.dcf-readonly) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dcf-space-4);
+  padding: var(--dcf-space-4);
+  border-radius: var(--dcf-radius-md);
+  background: var(--dcf-color-surface);
+  border: 1px solid var(--dcf-color-gray-2);
+}
+
+.dcf-cron-builder.dcf-cron-builder-disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.dcf-cron-builder-label {
+  margin: 0 0 var(--dcf-space-2);
+  font-size: var(--dcf-font-size-sm);
+  font-weight: 600;
+  color: var(--dcf-color-text-secondary);
+}
+
+.dcf-cron-builder-preset {
+  gap: var(--dcf-space-2);
+  padding: var(--dcf-space-2) var(--dcf-space-4) !important;
+  border-radius: var(--dcf-radius-sm);
+  border: 1px solid var(--dcf-color-gray-2);
+  background: var(--dcf-color-surface-subtle);
+  font-size: var(--dcf-font-size-sm);
+  color: var(--dcf-color-gray-6);
+  font-weight: 600;
+}
+
+.dcf-cron-builder-preset.selectable {
+  overflow: hidden;
+}
+
+.dcf-cron-builder-preset.selectable > div {
+  display: flex;
+  align-items: center;
+  gap: var(--dcf-space-2);
+  min-width: 0;
+}
+
+.dcf-cron-builder-preset.selectable ion-select {
+  --min-height: 20px;
+  height: 38px;
+  min-height: 20px;
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+  flex: 1 1 auto;
+  overflow: hidden;
+  --padding-top: 0;
+  --padding-bottom: 0;
+  --border-color: transparent;
+  --border-width: 0;
+  border: none;
+  box-shadow: none;
+}
+
+.dcf-cron-builder-preset.selectable ion-select::part(text),
+.dcf-cron-builder-preset.selectable ion-select::part(label) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dcf-cron-builder-preset.selectable ion-select:focus-within {
+  border: none !important;
+  box-shadow: none !important;
+  outline: 2px solid var(--dcf-color-primary) !important;
+  outline-offset: 2px;
+}
+
+.dcf-cron-builder-preset:not(.selectable) {
+  display: flex;
+  align-items: center;
+}
+
+.dcf-cron-builder-preset > span {
+  min-width: max-content;
+}
+
+.dcf-cron-builder-preset .dcf-every {
+  color: var(--dcf-color-gray-3);
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+}
+
+.dcf-cron-builder-preset .dcf-every.dcf-color-primary {
+  color: var(--dcf-color-primary);
+}
+
+.dcf-cron-builder-preset .dcf-input-controls {
+  padding-left: 2px;
+  background: rgba(var(--dcf-color-dark-rgb), 0.05);
+  max-height: 38px;
+}
+
+.dcf-cron-builder-preset .dcf-input-controls button {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.dcf-cron-builder-preset .dcf-input-controls > div {
+  width: 1rem;
+  cursor: pointer;
+}
+
+.dcf-cron-builder-preset-input {
+  width: 3.5rem;
+  text-align: center;
+  padding: var(--dcf-space-2) var(--dcf-space-2);
+  border-radius: var(--dcf-radius-xs) 0 0 var(--dcf-radius-xs);
+  border: 1px solid var(--dcf-color-gray-2);
+  background: var(--dcf-color-surface);
+  color: var(--dcf-color-gray-6);
+  font-family: var(--dcf-font-family-mono);
+}
+
+.dcf-cron-builder-preset-input:focus {
+  outline: none;
+  border-color: var(--dcf-color-primary);
+}
+
+.dcf-grid-fields {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--dcf-space-2);
+}
+
+@media (max-width: 576px) {
+  .dcf-grid-fields {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.dcf-grid-fields.presets {
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+}
+
+.dcf-cron-builder-field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--dcf-space-1);
+}
+
+.dcf-cron-builder-field-label {
+  font-size: var(--dcf-font-size-sm);
+  font-weight: 600;
+  color: var(--dcf-color-text-secondary);
+}
+
+.dcf-cron-builder-field-input {
+  width: 100%;
+  text-align: center;
+  padding: var(--dcf-space-2);
+  border-radius: var(--dcf-radius-sm);
+  border: 1px solid var(--dcf-color-gray-2);
+  background: var(--dcf-color-surface);
+  color: var(--dcf-color-gray-6);
+  font-family: var(--dcf-font-family-mono);
+  font-weight: 600;
+}
+
+.dcf-cron-builder-field-input:focus {
+  outline: none;
+  border-color: var(--dcf-color-primary);
+}
+
+.dcf-cron-builder-result {
+  padding: var(--dcf-space-4);
+  border-radius: var(--dcf-radius-md);
+  background: var(--dcf-color-surface-shade);
+  border: 1px solid var(--dcf-color-gray-2);
+}
+
+.dcf-cron-description {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--dcf-space-3);
+  margin-bottom: var(--dcf-space-2);
+}
+
+.dcf-cron-description .dcf-copy-button .ti {
+  font-size: 1rem;
+  margin-right: 5px;
+}
+
+.dcf-cron-description code {
+  display: inline-block;
+  background: rgba(var(--dcf-color-primary-rgb), 0.125);
+  padding: var(--dcf-space-1) var(--dcf-space-3);
+  border-radius: var(--dcf-radius-sm);
+  color: var(--dcf-color-primary-shade);
+  font-family: var(--dcf-font-family-mono);
+  font-size: 1.75rem;
+  letter-spacing: 0.25rem;
+  font-weight: 600;
+}
+
+.dcf-cron-builder-description {
+  display: inline-block;
+  margin-top: var(--dcf-space-2) !important;
+  font-size: var(--dcf-font-size-sm);
+  color: var(--dcf-color-gray-6);
+  font-weight: 600 !important;
+}
+
+.dcf-cron-builder-multiple {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dcf-space-2);
+}
+
+.dcf-cron-builder-accumulated {
+  background: transparent;
+  padding: 0;
+}
+
+.dcf-cron-builder-accumulated ion-item {
+  margin-top: var(--dcf-space-1);
+  margin-bottom: var(--dcf-space-2);
+  border: 1px solid var(--dcf-color-gray-2);
+  border-radius: var(--dcf-radius-sm);
+  --background: var(--dcf-color-surface);
+  --border-color: transparent;
+  --inner-border-width: 0;
+  --padding-start: var(--dcf-space-1);
+  --inner-padding-end: var(--dcf-space-4);
+  --border-radius: var(--dcf-radius-sm);
+  transition:
+    box-shadow var(--dcf-motion-base),
+    border-color var(--dcf-motion-base);
+}
+
+.dcf-cron-builder-accumulated ion-item:hover {
+  --box-shadow: var(--dcf-shadow-element);
+  box-shadow: var(--dcf-shadow-element);
+}
+
+.dcf-cron-builder-accumulated ion-item code {
+  font-family: var(--dcf-font-family-mono);
+  font-size: var(--dcf-font-size-sm);
+  color: var(--dcf-color-gray-6);
+}
+
+.dcf-cron-builder-accumulated ion-item .dcf-cron-builder-item-end {
+  align-items: center;
+  gap: var(--dcf-space-2);
+}
+
+.dcf-cron-builder-accumulated ion-item .dcf-cron-builder-item-readable {
+  font-size: var(--dcf-font-size-sm);
+  color: var(--dcf-color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 16rem;
+}
+
+.dcf-cron-builder-accumulated ion-item .dcf-task-icon {
+  margin-right: var(--dcf-space-2);
+}
+
+.dcf-cron-builder-accumulated ion-item .dcf-button-delete {
+  --padding-start: 0.25rem !important;
+  --padding-end: 0.25rem !important;
+  transition:
+    color var(--dcf-motion-base) var(--dcf-easing-standard),
+    background var(--dcf-motion-base) var(--dcf-easing-standard);
+}
+
+.dcf-cron-builder-accumulated ion-item .dcf-button-delete .dcf-text {
+  display: inline-block;
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  transition:
+    max-width var(--dcf-motion-slow) var(--dcf-easing-standard),
+    opacity var(--dcf-motion-base) var(--dcf-easing-standard);
+}
+
+.dcf-cron-builder-accumulated ion-item .dcf-button-delete:hover .dcf-text {
+  transition: max-width var(--dcf-motion-2slow) var(--dcf-easing-standard);
+  max-width: 8rem;
+  opacity: 1;
+}
+
+.dcf-cron-builder ion-item {
+  --border-color: transparent;
+}
+
+.dcf-cron-builder ion-item.dcf-input-item {
+  --padding-end: 0rem;
+  --padding-start: 0px !important;
+  --padding-top: 0px !important;
+  --inner-padding-start: 0.75rem;
+  --background: transparent;
+  --background-hover-opacity: 0.1;
+  --background-activated-opacity: 0.15;
+  --background-focused-opacity: 0.15;
+  --background-hover: var(--dcf-color-primary);
+  --background-focused: var(--dcf-color-primary);
+  --border-color: var(--dcf-color-gray-2);
+  --min-height: 30px;
+  padding: unset;
+  margin: unset !important;
+  margin-bottom: var(--dcf-margin-xsmall) !important;
+}
+
+.dcf-cron-builder ion-item.dcf-input-item.dcf-palette-dark {
+  --border-color: var(--dcf-color-gray-6) !important;
+}
+
+.dcf-cron-builder ion-item.dcf-input-item .dcf-empty {
+  padding-left: 0.05rem;
+}
+
+.dcf-cron-builder ion-item.dcf-input-item ion-label {
+  font-weight: 600;
+  margin-top: 0px !important;
+  margin-bottom: 0.25rem !important;
+  font-size: 0.925rem;
+  color: var(--color);
+}
+
+.dcf-cron-builder ion-item.dcf-input-item span,
+.dcf-cron-builder ion-item.dcf-input-item ion-text {
+  font-weight: 400 !important;
+  font-size: 0.825rem;
+  min-height: 0.5rem !important;
+}
+
+.dcf-cron-builder ion-item.dcf-input-item span:not(.dcf-display-block) {
+  display: inline-block;
+}
+
+.dcf-cron-builder ion-item.dcf-input-item span.dcf-display-block {
+  display: block !important;
+}

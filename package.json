@@ -65,8 +65,20 @@
       },
       "default": "./lib/esm/math/index.js"
     },
+    "./cron": {
+      "import": {
+        "types": "./lib/types/cron/index.d.mts",
+        "default": "./lib/esm/cron/index.js"
+      },
+      "require": {
+        "types": "./lib/types/cron/index.d.cts",
+        "default": "./lib/cjs/cron/index.cjs"
+      },
+      "default": "./lib/esm/cron/index.js"
+    },
     "./diagrams/styles.css": "./lib/diagrams/styles.css",
     "./gantt/styles.css": "./lib/gantt/styles.css",
+    "./cron/styles.css": "./lib/cron/styles.css",
     "./styles.css": "./lib/styles.css"
   },
   "main": "./lib/cjs/index.cjs",
@@ -137,6 +149,8 @@
   "peerDependencies": {
     "@bwip-js/browser": "^4.11.4",
     "@decaf-ts/as-graph": "^0.11.5",
+    "@ionic/react": "^9.0.12",
+    "cronstrue": "^3.43.0",
     "mathlive": "^0.111.1",
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
@@ -147,6 +161,7 @@
     "@decaf-ts/utils": "^2.3.0",
     "@eslint/js": "^8.57.1",
     "@faker-js/faker": "^8.4.1",
+    "@ionic/react": "^9.0.12",
     "@playwright/test": "^1.65.1",
     "@swc/core": "^1.16.22",
     "@testing-library/dom": "^10.4.1",
@@ -157,6 +172,7 @@
     "@types/node": "^24.0.0",
     "@types/react": "^19.2.6",
     "@types/react-dom": "^19.2.3",
+    "cronstrue": "^3.43.0",
     "eslint-config-prettier": "^9.1.2",
     "globals": "^15.15.0",
     "jest": "^30.5.2",
@@ -207,6 +223,12 @@
       "optional": true
     },
     "@bwip-js/browser": {
+      "optional": true
+    },
+    "@ionic/react": {
+      "optional": true
+    },
+    "cronstrue": {
       "optional": true
     },
     "mathlive": {

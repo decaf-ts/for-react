@@ -62,6 +62,18 @@ Now you can create new repositories from this template and enjoy having everythi
 - [`@decaf-ts/for-react/diagrams`](./src/diagrams/README.md) — Graph/diagram
   editor surfaces over `@xyflow/react` (React Flow). Importing the subpath is
   the only thing that loads React Flow; the root package does not include it.
+- [`@decaf-ts/for-react/barcode`](./src/barcode/README.md) — GS1 DataMatrix,
+  DataMatrix and QR SVG rendering over `@bwip-js/browser`, plus a thin
+  `<Barcode>` React component. Importing the subpath is the only thing that
+  loads the encoder; the root package does not include it.
+- [`@decaf-ts/for-react/math`](./src/math/README.md) — MathLive-powered
+  controlled math input field. Importing the subpath is the only thing that
+  loads MathLive; the root package does not include it.
+- [`@decaf-ts/for-react/cron`](./src/cron/README.md) — Cron-expression
+  authoring surfaces: the standalone `<CronSelector>`, the five-field
+  `<CronBuilder>` and the `<CronSelectorField>` CRUD form adapter. Importing
+  the subpath is the only thing that loads `cronstrue` and Ionic React; the
+  root package does not include them.
 
 ### Diagrams
 
@@ -114,6 +126,104 @@ dependencies — installed with the package, one copy per app. The peer set is
 unchanged (`react`, `react-dom` `>= 18` plus the optional `@decaf-ts/as-graph`):
 consumers only need their application on the same current `@decaf-ts` line so
 npm resolves a single copy of each module.
+
+### Barcode
+
+The `./barcode` subpath renders GS1 DataMatrix, DataMatrix and QR payloads to
+validated SVG markup with `@bwip-js/browser` and exposes a thin `<Barcode>` React
+component. See [`src/barcode/README.md`](./src/barcode/README.md) for the full
+component, helper and validator contract.
+
+Install requirements:
+
+- `@bwip-js/browser@^4.11.4` is an **optional peer** of the package and is
+  **required by this subpath**: install it only in applications that import
+  `./barcode`; the root entry point never loads it.
+- The subpath is **ESM-only**: `@bwip-js/browser@4.11.4` publishes only `types`
+  and `import` export conditions, so `require('@decaf-ts/for-react/barcode')`
+  throws `ERR_PACKAGE_PATH_NOT_EXPORTED`. CommonJS hosts must use a dynamic
+  `import()`.
+
+Rendering is client-only: `renderBarcodeSvg` produces validated SVG markup and
+`<Barcode>` binds it through `dangerouslySetInnerHTML`, so both require a browser
+DOM. `validateBarcodeSvg` is a mandatory gate on every render path; it throws a
+`ValidationError` instead of emitting unvalidated markup.
+
+The demo app (`npm run dev`, `http://localhost:8111`) ships the barcode route:
+
+| Route | What it exercises |
+| --- | --- |
+| `/barcode` | [`./barcode`](./src/barcode/README.md): `<Barcode>` and `renderBarcodeSvg` over an editable payload with symbology (`BarcodeTypes`) and scale selectors, the validated SVG output and the error/empty states |
+
+### Math
+
+The `./math` subpath renders a controlled math input field backed by MathLive
+and exposes a thin `<MathInput>` React component (`MathInputComponent` and
+`RgxMathInput` aliases). See [`src/math/README.md`](./src/math/README.md) for
+the full component contract.
+
+Install requirements:
+
+- `mathlive@^0.111.1` is an **optional peer** of the package and is
+  **required by this subpath**: install it only in applications that import
+  `./math`; the root entry point never loads it.
+- The subpath is **dual ESM + CJS**: `mathlive` publishes `require` conditions
+  alongside `import`, so `require('@decaf-ts/for-react/math')` works in
+  CommonJS hosts without a dynamic `import()`.
+
+Loading is lazy and failure-tolerant: `import('mathlive')` is memoized and
+issued only after mount, the import promise is released on unmount, and a
+failed load leaves the field inert instead of throwing — so server rendering
+emits the empty field markup and never evaluates MathLive. The component is
+fully controlled (`value`, `placeholder`, `disabled`), emits both `onChange`
+and `onValueChange` per edit, skips no-op writes to preserve the cursor and
+selection, and pins `mathVirtualKeyboardPolicy: 'manual'` so hosts keep
+keyboard control.
+
+The demo app (`npm run dev`, `http://localhost:8111`) ships the math route:
+
+| Route | What it exercises |
+| --- | --- |
+| `/math` | [`./math`](./src/math/README.md): `<MathInput>` over an editable formula with value/placeholder/disabled controls, both change callbacks, a read-only toggle and reset button, and the rendered preview |
+
+### Cron
+
+The `./cron` subpath hosts the cron-expression editing surfaces: the standalone
+`<CronSelector>` (mode-based schedule editor over daily, hourly interval and
+weekly modes), the five-field `<CronBuilder>` (per-field editing with
+"every N" interval toggles, quick presets, copy-to-clipboard and `multiple`
+accumulation) and the `<CronSelectorField>` CRUD adapter for the for-react
+form-provider contract, plus `registerCronComponents()` to register the
+components with the rendering engine for model-driven forms. See
+[`src/cron/README.md`](./src/cron/README.md) for the full component, helper and
+registration contract.
+
+Install requirements:
+
+- `cronstrue@^3` and `@ionic/react@^9` are **optional peers** of the package
+  and are **required by this subpath**: install them only in applications that
+  import `./cron`; the root entry point never loads them.
+- The subpath is **dual ESM + CJS**: both `import` and `require` conditions are
+  published, so `require('@decaf-ts/for-react/cron')` works in CommonJS hosts
+  without a dynamic `import()`.
+
+Styles are consumer-wired — the subpath never imports CSS itself:
+
+```ts
+import "@ionic/react/css/core.css"; // Ionic base styles required by the Ion components
+import "@decaf-ts/for-react/cron/styles.css"; // cron theme on top
+```
+
+i18n: the `component.cron_selector`, `component.cron_builder`, `cron_selector`
+and `date` dictionaries ship with the package's English and Portuguese
+resources, so selector, builder and weekday/month labels — and the generated
+cronstrue descriptions — re-render when the active language changes.
+
+The demo app (`npm run dev`, `http://localhost:8111`) ships the cron route:
+
+| Route | What it exercises |
+| --- | --- |
+| `/cron` | [`./cron`](./src/cron/README.md): `<CronSelector>` and `<CronBuilder>` side by side with describe/disabled and hide-daily/interval/weekly toggles, and the generated expression output |
 
 ### Dashboard builder demo
 

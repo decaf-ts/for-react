@@ -6,11 +6,7 @@ const config = {
   verbose: true,
   rootDir: __dirname,
   transform: {
-    "^.+\\.tsx?$": [
-      "ts-jest",
-      { tsconfig: "./tsconfig.jest.json", isolatedModules: true },
-    ],
-    "^.+\\.mjs$": [
+    "^.+\\.(tsx?|jsx?|mjs)$": [
       "ts-jest",
       {
         tsconfig: "./tsconfig.jest.json",
@@ -19,7 +15,9 @@ const config = {
       },
     ],
   },
-  transformIgnorePatterns: ["/node_modules/(?!@bwip-js/)"],
+  transformIgnorePatterns: [
+    "/node_modules/(?!(@bwip-js/|@ionic/|@stencil/|@lit/|lit/|lit-html/|lit-element/|ionicons/))",
+  ],
   testEnvironment: "jsdom",
   setupFilesAfterEnv: ["<rootDir>/tests/setup.ts"],
   testRegex: "/tests/.*\\.(test|spec)\\.(ts|tsx)$",
@@ -34,6 +32,8 @@ const config = {
       "<rootDir>/node_modules/node-fetch-native/dist/node.cjs",
     "^@bwip-js/browser$":
       "<rootDir>/node_modules/@bwip-js/browser/dist/bwip-js.mjs",
+    "^ionicons/components/(.*)$":
+      "<rootDir>/node_modules/ionicons/components/$1",
   },
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
   collectCoverage: false,

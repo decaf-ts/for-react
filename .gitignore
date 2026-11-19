@@ -14,6 +14,8 @@
 !/workdocs/reports/jest.coverage.config.cjs
 /workdocs/uml/*
 !/workdocs/uml/*.puml
+/workdocs/locks/*
+!workdocs/locks/.gitkeep
 /.token
 /.npmtoken
 /.dockertoken

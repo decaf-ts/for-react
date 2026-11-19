@@ -60,3 +60,9 @@ bundle(
   path.join(root, "lib", "diagrams", "styles.css"),
   "@decaf-ts/for-react/diagrams adapter styles"
 );
+
+bundle(
+  path.join(root, "src", "cron"),
+  path.join(root, "lib", "cron", "styles.css"),
+  "@decaf-ts/for-react/cron adapter styles"
+);

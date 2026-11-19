@@ -22,7 +22,8 @@
     "login": "Login",
     "not_found": "Not found",
     "barcode": "Barcode",
-    "math": "Math input"
+    "math": "Math input",
+    "cron": "Cron expression"
   },
   "operations": {
     "read": {
@@ -379,5 +380,19 @@
     "output_label": "Current LaTeX",
     "empty": "Empty field",
     "note": "MathLive loads lazily after mount. When it is unavailable the field stays inert instead of throwing."
+  },
+  "cron": {
+    "title": "Cron expression",
+    "intro": "Build and preview cron schedules with the React CronSelector and CronBuilder ports. The selector authors daily, interval and weekly schedules; the builder edits each cron field with quick presets and multiple-expression accumulation.",
+    "options_label": "Preview options",
+    "describe_label": "Describe schedule",
+    "disabled_label": "Disabled",
+    "hide_daily": "Hide daily",
+    "hide_interval": "Hide interval",
+    "hide_weekly": "Hide weekly",
+    "selector_label": "Cron selector",
+    "builder_label": "Cron builder",
+    "builder_field_label": "Schedule",
+    "note": "Descriptions come from cronstrue and re-render when the demo language changes. Ionic React is loaded only by the /cron subpath."
   }
 }

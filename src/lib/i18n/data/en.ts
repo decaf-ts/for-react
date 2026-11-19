@@ -51,6 +51,35 @@ export const en: Record<string, unknown> = {
       "error": "Error deleting item with {0} {1}."
     }
   },
+  "cron_selector": {
+    "title": "Cron Selector",
+    "current_cron": "Current cron:"
+  },
+  "date": {
+    "weekdays": {
+      "sunday": "Sunday",
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday"
+    },
+    "months": {
+      "january": "January",
+      "february": "February",
+      "march": "March",
+      "april": "April",
+      "may": "May",
+      "june": "June",
+      "july": "July",
+      "august": "August",
+      "september": "September",
+      "october": "October",
+      "november": "November",
+      "december": "December"
+    }
+  },
   "dashboard-builder": {
     "title": "Dashboard Builder",
     "create": "Create",
@@ -139,6 +168,62 @@ export const en: Record<string, unknown> = {
         "not_allowed": "File {0} is not allowed.",
         "max_size": "The maximum allowed file size is {0} MB"
       }
+    },
+    "cron_selector": {
+      "frequency": "Medication frequency",
+      "close": "Close",
+      "close_schedule": "Close schedule",
+      "modes": {
+        "daily": "Daily",
+        "hourly": "Interval",
+        "weekly": "Weekly"
+      },
+      "dose": "Dose {0}",
+      "remove": "Remove",
+      "add_ocurrence": "Add another ocurrence",
+      "repeat_every": "Repeat every",
+      "start_date_time": "Start date and time",
+      "hours": "hours",
+      "time": "Time",
+      "generated_schedule": "Generated schedule:",
+      "enable_schedule": "Enable schedule",
+      "disable_schedule": "Disable schedule",
+      "weekdays": {
+        "sunday": "Sunday",
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday"
+      }
+    },
+    "cron_builder": {
+      "quick_presets": "Quick presets",
+      "every": "Every",
+      "minute": "minutes",
+      "hour": "hour",
+      "daily_at": "Daily at",
+      "weekdays_preset": "Weekdays",
+      "all": "All",
+      "monthly": "Monthly",
+      "copy": "Copy",
+      "fields": {
+        "minute": "Minute",
+        "hour": "Hour",
+        "day": "Day",
+        "month": "Month",
+        "weekday": "Weekday"
+      },
+      "enable_step": "Every can only be enabled for values greater than or equal to 1. */0 is invalid.",
+      "copied": "Copied!",
+      "add_another": "Add another",
+      "step_value": {
+        "hour": "Step value in hours",
+        "minute": "Step value in minutes"
+      },
+      "increment": "Increase value",
+      "decrement": "Decrease value"
     },
     "dashboard": {
       "palette": "Components",
