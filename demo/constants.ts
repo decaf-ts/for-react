@@ -9,6 +9,7 @@ export const AppMenu: IMenuItem[] = [
   { label: "menu.list_model", icon: "ti-list", url: "/list-model" },
   { label: "menu.model_builder", icon: "ti-scan-cube", url: "/model-builder" },
   { label: "menu.components", icon: "ti-components", url: "/components" },
+  { label: "menu.code_editor", icon: "ti-code", url: "/code-editor" },
   { label: "menu.login", icon: "ti-login", url: "/login" },
 ];
 

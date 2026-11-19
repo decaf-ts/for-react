@@ -541,3 +541,143 @@ textarea {
   border-color: var(--app-accent);
   color: var(--app-accent-text);
 }
+
+.code-editor-page__layout {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr);
+}
+
+@media (max-width: 960px) {
+  .code-editor-page__layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.code-editor-page__panel {
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.code-editor-page__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.code-editor-page__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.code-editor-page__field select {
+  border: 1px solid var(--app-border);
+  border-radius: 0.4rem;
+  padding: 0.45rem;
+  font: inherit;
+  font-weight: 400;
+  background: var(--app-surface);
+  color: var(--app-text);
+}
+
+.code-editor-page__reset {
+  border: 1px solid var(--app-accent);
+  background: transparent;
+  color: var(--app-accent);
+  border-radius: 0.4rem;
+  padding: 0.45rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.code-editor-page__snippets {
+  margin-top: 1rem;
+}
+
+.code-editor-page__snippets h3,
+.code-editor-page__status h3 {
+  margin: 0 0 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.code-editor-page__snippet-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.code-editor-page__snippet {
+  border: 1px solid var(--app-border);
+  background: transparent;
+  color: var(--app-text);
+  border-radius: 0.4rem;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.code-editor-page__status {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.code-editor-page__stats {
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+}
+
+.code-editor-page__stats dt {
+  font-size: 0.75rem;
+  color: var(--app-muted);
+  text-transform: uppercase;
+}
+
+.code-editor-page__stats dd {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.code-editor-page__syntax {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--app-muted);
+}
+
+.code-editor-page__syntax--ok {
+  color: #00796b;
+  font-weight: 600;
+}
+
+.code-editor-page__syntax--error {
+  color: var(--app-danger);
+  font-weight: 600;
+}
+
+.code-editor-page__emitted {
+  margin: 0;
+  padding: 0.75rem;
+  background: var(--app-bg);
+  border-radius: 0.4rem;
+  font-size: 0.875rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 320px;
+  overflow: auto;
+}
+
+.code-editor-page__empty {
+  margin: 0;
+  color: var(--app-muted);
+  font-size: 0.875rem;
+}

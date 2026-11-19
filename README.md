@@ -51,6 +51,12 @@ Now you can create new repositories from this template and enjoy having everythi
   - [WebStorm](./workdocs/tutorials/For%20Developers.md#webstorm)
 - [Considerations](./workdocs/tutorials/For%20Developers.md#considerations)
 
+### Subpath exports
+
+- [`@decaf-ts/for-react/code-editor`](./src/code-editor/README.md) — CodeMirror 6
+  code/formula editor built on `@uiw/react-codemirror`. Importing the subpath is
+  the only thing that loads CodeMirror; the root package does not include it.
+
 
 
 

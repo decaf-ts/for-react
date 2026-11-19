@@ -18,6 +18,7 @@
     "list_model": "Listas de modelos",
     "model_builder": "Construtor de modelos",
     "components": "Componentes",
+    "code_editor": "Editor de código",
     "login": "Entrar",
     "not_found": "Não encontrado"
   },
@@ -296,6 +297,29 @@
       "label": "Valor GS1"
     },
     "empty": "não definido"
+  },
+  "code_editor": {
+    "title": "Editor de código",
+    "intro": "Superfície de edição de código e fórmulas baseada no CodeMirror 6. Alterne os modos, carregue um excerto e acompanhe o documento emitido.",
+    "mode_label": "Modo",
+    "mode_code": "Código",
+    "mode_formula": "Fórmula",
+    "reset": "Limpar",
+    "snippets_label": "Excertos",
+    "snippet_transform": "Transformação",
+    "snippet_filter": "Filtro",
+    "snippet_formula": "Fórmula",
+    "status_title": "Estado",
+    "lines_label": "Linhas",
+    "characters_label": "Caracteres",
+    "syntax_ok": "A sintaxe parece válida",
+    "syntax_error": "Erro de sintaxe: {message}",
+    "syntax_formula": "Modo fórmula (sem validação JavaScript)",
+    "syntax_empty": "Comece a escrever para ver a validação",
+    "emitted_title": "Última emissão",
+    "emitted_empty": "Ainda não há edições emitidas",
+    "placeholder_code": "return value * 2;",
+    "placeholder_formula": "$input.value > 0"
   },
   "not_found": {
     "title": "Página não encontrada",

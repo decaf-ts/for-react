@@ -18,6 +18,7 @@
     "list_model": "Model lists",
     "model_builder": "Model builder",
     "components": "Components",
+    "code_editor": "Code editor",
     "login": "Login",
     "not_found": "Not found"
   },
@@ -296,6 +297,29 @@
       "label": "GS1 value"
     },
     "empty": "not set"
+  },
+  "code_editor": {
+    "title": "Code editor",
+    "intro": "Code and formula editing surface backed by CodeMirror 6. Switch modes, load a snippet, and watch the emitted document update.",
+    "mode_label": "Mode",
+    "mode_code": "Code",
+    "mode_formula": "Formula",
+    "reset": "Reset",
+    "snippets_label": "Snippets",
+    "snippet_transform": "Transform",
+    "snippet_filter": "Filter",
+    "snippet_formula": "Formula",
+    "status_title": "Status",
+    "lines_label": "Lines",
+    "characters_label": "Characters",
+    "syntax_ok": "Syntax looks valid",
+    "syntax_error": "Syntax error: {message}",
+    "syntax_formula": "Formula mode (no JavaScript check)",
+    "syntax_empty": "Start typing to see validation",
+    "emitted_title": "Last emission",
+    "emitted_empty": "No edits emitted yet",
+    "placeholder_code": "return value * 2;",
+    "placeholder_formula": "$input.value > 0"
   },
   "not_found": {
     "title": "Page not found",

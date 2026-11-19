@@ -18,6 +18,7 @@ import { ListModelPage } from "./pages/ListModelPage";
 import { ModelPage } from "./pages/ModelPage";
 import { LoginPage } from "./pages/LoginPage";
 import { ComponentsPage } from "./pages/ComponentsPage";
+import { CodeEditorPage } from "./pages/CodeEditorPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 
 const titles: Record<string, string> = {
@@ -29,6 +30,7 @@ const titles: Record<string, string> = {
   "/list-model": "menu.list_model",
   "/model": "menu.model",
   "/components": "menu.components",
+  "/code-editor": "menu.code_editor",
   "/login": "menu.login",
 };
 
@@ -65,6 +67,7 @@ export function App() {
             <Route path="/list-model" element={<ListModelPage />} />
             <Route path="/model" element={<ModelPage />} />
             <Route path="/components" element={<ComponentsPage />} />
+            <Route path="/code-editor" element={<CodeEditorPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/home" element={<Navigate to="/" replace />} />
             <Route path="*" element={<NotFoundPage />} />
