@@ -95,6 +95,22 @@ export const en: Record<string, unknown> = {
       "note": "Note"
     }
   },
+  "calendar": {
+    "title": "Calendar",
+    "label": "Calendar",
+    "previous_month": "Previous month",
+    "next_month": "Next month",
+    "today": "Today",
+    "day_with_events": "{0}: {1}",
+    "event": {
+      "site_visit": "Site visit",
+      "inspection": "Health and safety inspection",
+      "delivery": "Material delivery",
+      "training": "Toolbox training",
+      "audit": "Quality audit",
+      "handover": "Project handover"
+    }
+  },
   "component": {
     "fieldset": {
       "add": "Add another",

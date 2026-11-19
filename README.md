@@ -74,6 +74,10 @@ Now you can create new repositories from this template and enjoy having everythi
   `<CronBuilder>` and the `<CronSelectorField>` CRUD form adapter. Importing
   the subpath is the only thing that loads `cronstrue` and Ionic React; the
   root package does not include them.
+- [`@decaf-ts/for-react/calendar`](./src/calendar/README.md) — Presentation-only
+  controlled month-grid calendar over `react-day-picker` and `date-fns`.
+  Importing the subpath is the only thing that loads either library; the root
+  package does not include them.
 
 ### Diagrams
 
@@ -224,6 +228,55 @@ The demo app (`npm run dev`, `http://localhost:8111`) ships the cron route:
 | Route | What it exercises |
 | --- | --- |
 | `/cron` | [`./cron`](./src/cron/README.md): `<CronSelector>` and `<CronBuilder>` side by side with describe/disabled and hide-daily/interval/weekly toggles, and the generated expression output |
+
+### Calendar
+
+The `./calendar` subpath hosts a presentation-only, controlled month-grid
+calendar over `react-day-picker`, with `date-fns` for the localized month,
+weekday and date labels. It renders a fixed six-week grid with a single date
+selection, host-owned event markers and month navigation, and owns no state:
+the host supplies the year, month, selection and events and applies the
+emitted `onDateSelected`/`onMonthChange` requests back. See
+[`src/calendar/README.md`](./src/calendar/README.md) for the full component,
+props and helper contract.
+
+Install requirements:
+
+- `react-day-picker@10.0.2` and `date-fns@^4.1.0` are **optional peers** of
+  the package and are **required by this subpath**: install them only in
+  applications that import `./calendar`; the root entry point never loads
+  them. `@date-fns/tz` is an optional peer too, but the calendar itself
+  imports only `react-day-picker` and `date-fns`, so install it only when the
+  host uses it directly.
+- The subpath is **dual ESM + CJS**: both `import` and `require` conditions
+  are published, so `require('@decaf-ts/for-react/calendar')` works in
+  CommonJS hosts without a dynamic `import()`.
+
+The calendar is **prop-driven** — i18n is wired by the host, never by the
+component:
+
+- `locale` is a plain prop defaulting to `en-GB`: a BCP 47 tag mapped to the
+  bundled `date-fns` locale table, with unknown tags falling back to the base
+  language and finally to `enGB`.
+- Every label prop (`label`, `previousMonthLabel`, `nextMonthLabel`,
+  `todayLabel`) is a plain string with an English default. The subpath ships
+  no locale files and never touches a translation provider.
+- Applications that follow the surrounding language resolve the tag and the
+  translated labels themselves — at the page level — and pass the resolved
+  values down, as the demo page does.
+
+Styles are consumer-wired — the subpath never imports CSS itself:
+
+```ts
+import "@decaf-ts/for-react/calendar/styles.css"; // calendar theme
+```
+
+The demo app (`npm run dev`, `http://localhost:8111`) ships the calendar
+route:
+
+| Route | What it exercises |
+| --- | --- |
+| `/calendar` | [`./calendar`](./src/calendar/README.md): `<Calendar>` over host-owned year/month/selection state with event markers, a details panel for the selected day and the Today gesture — with the locale and label strings resolved by the demo page through its own i18n |
 
 ### Dashboard builder demo
 

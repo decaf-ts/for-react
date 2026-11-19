@@ -66,3 +66,9 @@ bundle(
   path.join(root, "lib", "cron", "styles.css"),
   "@decaf-ts/for-react/cron adapter styles"
 );
+
+bundle(
+  path.join(root, "src", "calendar"),
+  path.join(root, "lib", "calendar", "styles.css"),
+  "@decaf-ts/for-react/calendar component styles"
+);

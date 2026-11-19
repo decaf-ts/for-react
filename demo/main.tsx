@@ -18,6 +18,7 @@ import "../src/lib/components/searchbar/searchbar.component.css";
 import "../src/cron/CronSelector.css";
 import "../src/cron/CronBuilder.css";
 import "../src/cron/CronSelectorField.css";
+import "../src/calendar/calendar.css";
 import {
   registerDefaultComponents,
   RgxI18nProvider,

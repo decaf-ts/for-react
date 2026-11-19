@@ -23,7 +23,34 @@
     "not_found": "Não encontrado",
     "barcode": "Código de barras",
     "math": "Entrada matemática",
-    "cron": "Expressão cron"
+    "cron": "Expressão cron",
+    "calendar": "Calendário"
+  },
+  "calendar": {
+    "title": "Calendário",
+    "intro": "Um calendário mensal controlado, portado do entry point Angular. O mês, a seleção e os eventos pertencem ao anfitrião; o Calendar apenas os renderiza e emite os pedidos de alteração.",
+    "demo_label": "Calendário de reservas",
+    "details_label": "Estado controlado",
+    "month_label": "Mês renderizado",
+    "month_value": "{month}/{year}",
+    "selected_label": "Data selecionada",
+    "no_selection": "Nada selecionado",
+    "events_label": "Eventos do dia selecionado",
+    "no_events": "Sem eventos no dia selecionado.",
+    "note": "O calendário nunca altera o seu próprio mês ou seleção. Aplicar os payloads de monthChange e dateSelected é decisão do anfitrião.",
+    "label": "Calendário",
+    "previous_month": "Mês anterior",
+    "next_month": "Mês seguinte",
+    "today": "Hoje",
+    "day_with_events": "{0}: {1}",
+    "event": {
+      "site_visit": "Visita ao local",
+      "inspection": "Inspeção de segurança",
+      "delivery": "Entrega de material",
+      "training": "Formação de segurança",
+      "audit": "Auditoria de qualidade",
+      "handover": "Entrega da obra"
+    }
   },
   "operations": {
     "read": {

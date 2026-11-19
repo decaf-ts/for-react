@@ -95,6 +95,22 @@ export const pt: Record<string, unknown> = {
       "note": "Nota"
     }
   },
+  "calendar": {
+    "title": "Calendário",
+    "label": "Calendário",
+    "previous_month": "Mês anterior",
+    "next_month": "Mês seguinte",
+    "today": "Hoje",
+    "day_with_events": "{0}: {1}",
+    "event": {
+      "site_visit": "Visita ao local",
+      "inspection": "Inspeção de segurança",
+      "delivery": "Entrega de material",
+      "training": "Formação de segurança",
+      "audit": "Auditoria de qualidade",
+      "handover": "Entrega da obra"
+    }
+  },
   "component": {
     "fieldset": {
       "add": "Adicionar outro",

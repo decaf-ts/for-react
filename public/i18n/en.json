@@ -23,7 +23,34 @@
     "not_found": "Not found",
     "barcode": "Barcode",
     "math": "Math input",
-    "cron": "Cron expression"
+    "cron": "Cron expression",
+    "calendar": "Calendar"
+  },
+  "calendar": {
+    "title": "Calendar",
+    "intro": "A controlled month-grid calendar ported from the Angular entry point. Month, selection and events are owned by the host; the Calendar only renders them and emits the requested changes.",
+    "demo_label": "Bookings calendar",
+    "details_label": "Controlled state",
+    "month_label": "Rendered month",
+    "month_value": "{month}/{year}",
+    "selected_label": "Selected date",
+    "no_selection": "Nothing selected",
+    "events_label": "Selected day events",
+    "no_events": "No events on the selected day.",
+    "note": "The calendar never changes its own month or selection. Applying the emitted monthChange and dateSelected payloads is the host's decision.",
+    "label": "Calendar",
+    "previous_month": "Previous month",
+    "next_month": "Next month",
+    "today": "Today",
+    "day_with_events": "{0}: {1}",
+    "event": {
+      "site_visit": "Site visit",
+      "inspection": "Health and safety inspection",
+      "delivery": "Material delivery",
+      "training": "Toolbox training",
+      "audit": "Quality audit",
+      "handover": "Project handover"
+    }
   },
   "operations": {
     "read": {
