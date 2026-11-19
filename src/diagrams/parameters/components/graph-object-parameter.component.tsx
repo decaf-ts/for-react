@@ -17,7 +17,7 @@ export function GraphObjectParameterComponent({
   onErrorChange,
 }: GraphParameterRendererContract) {
   const properties = (parameter as { properties?: GraphParameterDefinition[] }).properties ?? [];
-  const [issues, setIssues] = useState<Record<string, GraphParameterValueIssue[]>>({});
+  const [, setIssues] = useState<Record<string, GraphParameterValueIssue[]>>({});
   const record =
     typeof value === 'object' && value !== null && !Array.isArray(value)
       ? (value as Record<string, GraphJsonValue>)

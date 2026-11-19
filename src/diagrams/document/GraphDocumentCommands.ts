@@ -153,11 +153,6 @@ function assertValidPatch(patch: GraphNodeInstancePatch): void {
   }
 }
 
-function describeDocument(document: unknown): string {
-  const id = (document as Record<string, unknown>)?.['id'];
-  return typeof id === 'string' ? id : '<missing document>';
-}
-
 function endpointTargetPortIdsOf(
   document: GraphWorkflowDocument,
   edgeId: string,

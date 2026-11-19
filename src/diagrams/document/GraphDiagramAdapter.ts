@@ -45,7 +45,6 @@ import type { GraphNodeManifestReader } from '../catalog/GraphNodeCatalogReader.
 import {
   GRAPH_DOCUMENT_WORKFLOW_NODE_ID,
   graphCanvasViewportOf,
-  graphEndpointNodeId,
   graphEndpointPortOf,
   graphJsonValueCloneOf,
   graphNodeManifestPinnableOf,
@@ -53,11 +52,9 @@ import {
   graphWorkflowDocumentViewportOf,
   graphWorkflowNodeOf,
 } from './GraphDocumentSelectors.js';
-import type { GraphDocumentCommand, GraphNodeInstancePatch } from './GraphDocumentCommands.js';
+import type { GraphDocumentCommand } from './GraphDocumentCommands.js';
 import { applyGraphDocumentCommand } from './GraphDocumentCommands.js';
 import {
-  GRAPH_CANVAS_GHOST_PREFIX,
-  isGraphGhostCanvasId,
   isGraphNodeGhost,
   type NgDiagramMutation,
 } from './GraphDocumentMutation.js';
@@ -366,7 +363,7 @@ function canonicalConditionExpressionOf(record: Record<string, unknown>): Condit
 }
 
 function canonicalConditionsOf(value: unknown): ConditionExpression[] {
-  return (Array.isArray(value) ? value : []).map((item, index) =>
+  return (Array.isArray(value) ? value : []).map((item) =>
     canonicalConditionExpressionOf((item ?? {}) as Record<string, unknown>)
   );
 }
@@ -898,11 +895,6 @@ export function diagramCommandsOf(
  * divergence caused by React Flow's gesture-local edge ids (§4.12 stable
  * document/engine edge ids), instead of duplicating the connection.
  */
-function canvasEdgeEndpointKeyOf(edge: Edge): string {
-  const data = edge as { source?: string; target?: string; sourceHandle?: string | null; targetHandle?: string | null };
-  return `${data.source ?? ''}:${data.sourceHandle ?? ''}->${data.target ?? ''}:${data.targetHandle ?? ''}`;
-}
-
 /**
  * @description Canonical graph adapter bridging the document store and the React Flow canvas. The adapter is intentionally thin in React: React Flow owns its own runtime node/edge state, so there is no model to reconcile. Every canvas gesture is translated into canonical document commands, dispatched to the document store, and the canvas is re-projected from the resulting document.
  * @summary Canonical graph adapter bridging the document store and the React Flow canvas.  The adapter is intentionally thin in React: React Flow owns its own runtime node/edge state, so there is no model to reconcile.

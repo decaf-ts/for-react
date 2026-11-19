@@ -8,6 +8,8 @@
  * Flow is mocked with a handle-capture stub; no pointer simulation.
  */
 jest.mock('@xyflow/react', () => {
+  // jest.mock factories are hoisted above imports, so `require` is the only way to load React here.
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const React = require('react');
   const updateNodeInternals = jest.fn();
   return {

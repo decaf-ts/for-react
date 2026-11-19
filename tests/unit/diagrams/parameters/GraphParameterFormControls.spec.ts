@@ -16,7 +16,6 @@
  *   locator, and credential values to parameter errors.
  */
 import type {
-  GraphCredentialReference,
   GraphJsonValue,
   GraphNodeInstance,
   GraphNodeManifest,

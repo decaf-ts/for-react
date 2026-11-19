@@ -260,7 +260,7 @@ describe('GraphRunCatalogBinding (DECAF-50 §4.19 — GRAPH_NODE_CATALOG_SOURCE 
     );
 
     it('invokes declared node methods through POST /graph/node-types/:kind/methods/:method', async () => {
-      globalThis.fetch = jest.fn((url: string, init?: RequestInit) =>
+      globalThis.fetch = jest.fn((url: string) =>
         url === `${BACKEND_URL}/graph/node-types/core.utility.code/methods/run`
           ? Promise.resolve(httpResponse({ echoed: true }))
           : Promise.reject(new Error(`unexpected fetch: ${url}`)),

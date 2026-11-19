@@ -15,7 +15,6 @@ import {
   type Connection,
   type Edge,
   type FinalConnectionState,
-  type Node,
   type OnBeforeDelete,
   type OnConnect,
   type OnConnectEnd,
@@ -27,7 +26,6 @@ import type {
   GraphWorkflowDocument,
   GraphWorkflowViewport,
 } from '@decaf-ts/as-graph/shared';
-import { ValidationError } from '@decaf-ts/db-decorators';
 import { GraphNodeCatalogStore } from '../../catalog/GraphNodeCatalogStore.js';
 import type { GraphNodeManifestReader } from '../../catalog/GraphNodeCatalogReader.js';
 import { GraphDiagramAdapter } from '../../document/GraphDiagramAdapter.js';
@@ -36,7 +34,6 @@ import { GraphWorkflowDocumentStore } from '../../document/GraphWorkflowDocument
 import { applyGraphDocumentCommand, type GraphDocumentCommand } from '../../document/GraphDocumentCommands.js';
 import {
   isGraphGhostCanvasId,
-  isGraphNodeGhost,
   type GraphDiagramEdgePayload,
 } from '../../document/GraphDocumentMutation.js';
 import { graphDocumentCommandsFromDiagramMutation } from '../../document/GraphDiagramMutationTranslator.js';
@@ -203,7 +200,6 @@ function GraphCanvas({
   useEffect(() => {
     if (!document) return;
     onDocumentChange?.(document);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [version, document]);
 
   const projection = useMemo(() => {

@@ -207,7 +207,6 @@ export function useSignalEffect(fn: () => void | (() => void), deps: readonly un
   useEffect(() => {
     const dispose = effect(fn);
     return dispose;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 }
 

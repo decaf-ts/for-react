@@ -8,7 +8,6 @@
  */
 import type {
   GraphDynamicPortRule,
-  GraphJsonPrimitive,
   GraphJsonValue,
   GraphNodeManifest,
   GraphPortManifest,
@@ -55,15 +54,6 @@ function expandPortIdTemplate(
     .replace(/\$\{id\}/g, values.id)
     .replace(/\$\{index\}/g, String(values.index))
     .replace(/\$\{label\}/g, values.label);
-}
-
-function isGraphJsonPrimitive(value: unknown): value is GraphJsonPrimitive {
-  return (
-    value === null ||
-    typeof value === 'string' ||
-    typeof value === 'number' ||
-    typeof value === 'boolean'
-  );
 }
 
 function dynamicPortIdFor(

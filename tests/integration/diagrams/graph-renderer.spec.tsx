@@ -15,6 +15,8 @@
  *   themselves, while keeping ordinary nodes/edges.
  */
 jest.mock('@xyflow/react', () => {
+  // jest.mock factories are hoisted above imports, so `require` is the only way to load React here.
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const React = require('react');
   const Position = { Left: 'left', Right: 'right', Top: 'top', Bottom: 'bottom' };
   const flow: { props: Record<string, unknown> | null } = { props: null };

@@ -71,7 +71,7 @@ describe('GraphHistoryService', () => {
     service.push('wf1', makeSnapshot('d'), 'change4');
 
     expect(service.canUndoFor('wf1')).toBe(true);
-    let entry = service.undo('wf1');
+    const entry = service.undo('wf1');
     expect(entry?.label).toBe('change3');
 
     service.undo('wf1');

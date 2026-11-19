@@ -11,7 +11,6 @@ import type { GraphNodeManifestReader } from './GraphNodeCatalogReader.js';
 import { graphNodeCatalogFailureOf } from './GraphNodeCatalogApi.js';
 import {
   GraphNodeCatalogStore,
-  type GraphNodeCatalogFailure,
   type GraphNodeCatalogSource,
 } from './GraphNodeCatalogStore.js';
 

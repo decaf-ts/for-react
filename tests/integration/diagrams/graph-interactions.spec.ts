@@ -28,7 +28,6 @@ jest.mock('@xyflow/react', () => ({
 import type { Connection } from '@xyflow/react';
 import type {
   GraphEdgeInstance,
-  GraphNodeInstance,
   GraphNodeManifest,
   GraphPortManifest,
   GraphWorkflowDocument,

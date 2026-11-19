@@ -7,16 +7,6 @@ import type {
   GraphWorkflowDefinition,
 } from '@decaf-ts/as-graph/shared';
 
-interface GraphWorkflowsItem {
-  id: GraphWorkflowsItemId;
-  label: string;
-  icon: string;
-  group: 'primary' | 'secondary';
-  count?: number;
-}
-
-type GraphWorkflowsActionId = 'add' | 'search' | 'filter' | 'toggle';
-type GraphWorkflowsItemId = 'drafts' | 'running' | 'completed' | 'failed' | 'scheduled' | 'archived';
 /**
  * @description Node data shape of the original demo canvas: manifest-derived display fields plus the ports and source-class linkage the renderer and templates rely on.
  * @summary Node data shape of the original demo canvas: manifest-derived display fields plus the ports and source-class linkage the renderer and templates rely on.

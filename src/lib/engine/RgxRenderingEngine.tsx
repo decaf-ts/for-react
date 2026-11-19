@@ -147,8 +147,7 @@ export class RgxRenderingEngine extends RenderingEngine<
   }
 
   override async getModal<C extends DecafComponent<Model>>(
-    component: Partial<C>,
-    ..._args: unknown[]
+    component: Partial<C>
   ): Promise<IDecafModal> {
     return presentModalBridge(component as unknown as RgxModalProps);
   }

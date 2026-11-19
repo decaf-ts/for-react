@@ -5,7 +5,7 @@ import type {
   GraphParameterDefinition,
 } from '@decaf-ts/as-graph/shared';
 import { graphParameterValidationIssuesOf } from './GraphParameterValidationMapper.js';
-import { graphParameterVisibilityOf, type GraphParameterValues } from './GraphParameterVisibilityEvaluator.js';
+import { graphParameterVisibilityOf } from './GraphParameterVisibilityEvaluator.js';
 import type { GraphParameterValueIssue } from './GraphParameterRendererContract.js';
 
 /**

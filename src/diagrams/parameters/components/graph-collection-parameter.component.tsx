@@ -43,7 +43,7 @@ export function GraphCollectionParameterComponent({
   const maxItems = definition.maxItems ?? Number.MAX_SAFE_INTEGER;
   const canAdd = !disabled && items.length < maxItems;
   const canRemove = !disabled;
-  const [issues, setIssues] = useState<Map<number, GraphParameterValueIssue[]>>(new Map());
+  const [, setIssues] = useState<Map<number, GraphParameterValueIssue[]>>(new Map());
 
   const emitItems = (next: unknown[]) => onValueChange(next as GraphJsonValue[]);
 

@@ -80,6 +80,8 @@ function CalendarWeekdays(props: WeekdaysProps): React.ReactElement {
 }
 
 function CalendarWeek(props: WeekProps): React.ReactElement {
+  // `week` is destructured only to keep React Day Picker's prop out of the DOM spread.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { week, ...rest } = props;
   return <tr {...rest} role="row" />;
 }

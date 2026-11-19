@@ -118,7 +118,7 @@ export class GraphHistoryService {
     this.histories.clear();
   }
 
-  setLimit(_limit: number): void {
+  setLimit(): void {
     throw new Error('setLimit not supported when limit is injected via GRAPH_HISTORY_LIMIT token');
   }
 

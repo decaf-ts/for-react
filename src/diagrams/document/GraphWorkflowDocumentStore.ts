@@ -71,7 +71,7 @@ function isLegacyInputBoundaryArtifact(node: GraphNodeInstance, portIds: Readonl
  * canonical document before it lands in the store. Passes through any document
  * that carries no badge; the unchanged reference keeps allocation-free paths.
  */
-function dropLegacyBoundaryArtifacts(document: GraphWorkflowDocument, operation: string): GraphWorkflowDocument {
+function dropLegacyBoundaryArtifacts(document: GraphWorkflowDocument): GraphWorkflowDocument {
   const portIds = new Set<string>(document.inputs.map((port) => port.id));
   const artifactIds = new Set<string>(
     document.nodes.filter((node) => isLegacyInputBoundaryArtifact(node, portIds)).map((node) => node.id)
@@ -182,7 +182,7 @@ function graphEdgeEndpointPairKey(edge: GraphEdgeInstance): string {
  * deduplicate by endpoint pair, preferring document-derived ids over those clones.
  * Passes through edge-unique documents unchanged (allocation-free path).
  */
-function dropDuplicateEdges(document: GraphWorkflowDocument, operation: string): GraphWorkflowDocument {
+function dropDuplicateEdges(document: GraphWorkflowDocument): GraphWorkflowDocument {
   const preserved: GraphEdgeInstance[] = [];
   const firstByPair = new Map<string, number>();
   for (const edge of document.edges) {
@@ -220,11 +220,10 @@ export class GraphWorkflowDocumentStore {
     const prepared = dropDuplicateEdges(
       repairLoopChainsOf(
         dropLegacyGhostArtifacts(
-          dropLegacyBoundaryArtifacts(graphDrawLoopBodies(document), 'initialize')
+          dropLegacyBoundaryArtifacts(graphDrawLoopBodies(document))
         ),
         outputPortHints
-      ),
-      'initialize'
+      )
     );
     this.assertValidShape(prepared, 'initialize');
     this.documentSignal.set(prepared);
@@ -240,11 +239,10 @@ export class GraphWorkflowDocumentStore {
     const prepared = dropDuplicateEdges(
       repairLoopChainsOf(
         dropLegacyGhostArtifacts(
-          dropLegacyBoundaryArtifacts(graphDrawLoopBodies(document), 'replace')
+          dropLegacyBoundaryArtifacts(graphDrawLoopBodies(document))
         ),
         outputPortHints
-      ),
-      'replace'
+      )
     );
     this.assertValidShape(prepared, 'replace');
     this.documentSignal.set(prepared);

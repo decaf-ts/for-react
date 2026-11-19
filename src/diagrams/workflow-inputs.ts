@@ -226,10 +226,6 @@ function getValidationMeta<T extends Record<string, unknown>>(port: GraphPortDef
   return port.validation?.[key] as T | undefined;
 }
 
-function isDateLike(value: unknown): value is string | number | Date {
-  return value instanceof Date || typeof value === 'string' || typeof value === 'number';
-}
-
 function resolveInitialValue(
   port: GraphPortDefinition,
   values?: Record<string, unknown>,
@@ -431,7 +427,7 @@ interface GraphWorkflowModelBuilder {
 }
 
 interface GraphModelBuilderFactory {
-  builder<T>(): GraphWorkflowModelBuilder;
+  builder(): GraphWorkflowModelBuilder;
 }
 
 const ModelBuilderFactory = (decoratorValidation as unknown as {
@@ -534,7 +530,7 @@ export function buildWorkflowInputModelClass(
   workflow: GraphWorkflowDefinition
 ): Constructor<Model> {
   const builder = requireModelBuilder()
-    .builder<Model & Record<string, unknown>>()
+    .builder()
     .setName(`${workflow.name}WorkflowInputs`);
 
   buildWorkflowModelBuilder(builder, workflow.inputs);
