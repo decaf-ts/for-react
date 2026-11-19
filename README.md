@@ -102,6 +102,37 @@ Now you can create new repositories from this template and enjoy having everythi
   side-channel store. The subpath is the only entry point that loads
   `@ai-sdk/react`, `ai` and `zustand`; the root package does not include them.
 
+### Model building utilities
+
+The root `@decaf-ts/for-react` entry point re-exports the model building
+tooling from `@decaf-ts/decorator-validation`: the `ModelBuilder` and
+`AttributeBuilder` runtime builders and the `DecorateOption` type. Importing
+the root entry point also performs the `@decaf-ts/core` side-effect import,
+which registers the core library in the decoration `Metadata` registry.
+
+`ModelBuilder` composes a decorated decaf `Model` class at runtime: declare
+attribute types on the builder (`string`, `number`, `date`, `bigint`,
+`instance`, `model`, `listOf`) and chain the per-attribute validators exposed
+by the returned `AttributeBuilder` (for example `required`):
+
+```ts
+import { ModelBuilder } from "@decaf-ts/for-react";
+
+const User = ModelBuilder.builder()
+  .setName("User")
+  .string("name")
+  .required()
+  .build();
+
+const user = new User({ name: "Ada" });
+```
+
+This is not a subpath export: the builders ship in the root package
+(`src/lib/model-builder/`). They are unrelated to `RgxModelBuilder`, the
+model-builder UI component that is also part of the root surface —
+`ModelBuilder` builds model classes, `RgxModelBuilder` composes model
+definitions in the UI.
+
 ### Diagrams
 
 The `./diagrams` subpath hosts the graph/diagram editor: a canonical workflow

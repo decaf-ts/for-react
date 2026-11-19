@@ -59,7 +59,7 @@ The repository exposes the following npm scripts:
 - `build:prod` – runs `npx build-scripts --prod` to generate optimized production builds.
 - `lint` – executes ESLint across the repository.
 - `lint-fix` – runs ESLint with `--fix` to automatically resolve issues when possible.
-- `prepare-pr` – runs documentation, test, readme refresh, linting, production build, and coverage ahead of opening a pull request.
+- `prepare-pr` – runs linting (`lint-fix`), the production build (`build:prod`), the built-artifact gate (`test:lib`), coverage, and documentation ahead of opening a pull request; `prepare-release` runs the same chain.
 
 #### Repository AI Automation (via Codex)
 
@@ -93,7 +93,7 @@ All automated test scripts live in `package.json`:
 - `test:unit` – runs Jest against files in `tests/unit`.
 - `test:integration` – runs Jest against files in `tests/integration`.
 - `test:all` – executes the entire Jest test suite under `tests`.
-- `test:dist` – runs the full suite twice, once against the compiled `lib` output and once against the `dist` bundle (via the `TEST_TARGET` environment variable).
+- `test:lib` – runs the built-artifact gate (`scripts/test-lib.mjs`) against the compiled `lib` output: verifies that every declared `exports` target (ESM, CJS and type definitions) exists and loads in its module system, probes the root surface (including the `ModelBuilder`/`AttributeBuilder` re-exports) with a runtime model build in both ESM and CJS, and checks that every ESM subpath has a declared CJS counterpart.
 - `test:circular` – checks the source for circular dependencies using `dpdm`.
 - `prepare-it-tests` – no-op hook called by the shared CI workflows (`npm run prepare-it-tests --if-present`) before any test/coverage run; repositories whose integration tests need backing infrastructure implement it to boot that infra.
 - `coverage` – wipes previous coverage JSON files and runs the full test suite with the coverage-specific Jest config to emit reports and badges.
@@ -117,7 +117,7 @@ Preconfigured Jest-based testing:
 - `npm run test` – alias for `test:all`.
 - `npm run test:unit` – executes unit tests under `tests/unit`.
 - `npm run test:integration` – executes integration tests under `tests/integration`.
-- `npm run test:dist` – re-runs the suite against the compiled `lib` and `dist` outputs.
+- `npm run test:lib` – runs the built-artifact gate against the compiled `lib` output.
 - `npm run test:circular` – checks for circular dependencies.
 - `npm run coverage` – stores coverage and test reports under `workdocs/reports`.
 - Coverage and test results become part of the exported docs.
@@ -343,7 +343,7 @@ Common commands for builds, tests, and documentation generation are available in
  - Jest integration:
    - `tests/Unit Tests` - Runs all unit tests (analog to `test:unit`)
    - `tests/Integration Tests` - Runs all integration tests (analog to `test:integration`)
-   - `tests/Bundling Tests` - Runs the dist checks for compiled artifacts (analog to `test:dist`)
+   - `tests/Bundling Tests` - Jest run configuration targeting the `tests/bundling` folder (the compiled-artifact checks now run through `test:lib`)
    - `All Tests` - Runs all tests (analog to `test:all`)
 
  - Node integration:
