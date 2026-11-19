@@ -54,6 +54,17 @@
         "default": "./lib/esm/barcode/index.js"
       }
     },
+    "./math": {
+      "import": {
+        "types": "./lib/types/math/index.d.mts",
+        "default": "./lib/esm/math/index.js"
+      },
+      "require": {
+        "types": "./lib/types/math/index.d.cts",
+        "default": "./lib/cjs/math/index.cjs"
+      },
+      "default": "./lib/esm/math/index.js"
+    },
     "./diagrams/styles.css": "./lib/diagrams/styles.css",
     "./gantt/styles.css": "./lib/gantt/styles.css",
     "./styles.css": "./lib/styles.css"
@@ -124,10 +135,11 @@
   "author": "Tiago Venceslau",
   "license": "MIT",
   "peerDependencies": {
+    "@bwip-js/browser": "^4.11.4",
     "@decaf-ts/as-graph": "^0.11.5",
+    "mathlive": "^0.111.1",
     "react": ">=18.0.0",
-    "react-dom": ">=18.0.0",
-    "@bwip-js/browser": "^4.11.4"
+    "react-dom": ">=18.0.0"
   },
   "devDependencies": {
     "@bwip-js/browser": "^4.11.4",
@@ -151,6 +163,7 @@
     "jest-environment-jsdom": "^30.5.2",
     "jest-html-reporters": "^3.1.7",
     "jest-junit": "^17.0.0",
+    "mathlive": "^0.111.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.18.6",
@@ -194,6 +207,9 @@
       "optional": true
     },
     "@bwip-js/browser": {
+      "optional": true
+    },
+    "mathlive": {
       "optional": true
     }
   }

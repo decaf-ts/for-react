@@ -21,7 +21,8 @@
     "code_editor": "Code editor",
     "login": "Login",
     "not_found": "Not found",
-    "barcode": "Barcode"
+    "barcode": "Barcode",
+    "math": "Math input"
   },
   "operations": {
     "read": {
@@ -365,5 +366,18 @@
     "char_count": "{count} characters",
     "error": "This payload cannot be rendered with the selected symbology.",
     "empty": "Enter a payload to render a barcode."
+  },
+  "math": {
+    "title": "Math input",
+    "intro": "LaTeX formula input backed by the MathLive math field. Type into the field or edit the LaTeX value directly; both stay in sync through the controlled value contract.",
+    "value_label": "LaTeX value",
+    "value_placeholder": "\\frac{a}{b}",
+    "placeholder_label": "Field placeholder",
+    "disabled_label": "Read-only",
+    "reset": "Reset",
+    "preview_label": "Math field",
+    "output_label": "Current LaTeX",
+    "empty": "Empty field",
+    "note": "MathLive loads lazily after mount. When it is unavailable the field stays inert instead of throwing."
   }
 }

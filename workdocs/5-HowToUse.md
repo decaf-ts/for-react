@@ -27,6 +27,9 @@
   DataMatrix and QR SVG rendering over `@bwip-js/browser`, plus a thin
   `<Barcode>` React component. Importing the subpath is the only thing that
   loads the encoder; the root package does not include it.
+- [`@decaf-ts/for-react/math`](./src/math/README.md) — MathLive-powered
+  controlled math input field. Importing the subpath is the only thing that
+  loads MathLive; the root package does not include it.
 
 ### Diagrams
 
@@ -107,6 +110,37 @@ The demo app (`npm run dev`, `http://localhost:8111`) ships the barcode route:
 | Route | What it exercises |
 | --- | --- |
 | `/barcode` | [`./barcode`](./src/barcode/README.md): `<Barcode>` and `renderBarcodeSvg` over an editable payload with symbology (`BarcodeTypes`) and scale selectors, the validated SVG output and the error/empty states |
+
+### Math
+
+The `./math` subpath renders a controlled math input field backed by MathLive
+and exposes a thin `<MathInput>` React component (`MathInputComponent` and
+`RgxMathInput` aliases). See [`src/math/README.md`](./src/math/README.md) for
+the full component contract.
+
+Install requirements:
+
+- `mathlive@^0.111.1` is an **optional peer** of the package and is
+  **required by this subpath**: install it only in applications that import
+  `./math`; the root entry point never loads it.
+- The subpath is **dual ESM + CJS**: `mathlive` publishes `require` conditions
+  alongside `import`, so `require('@decaf-ts/for-react/math')` works in
+  CommonJS hosts without a dynamic `import()`.
+
+Loading is lazy and failure-tolerant: `import('mathlive')` is memoized and
+issued only after mount, the import promise is released on unmount, and a
+failed load leaves the field inert instead of throwing — so server rendering
+emits the empty field markup and never evaluates MathLive. The component is
+fully controlled (`value`, `placeholder`, `disabled`), emits both `onChange`
+and `onValueChange` per edit, skips no-op writes to preserve the cursor and
+selection, and pins `mathVirtualKeyboardPolicy: 'manual'` so hosts keep
+keyboard control.
+
+The demo app (`npm run dev`, `http://localhost:8111`) ships the math route:
+
+| Route | What it exercises |
+| --- | --- |
+| `/math` | [`./math`](./src/math/README.md): `<MathInput>` over an editable formula with value/placeholder/disabled controls, both change callbacks, a read-only toggle and reset button, and the rendered preview |
 
 ### Dashboard builder demo
 

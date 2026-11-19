@@ -21,7 +21,8 @@
     "code_editor": "Editor de código",
     "login": "Entrar",
     "not_found": "Não encontrado",
-    "barcode": "Código de barras"
+    "barcode": "Código de barras",
+    "math": "Entrada matemática"
   },
   "operations": {
     "read": {
@@ -365,5 +366,18 @@
     "char_count": "{count} caracteres",
     "error": "Esta carga não pode ser renderizada com a simbologia selecionada.",
     "empty": "Introduza uma carga para renderizar um código de barras."
+  },
+  "math": {
+    "title": "Entrada matemática",
+    "intro": "Entrada de fórmulas LaTeX suportada pelo campo matemático MathLive. Escreva no campo ou edite o valor LaTeX diretamente; ambos permanecem sincronizados pelo contrato de valor controlado.",
+    "value_label": "Valor LaTeX",
+    "value_placeholder": "\\frac{a}{b}",
+    "placeholder_label": "Texto de exemplo do campo",
+    "disabled_label": "Apenas leitura",
+    "reset": "Reiniciar",
+    "preview_label": "Campo matemático",
+    "output_label": "LaTeX atual",
+    "empty": "Campo vazio",
+    "note": "O MathLive é carregado de forma preguiçosa após a montagem. Quando não está disponível, o campo permanece inerte em vez de lançar erro."
   }
 }

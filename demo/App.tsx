@@ -21,6 +21,7 @@ import { LoginPage } from "./pages/LoginPage";
 import { ComponentsPage } from "./pages/ComponentsPage";
 import { CodeEditorPage } from "./pages/CodeEditorPage";
 import { BarcodePage } from "./pages/BarcodePage";
+import { MathPage } from "./pages/MathPage";
 import { GanttPage } from "./pages/GanttPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 
@@ -36,6 +37,7 @@ const titles: Record<string, string> = {
   "/components": "menu.components",
   "/code-editor": "menu.code_editor",
   "/barcode": "menu.barcode",
+  "/math": "menu.math",
   "/gantt": "Gantt",
   "/login": "menu.login",
 };
@@ -76,6 +78,7 @@ export function App() {
             <Route path="/components" element={<ComponentsPage />} />
             <Route path="/code-editor" element={<CodeEditorPage />} />
             <Route path="/barcode" element={<BarcodePage />} />
+            <Route path="/math" element={<MathPage />} />
             <Route path="/gantt" element={<GanttPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/home" element={<Navigate to="/" replace />} />
