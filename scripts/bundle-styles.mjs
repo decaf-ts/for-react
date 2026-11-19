@@ -3,8 +3,6 @@ import fs from "node:fs";
 import path from "node:path";
 
 const root = process.cwd();
-const sourceRoot = path.join(root, "src", "lib");
-const outFile = path.join(root, "lib", "styles.css");
 
 function walk(dir) {
   return fs
@@ -18,9 +16,26 @@ function walk(dir) {
     });
 }
 
-if (!fs.existsSync(sourceRoot)) {
-  console.error(`[bundle-styles] missing source directory: ${sourceRoot}`);
-  process.exit(1);
+function bundle(sourceRoot, outFile, header) {
+  if (!fs.existsSync(sourceRoot)) {
+    console.error(`[bundle-styles] missing source directory: ${sourceRoot}`);
+    process.exit(1);
+  }
+
+  const files = walk(sourceRoot);
+  const parts = [
+    `/* ${header} (generated) */`,
+    ...files.map((file) => {
+      const relative = path.relative(root, file).split(path.sep).join("/");
+      return `\n/* ${relative} */\n${fs.readFileSync(file, "utf8").trim()}\n`;
+    }),
+  ];
+
+  fs.mkdirSync(path.dirname(outFile), { recursive: true });
+  fs.writeFileSync(outFile, `${parts.join("\n")}\n`, "utf8");
+  console.log(
+    `[bundle-styles] wrote ${path.relative(root, outFile)} from ${files.length} stylesheets`
+  );
 }
 
 if (!fs.existsSync(path.join(root, "lib"))) {
@@ -28,16 +43,14 @@ if (!fs.existsSync(path.join(root, "lib"))) {
   process.exit(1);
 }
 
-const files = walk(sourceRoot);
-const parts = [
-  "/* @decaf-ts/for-react component styles (generated) */",
-  ...files.map((file) => {
-    const relative = path.relative(root, file).split(path.sep).join("/");
-    return `\n/* ${relative} */\n${fs.readFileSync(file, "utf8").trim()}\n`;
-  }),
-];
+bundle(
+  path.join(root, "src", "lib"),
+  path.join(root, "lib", "styles.css"),
+  "@decaf-ts/for-react component styles"
+);
 
-fs.writeFileSync(outFile, `${parts.join("\n")}\n`, "utf8");
-console.log(
-  `[bundle-styles] wrote ${path.relative(root, outFile)} from ${files.length} stylesheets`
+bundle(
+  path.join(root, "src", "gantt"),
+  path.join(root, "lib", "gantt", "styles.css"),
+  "@decaf-ts/for-react/gantt adapter styles"
 );

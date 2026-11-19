@@ -26,6 +26,18 @@
       },
       "default": "./lib/esm/code-editor/index.js"
     },
+    "./gantt": {
+      "import": {
+        "types": "./lib/types/gantt/index.d.mts",
+        "default": "./lib/esm/gantt/index.js"
+      },
+      "require": {
+        "types": "./lib/types/gantt/index.d.cts",
+        "default": "./lib/cjs/gantt/index.cjs"
+      },
+      "default": "./lib/esm/gantt/index.js"
+    },
+    "./gantt/styles.css": "./lib/gantt/styles.css",
     "./styles.css": "./lib/styles.css"
   },
   "main": "./lib/cjs/index.cjs",
@@ -144,7 +156,8 @@
     "@decaf-ts/styles": "0.0.21",
     "@decaf-ts/transactional-decorators": "0.2.2",
     "@decaf-ts/ui-decorators": "0.5.32",
-    "@uiw/react-codemirror": "^4.25.12"
+    "@uiw/react-codemirror": "^4.25.12",
+    "dhtmlx-gantt": "^10.0.0"
   },
   "files": [
     "lib",

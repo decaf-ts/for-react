@@ -17,5 +17,8 @@
 - [`@decaf-ts/for-react/code-editor`](./src/code-editor/README.md) — CodeMirror 6
   code/formula editor built on `@uiw/react-codemirror`. Importing the subpath is
   the only thing that loads CodeMirror; the root package does not include it.
+- [`@decaf-ts/for-react/gantt`](./src/gantt/README.md) — Typed Gantt timeline
+  adapter over the dhtmlx-gantt Community renderer. Importing the subpath is
+  the only thing that loads the renderer; the root package does not include it.
 
 
