@@ -1,13 +1,25 @@
 {
   "name": "@decaf-ts/for-react",
   "version": "0.0.1",
-  "description": "decaf-ts react rendering engine",
+  "description": "React rendering engine for the decaf-ts stack",
   "type": "module",
   "exports": {
-    "require": "./lib/index.cjs",
-    "import": "./lib/esm/index.js"
+    ".": {
+      "import": {
+        "types": "./lib/types/index.d.mts",
+        "default": "./lib/esm/index.js"
+      },
+      "require": {
+        "types": "./lib/types/index.d.cts",
+        "default": "./lib/cjs/index.cjs"
+      },
+      "default": "./lib/esm/index.js"
+    },
+    "./styles.css": "./lib/styles.css"
   },
-  "types": "lib/index.d.ts",
+  "main": "./lib/cjs/index.cjs",
+  "module": "./lib/esm/index.js",
+  "types": "./lib/types/index.d.mts",
   "scripts": {
     "do-install": "NPM_TOKEN=$(cat .npmtoken) npm install",
     "update-dependencies": "PREFIX=\"decaf-ts\"; npm ls | grep \"$PREFIX\" | awk -F/ '{print $NF}' | sed 's/@.*//' | xargs -I package npm update @\"$PREFIX\"/package",
@@ -18,22 +30,23 @@
     "set-git-auth": "git config url.\"https://api:$(cat .token)@github.com/\".insteadOf \"https://github.com/\" && git config url.\"https://ssh:$(cat .token)@github.com/\".insteadOf \"ssh://git@github.com/\" && git config url.\"https://git:$(cat .token)@github.com/\".insteadOf \"git@github.com:\"",
     "flash-forward": "npx npm-check-updates -u && npm run do-install",
     "reset": "rm -rf * && git checkout . && git pull && npm run do-install",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test:react": "react-scripts test",
-    "eject": "react-scripts eject",
-    "build:prod": "npx build-scripts --prod",
+    "dev": "vite",
+    "start": "vite",
+    "build": "vite build",
+    "build:demo": "vite build",
+    "preview": "vite preview",
+    "build:prod": "npx build-scripts --prod --buildMode build && node scripts/bundle-styles.mjs",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.demo.json",
     "test": "npm run test:all",
-    "test:unit": "jest --watchman=false --testPathPatterns=\"/tests/unit\" --passWithNoTests --detectOpenHandles",
-    "test:integration": "jest --watchman=false --testPathPatterns=\"/tests/(integration)\" --passWithNoTests --detectOpenHandles",
-    "test:all": "jest --watchman=false --testPathPatterns=\"/tests\" --passWithNoTests --detectOpenHandles",
-    "test:dist": "TEST_TARGET=lib npm run test:all && TEST_TARGET=dist npm run test:all",
-    "test:circular": "dpdm -T --no-warning --no-tree ./src/index.ts",
+    "test:unit": "NODE_ENV=test jest --watchman=false --testPathPatterns=\"/tests/unit\" --passWithNoTests --detectOpenHandles",
+    "test:integration": "NODE_ENV=test jest --watchman=false --testPathPatterns=\"/tests/(integration)\" --passWithNoTests --detectOpenHandles",
+    "test:all": "NODE_ENV=test jest --watchman=false --testPathPatterns=\"/tests\" --passWithNoTests --detectOpenHandles",
+    "test:circular": "dpdm -T --no-warning --no-tree --exit-code circular:1 ./src/index.ts",
     "coverage": "rimraf ./workdocs/reports/data/*.json && npm run test:all -- --coverage --config=./workdocs/reports/jest.coverage.config.cjs",
     "lint": "eslint .",
     "lint-fix": "eslint --fix .",
     "prepare-pr": "npm run lint-fix && npm run build:prod && npm run coverage && npm run docs",
-    "prepare-release": "npm run lint-fix && npm run build:prod && npm run coverage && npm run test:dist && npm run docs",
+    "prepare-release": "npm run lint-fix && npm run build:prod && npm run coverage && npm run docs",
     "repo:init": "codex exec \"$(cat ./.codex/prompts/repo-setup.md)\nbase_path is `./`, initialize the repository\" -s workspace-write",
     "repo:setup": "codex exec \"$(cat ./.codex/prompts/repo-setup.md)\nbase_path is ./\" -s workspace-write",
     "repo:doc": "codex exec \"$(cat ./.codex/prompts/doc.md) $(cat ./.codex/prompts/bulk-docs.md)\nbase_path is ./\" -s workspace-write",
@@ -56,75 +69,66 @@
     "npm": ">=10.0.0"
   },
   "keywords": [
-    "plantuml",
-    "mermaid",
-    "uml",
-    "drawio",
-    "mddocs",
-    "md",
-    "jsdoc",
-    "doc",
-    "docs",
-    "documentation",
-    "test",
-    "reports",
-    "confluence",
-    "ci/cd",
-    "ci",
-    "cd",
-    "template",
-    "typescript",
-    "ts"
+    "decaf-ts",
+    "react",
+    "rendering-engine",
+    "ui-decorators",
+    "forms",
+    "crud",
+    "model-driven",
+    "typescript"
   ],
   "author": "Tiago Venceslau",
   "license": "MIT",
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
   "devDependencies": {
+    "@decaf-ts/utils": "^2.3.0",
+    "@eslint/js": "^8.57.1",
+    "@faker-js/faker": "^8.4.1",
+    "@swc/core": "^1.16.22",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.126",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.0.0",
     "@types/react": "^19.2.6",
     "@types/react-dom": "^19.2.3",
+    "eslint-config-prettier": "^9.1.2",
+    "globals": "^15.15.0",
+    "jest": "^30.5.2",
+    "jest-environment-jsdom": "^30.5.2",
+    "jest-html-reporters": "^3.1.7",
+    "jest-junit": "^17.0.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-scripts": "5.0.1",
-    "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+    "react-router-dom": "^7.18.6",
+    "rimraf": "^6.0.1",
+    "ts-jest": "^29.4.15",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^7.18.0",
+    "unplugin-swc": "^2.0.0",
+    "vite": "^7.3.8"
   },
   "dependencies": {
-    "@decaf-ts/core": "latest",
-    "@decaf-ts/db-decorators": "latest",
-    "@decaf-ts/decoration": "latest",
-    "@decaf-ts/decorator-validation": "latest",
-    "@decaf-ts/for-http": "latest",
-    "@decaf-ts/injectable-decorators": "latest",
-    "@decaf-ts/logging": "latest",
-    "@decaf-ts/reflection": "latest",
-    "@decaf-ts/styles": "latest",
-    "@decaf-ts/transactional-decorators": "latest",
-    "@decaf-ts/ui-decorators": "latest"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "@decaf-ts/core": "0.5.45",
+    "@decaf-ts/db-decorators": "0.6.20",
+    "@decaf-ts/decoration": "0.7.0",
+    "@decaf-ts/decorator-validation": "1.10.5",
+    "@decaf-ts/for-http": "0.2.13",
+    "@decaf-ts/injectable-decorators": "1.9.2",
+    "@decaf-ts/logging": "0.26.3",
+    "@decaf-ts/reflection": "0.7.1",
+    "@decaf-ts/styles": "0.0.21",
+    "@decaf-ts/transactional-decorators": "0.2.2",
+    "@decaf-ts/ui-decorators": "0.5.32"
   },
   "files": [
-    "workdocs/assets/slogans.json"
+    "lib",
+    "README.md",
+    "LICENSE.md"
   ]
 }

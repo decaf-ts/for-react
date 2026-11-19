@@ -10,6 +10,7 @@ export default [
       "lib",
       "bin",
       "dist",
+      "dist-demo",
       "docs",
       "gulpfile.js",
       "workdocs",
@@ -20,6 +21,14 @@ export default [
     ],
   },
   { languageOptions: { globals: globals.browser } },
+  {
+    files: ["**/*.cjs"],
+    languageOptions: { globals: globals.node, sourceType: "commonjs" },
+  },
+  {
+    files: ["**/*.mjs"],
+    languageOptions: { globals: globals.node, sourceType: "module" },
+  },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   eslintConfigPrettier,

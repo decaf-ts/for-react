@@ -1,4 +1,4 @@
-import { RgxParentComponentDirective } from "./RgxParentComponentDirective";
+import { RgxParentComponentDirective } from "./RgxParentComponentDirective.js";
 import { FieldDefinition } from "@decaf-ts/ui-decorators";
 
 /**

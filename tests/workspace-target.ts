@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import fs from "node:fs";
 import path from "node:path";
 
@@ -11,7 +12,7 @@ const DEFAULT_TARGET: WorkspaceTarget = "src";
 
 const TARGET_SPECIFIERS: Record<WorkspaceTarget, string> = {
   src: "../src",
-  lib: "../lib/index.cjs",
+  lib: "../lib/cjs/index.cjs",
   dist: "../dist/ts-workspace.cjs",
 };
 

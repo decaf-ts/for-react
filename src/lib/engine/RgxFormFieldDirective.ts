@@ -1,5 +1,5 @@
-import { FieldUpdateMode, KeyValue } from "./types";
-import { RgxComponentDirective } from "./RgxComponentDirective";
+import { FieldUpdateMode, KeyValue } from "./types.js";
+import { RgxComponentDirective } from "./RgxComponentDirective.js";
 import { HTML5InputTypes } from "@decaf-ts/ui-decorators";
 
 /**
@@ -16,7 +16,7 @@ export abstract class RgxFormFieldDirective extends RgxComponentDirective {
   value?: unknown;
   required = false;
   updateMode: FieldUpdateMode = "change";
-  props?: KeyValue;
+  declare props?: KeyValue;
 
   constructor(componentName: string) {
     super(componentName);

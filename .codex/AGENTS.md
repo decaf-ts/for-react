@@ -47,8 +47,7 @@ All automated test scripts live in `package.json`:
 - `test:unit`: runs Jest against files in `tests/unit`.
 - `test:integration`: runs Jest against files in `tests/integration`.
 - `test:all`: executes the entire Jest test suite under `tests`.
-- `test:dist`: runs the full suite twice, once against the compiled `lib` output and once against the `dist` bundle via the `TEST_TARGET` environment variable.
-- `test:circular`: checks the source for circular dependencies using `dpdm`.
+- `test:circular`: checks the source for circular dependencies using `dpdm` and exits non-zero when a cycle is found.
 - `coverage`: wipes previous coverage JSON files and runs the full test suite with the coverage-specific Jest config to emit reports and badges.
 
 Name specs with `*.test.ts`. Isolate logic in unit suites never mock. If a mock is required, write an integration test instead; move cross-module workflows to `tests/integration`. Run `npm run coverage` before merging and confirm the generated reports in `workdocs/reports/data/`.

@@ -19,3 +19,9 @@ gulpfile.js
 jest.config.ts
 tsconfig.json
 !/workdocs/assets/slogans.json
+/demo
+/dist-demo
+/index.html
+/vite.config.ts
+/tsconfig.demo.json
+/public

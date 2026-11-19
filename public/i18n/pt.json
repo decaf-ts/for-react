@@ -1,0 +1,305 @@
+{
+  "common": {
+    "back": "Voltar",
+    "submit": "Submeter",
+    "cancel": "Cancelar",
+    "language": "Idioma",
+    "toggle_theme": "Alternar esquema de cores",
+    "tabs": "Separadores",
+    "light": "Claro",
+    "dark": "Escuro"
+  },
+  "menu": {
+    "dashboard": "Painel",
+    "crud": "Formulário CRUD",
+    "fieldset": "Formulário fieldset",
+    "steps_form": "Formulário por passos",
+    "model": "Página de modelo",
+    "list_model": "Listas de modelos",
+    "model_builder": "Construtor de modelos",
+    "components": "Componentes",
+    "login": "Entrar",
+    "not_found": "Não encontrado"
+  },
+  "operations": {
+    "read": {
+      "title": "Ler"
+    },
+    "create": {
+      "title": "Criar"
+    },
+    "update": {
+      "title": "Atualizar"
+    },
+    "delete": {
+      "title": "Eliminar"
+    }
+  },
+  "category": {
+    "id": {
+      "label": "Identificador",
+      "placeholder": "Gerado automaticamente"
+    },
+    "name": {
+      "label": "Nome",
+      "placeholder": "Nome da categoria"
+    },
+    "period": {
+      "label": "Período"
+    },
+    "description": {
+      "label": "Descrição",
+      "placeholder": "Descreva a categoria"
+    },
+    "created": {
+      "label": "Criado em",
+      "placeholder": "Data de criação"
+    }
+  },
+  "user": {
+    "id": {
+      "label": "Identificador",
+      "placeholder": "Id do utilizador"
+    },
+    "username": {
+      "label": "Utilizador",
+      "placeholder": "Nome do utilizador"
+    },
+    "secret": {
+      "label": "Segredo"
+    }
+  },
+  "demo": {
+    "id": {
+      "label": "Identificador",
+      "placeholder": "1 a 100"
+    },
+    "name": {
+      "label": "Nome",
+      "placeholder": "Pelo menos 5 caracteres"
+    },
+    "gender": {
+      "label": "Género"
+    },
+    "contact": {
+      "label": "Contacto preferido"
+    },
+    "birthdate": {
+      "label": "Data de nascimento"
+    },
+    "email": {
+      "label": "Email",
+      "placeholder": "nome@exemplo.com"
+    },
+    "website": {
+      "label": "Website"
+    },
+    "password": {
+      "label": "Palavra-passe"
+    },
+    "agree": {
+      "label": "Aceito os termos"
+    }
+  },
+  "employee": {
+    "id": {
+      "label": "Identificador",
+      "placeholder": "Id do funcionário"
+    },
+    "name": {
+      "label": "Nome",
+      "placeholder": "Nome do funcionário"
+    },
+    "occupation": {
+      "label": "Função",
+      "placeholder": "Selecione uma função"
+    }
+  },
+  "aivendors": {
+    "name": {
+      "label": "Fornecedor",
+      "placeholder": "Escolha um fornecedor"
+    },
+    "models": {
+      "label": "Modelos",
+      "placeholder": "Escolha modelos"
+    }
+  },
+  "aimodel": {
+    "name": {
+      "label": "Modelo",
+      "placeholder": "Nome do modelo"
+    },
+    "features": {
+      "label": "Funcionalidades",
+      "placeholder": "Selecione funcionalidades"
+    }
+  },
+  "login": {
+    "title": "Entrar",
+    "subtitle": "Use as credenciais de demonstração para continuar",
+    "username": {
+      "label": "Utilizador",
+      "placeholder": "O seu utilizador"
+    },
+    "password": {
+      "label": "Palavra-passe",
+      "placeholder": "A sua palavra-passe"
+    },
+    "submit": "Entrar",
+    "success": "Sessão iniciada com sucesso"
+  },
+  "dashboard": {
+    "title": "Painel de demonstração",
+    "subtitle": "Layout orientado por metadados renderizado pelo motor React",
+    "first_line": {
+      "title": "Visão geral"
+    },
+    "second_line": {
+      "title": "Pessoas"
+    },
+    "third_line": {
+      "title": "Categorias"
+    },
+    "main": {
+      "title": "Bem-vindo",
+      "subtitle": "Componente de estado vazio de largura total"
+    },
+    "second": {
+      "title": "Segundo componente",
+      "subtitle": "Outro componente de estado vazio"
+    },
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "remove": "Remover",
+    "confirm_remove": "Remover este componente?",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "empty": "Painel vazio"
+  },
+  "crud": {
+    "title": "Formulário CRUD",
+    "subtitle": "Formulário declarativo suportado pelo RgxFormService",
+    "submitted": "Dados submetidos"
+  },
+  "fieldset": {
+    "title": "Formulário fieldset",
+    "subtitle": "Modelo filho repetível renderizado como fieldset",
+    "add": "Adicionar",
+    "add_first": "Adicionar primeiro",
+    "show_form": "Mostrar formulário",
+    "clear_items": "Limpar itens",
+    "hidden_form": "Mostrar",
+    "edit_item": "Editar",
+    "remove_item": "Remover",
+    "create_item": "Adicionar item",
+    "cancel": "Cancelar",
+    "max_items": "Máximo de {0} itens",
+    "max_items_reached": "Atingiu o máximo de {0} itens",
+    "not_unique": "Este item já existe"
+  },
+  "stepped-form": {
+    "step1": {
+      "title": "Categoria",
+      "description": "Escolha uma categoria"
+    },
+    "step2": {
+      "title": "Detalhes",
+      "description": "Quem está a preencher"
+    },
+    "step3": {
+      "title": "Confirmação",
+      "description": "Reveja e aceite"
+    }
+  },
+  "steps_form": {
+    "title": "Formulário por passos",
+    "subtitle": "Modelo multi-página renderizado como RgxSteppedForm"
+  },
+  "steppedForm": {
+    "next": "Seguinte",
+    "previous": "Anterior",
+    "submit": "Submeter",
+    "cancel": "Cancelar",
+    "step_of": "Passo {current} de {total}"
+  },
+  "model_builder": {
+    "title": "Construtor de modelos",
+    "subtitle": "Construa uma definição de modelo interativamente",
+    "definition": "Definição gerada"
+  },
+  "component": {
+    "model_builder": {
+      "add_property": "Adicionar propriedade",
+      "build_model": "Construir modelo",
+      "empty_properties": "Ainda sem propriedades",
+      "live_preview": "Pré-visualização",
+      "preview_empty": "Construa um modelo para o pré-visualizar",
+      "model_name": "Nome do modelo",
+      "invalid": "Cada propriedade precisa de um nome"
+    }
+  },
+  "list_model": {
+    "title": "Listas de modelos",
+    "subtitle": "Lista infinita de fornecedores e lista paginada de modelos",
+    "infinite": "Fornecedores de IA (infinita)",
+    "paginated": "Modelos de IA (paginada)"
+  },
+  "list": {
+    "search": "Pesquisar",
+    "create": "Criar",
+    "refresh": "Atualizar",
+    "load_more": "Carregar mais"
+  },
+  "model": {
+    "title": "Página de modelo",
+    "subtitle": "Renderização de metadados por operação"
+  },
+  "components": {
+    "title": "Componentes",
+    "subtitle": "Portes dos componentes de demonstração do for-angular",
+    "products": "Produtos",
+    "expiry": "Data de validade",
+    "all": "Todos",
+    "recalled": "Retirados",
+    "no_selection": {
+      "title": "Nenhum produto selecionado",
+      "subtitle": "Escolha uma ação num produto para a ver aqui"
+    }
+  },
+  "product": {
+    "gtin": "GTIN",
+    "internalMaterialCode": {
+      "label": "Código de material"
+    },
+    "nameMedicinalProduct": {
+      "label": "Medicamento"
+    },
+    "importLicenseNumber": {
+      "label": "Licença de importação"
+    },
+    "recalled": {
+      "label": "Retirado",
+      "yes": "Sim",
+      "no": "Não"
+    },
+    "batches": "Lotes"
+  },
+  "expiry": {
+    "date": {
+      "label": "Data de validade"
+    },
+    "day_selection": {
+      "label": "Selecionar um dia específico"
+    },
+    "gs1": {
+      "label": "Valor GS1"
+    },
+    "empty": "não definido"
+  },
+  "not_found": {
+    "title": "Página não encontrada",
+    "subtitle": "A rota de demonstração pedida não existe",
+    "back": "Voltar ao painel"
+  }
+}

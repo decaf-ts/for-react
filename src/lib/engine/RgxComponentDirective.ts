@@ -1,12 +1,12 @@
 import { CrudOperations, OperationKeys } from "@decaf-ts/db-decorators";
 import { Model, Primitives } from "@decaf-ts/decorator-validation";
-import { ComponentEventNames } from "./constants";
-import { IBaseCustomEvent } from "./interfaces";
-import { DecafRepository, FunctionLike, KeyValue } from "./types";
-import { getLocaleContext } from "../i18n/Loader";
-import { generateRandomValue, cleanSpaces, stringToBoolean } from "../utils/helpers";
-import { getModelRepository } from "../for-react-common";
-import { RgxEventEmitter } from "./RgxEventHandler";
+import { ComponentEventNames } from "./constants.js";
+import { IBaseCustomEvent } from "./interfaces.js";
+import { DecafRepository, FunctionLike, KeyValue } from "./types.js";
+import { getLocaleContext } from "../i18n/Loader.js";
+import { generateRandomValue, cleanSpaces, stringToBoolean } from "../utils/helpers.js";
+import { getModelRepository } from "../for-react-common.js";
+import { RgxEventEmitter } from "./RgxEventHandler.js";
 
 /**
  * Base class used by the React components to share metadata/events.
@@ -31,7 +31,7 @@ export abstract class RgxComponentDirective {
   isDarkMode = false;
   enableDarkMode = true;
 
-  protected repository?: DecafRepository<Model>;
+  protected repository?: DecafRepository;
   protected eventEmitter = new RgxEventEmitter<IBaseCustomEvent>();
 
   constructor(protected componentName: string) {
@@ -48,12 +48,12 @@ export abstract class RgxComponentDirective {
   protected resolveRepository(): void {
     if (!this.model || typeof this.model === Primitives.STRING) {
       try {
-        this.repository = getModelRepository(this.model || "") as DecafRepository<Model>;
+        this.repository = getModelRepository(this.model || "") as DecafRepository;
       } catch {
         this.repository = undefined;
       }
     } else {
-      this.repository = getModelRepository(this.model) as DecafRepository<Model>;
+      this.repository = getModelRepository(this.model) as DecafRepository;
     }
   }
 

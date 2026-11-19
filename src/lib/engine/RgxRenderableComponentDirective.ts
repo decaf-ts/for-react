@@ -1,8 +1,8 @@
 import { FieldDefinition } from "@decaf-ts/ui-decorators";
-import { KeyValue } from "./types";
-import { IBaseCustomEvent } from "./interfaces";
-import { RgxComponentDirective } from "./RgxComponentDirective";
-import { RgxEventEmitter } from "./RgxEventHandler";
+import { KeyValue } from "./types.js";
+import { IBaseCustomEvent } from "./interfaces.js";
+import { RgxComponentDirective } from "./RgxComponentDirective.js";
+import { RgxEventEmitter } from "./RgxEventHandler.js";
 
 /**
  * Wrapper for components that render child definitions from the rendering engine.

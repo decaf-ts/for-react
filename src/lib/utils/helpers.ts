@@ -1,20 +1,26 @@
 /**
- * @module module:lib/helpers/utils
- * @description General helper utilities used across the library.
- * @summary Exposes small, reusable utility functions for window/document access, date handling,
- * string manipulation, simple mapping helpers and environment helpers used by UI components
- * and services. This module's functions include `getWindow`, `getWindowDocument`, `formatDate`,
- * `isValidDate`, `itemMapper`, `dataMapper`, and event helpers like `windowEventEmitter`.
- *
- * Do not document individual exports here — functions are documented inline.
- * @link {@link getWindow}
+ * @file General helper utilities used across the library.
+ * @description Small, reusable helpers for window/document access, date handling,
+ * string manipulation, simple mapping and environment detection.
+ * @summary Backs the UI components and services with browser-safe utilities such as
+ * {@link getWindow}, {@link getWindowDocument}, date formatting, item mapping and the
+ * window event emitter. Individual exports are documented inline.
  */
 
 import { InjectableRegistryImp, InjectablesRegistry } from '@decaf-ts/injectable-decorators';
 import { Primitives } from '@decaf-ts/decorator-validation';
-import { KeyValue, StringOrBoolean, } from '../engine/types';
-import { FunctionLike } from '../engine/types';
-import { getLogger } from '../for-react-common';
+import { KeyValue, StringOrBoolean } from '../engine/types.js';
+import type { IMenuItem } from '../engine/interfaces.js';
+import { FunctionLike } from '../engine/types.js';
+import { getLogger } from '../for-react-common.js';
+import { getWindow } from './window.js';
+
+/**
+ * @description Re-exports the window accessor helper.
+ * @summary Provides {@link getWindow} directly from this helpers module for consumers.
+ * @memberOf module:for-react
+ */
+export { getWindow } from './window.js';
 
 let injectableRegistry: InjectablesRegistry;
 
@@ -28,7 +34,7 @@ let injectableRegistry: InjectablesRegistry;
  * @return {InjectablesRegistry} The singleton injectables registry instance
  *
  * @function getInjectablesRegistry
- * @memberOf module:for-angular
+ * @memberOf module:for-react
  */
 export function getInjectablesRegistry(): InjectablesRegistry {
   if (!injectableRegistry)
@@ -39,25 +45,29 @@ export function getInjectablesRegistry(): InjectablesRegistry {
 /**
  * @description Determines if the application is running in development mode
  * @summary This function checks whether the application is currently running in a development
- * environment. It uses Angular's isDevMode() function and also checks the window context
- * and hostname against the provided context parameter. This is useful for enabling
- * development-specific features or logging.
+ * environment. It inspects the Node `NODE_ENV` setting and, when a context string is
+ * provided, checks the window environment and hostname against it. This is useful for
+ * enabling development-specific features or logging.
  *
  * @param {string} [context='localhost'] - The context string to check against the current environment
  * @return {boolean} True if the application is running in development mode, false otherwise
  *
  * @function isDevelopmentMode
- * @memberOf module:for-angular
+ * @memberOf module:for-react
  */
 export function isDevelopmentMode(context: string = 'localhost'): boolean {
-  const isDev = process.env.NODE_ENV !== 'production';
+  const proc = (globalThis as KeyValue)['process'] as
+    | { env?: Record<string, string | undefined> }
+    | undefined;
+  const isDev = proc?.env?.NODE_ENV !== 'production';
   if (!context)
     return isDev;
   const win = getWindow();
+  const env = (win?.['env'] || {}) as KeyValue;
   return (
     isDev ||
-    win?.['env']?.['CONTEXT'].toLowerCase() !== context.toLowerCase() ||
-    win?.['location']?.hostname?.includes(context)
+    String(env['CONTEXT'] || '').toLowerCase() !== context.toLowerCase() ||
+    !!win?.['location']?.hostname?.includes(context)
   );
 }
 
@@ -73,7 +83,7 @@ export function isDevelopmentMode(context: string = 'localhost'): boolean {
  * @return {void}
  *
  * @function windowEventEmitter
- * @memberOf module:for-angular
+ * @memberOf module:for-react
  */
 export function windowEventEmitter(
   name: string,
@@ -102,12 +112,12 @@ export function windowEventEmitter(
  * @return {any} The value of the specified property, or undefined if the document or property doesn't exist
  *
  * @function getOnWindowDocument
- * @memberOf module:for-angular
+ * @memberOf module:for-react
  */
 export function getOnWindowDocument(key: string): Document | undefined {
-  const doc = getWindowDocument() as Document;
-  return doc instanceof Document ?
-    (doc as KeyValue)?.[key] || undefined : undefined;
+  const doc = getWindowDocument();
+  if (!doc) return undefined;
+  return ((doc as unknown as KeyValue)?.[key] as Document) || undefined;
 }
 
 /**
@@ -119,7 +129,7 @@ export function getOnWindowDocument(key: string): Document | undefined {
  * @return {Document | undefined} The window's document object, or undefined if it doesn't exist
  *
  * @function getWindowDocument
- * @memberOf module:for-angular
+ * @memberOf module:for-react
  */
 export function getWindowDocument(): Document | undefined {
   return getOnWindow('document') as Document;
@@ -136,7 +146,7 @@ export function getWindowDocument(): Document | undefined {
  * @return {unknown | undefined} The value of the specified property, or undefined if the window or property doesn't exist
  *
  * @function getOnWindow
- * @memberOf module:for-angular
+ * @memberOf module:for-react
  */
 export function getOnWindow(key: string): unknown | undefined {
   return getWindow()?.[key];
@@ -154,26 +164,10 @@ export function getOnWindow(key: string): unknown | undefined {
  * @return {void}
  *
  * @function setOnWindow
- * @memberOf module:for-angular
+ * @memberOf module:for-react
  */
 export function setOnWindow(key: string, value: unknown): void {
   getWindow()[key] = value;
-}
-
-/**
- * @description Retrieves the global window object
- * @summary This function provides a safe way to access the global window object.
- * It uses globalThis to ensure compatibility across different JavaScript environments.
- * This is the core function used by other window-related utility functions to
- * access the window object.
- *
- * @return {Window} The global window object
- *
- * @function getWindow
- * @memberOf module:for-angular
- */
-export function getWindow(): Window & KeyValue {
-  return (globalThis as KeyValue)?.['window'] as Window & KeyValue;
 }
 
 /**
@@ -185,7 +179,7 @@ export function getWindow(): Window & KeyValue {
  * @return {number | undefined} The current width of the browser window in pixels
  *
  * @function getWindowWidth
- * @memberOf module:for-angular
+ * @memberOf module:for-react
  */
 export function getWindowWidth(): number {
   return getOnWindow('innerWidth') as number || 0;
@@ -201,7 +195,7 @@ export function getWindowWidth(): number {
  * @return {boolean} True if the property is not undefined, false otherwise
  *
  * @function isNotUndefined
- * @memberOf module:for-angular
+ * @memberOf module:for-react
  */
 export function isNotUndefined(prop: StringOrBoolean | undefined): boolean {
   return (prop !== undefined) as boolean;
@@ -221,7 +215,7 @@ export function isNotUndefined(prop: StringOrBoolean | undefined): boolean {
  * @return {string} A formatted locale string derived from the input
  *
  * @function getLocaleFromClassName
- * @memberOf module:for-angular
+ * @memberOf module:for-react
  */
 export function getLocaleFromClassName(
   instance: string | FunctionLike | KeyValue,
@@ -260,7 +254,7 @@ export function getLocaleFromClassName(
  * @return {string} The current locale language (e.g., 'en', 'fr')
  *
  * @function getLocaleLanguage
- * @memberOf module:for-angular
+ * @memberOf module:for-react
  */
 export function getLocaleLanguage(): string {
   const win = getWindow();
@@ -282,7 +276,7 @@ export function getLocaleLanguage(): string {
  * @return {string} A randomly generated string of the specified length and character set
  *
  * @function generateRandomValue
- * @memberOf module:for-angular
+ * @memberOf module:for-react
  */
 export function generateRandomValue(length: number = 8, onlyNumbers: boolean = false): string {
   const chars = onlyNumbers
@@ -307,7 +301,7 @@ export function generateRandomValue(length: number = 8, onlyNumbers: boolean = f
  * @returns {boolean} The boolean representation of the input value. Returns true if the input is the string 'true' or boolean true, false otherwise
  *
  * @function stringToBoolean
- * @memberOf module:lib/helpers/utils
+ * @memberOf module:for-react
  */
 export function stringToBoolean(prop: 'true' | 'false' | boolean): boolean {
   if (typeof prop === 'string')
@@ -328,7 +322,7 @@ export function stringToBoolean(prop: 'true' | 'false' | boolean): boolean {
  * @returns {boolean} Returns true if the value is a valid Date object (not NaN), otherwise false
  *
  * @function isValidDate
- * @memberOf module:lib/helpers/utils
+ * @memberOf module:for-react
  */
 export function isValidDate(date: string | Date | number): boolean {
   try {
@@ -364,7 +358,7 @@ export function isValidDate(date: string | Date | number): boolean {
  *                          or the original input as a string if the date is invalid
  *
  * @function formatDate
- * @memberOf module:lib/helpers/utils
+ * @memberOf module:for-react
  */
 export function formatDate(date: string | Date | number, locale?: string | undefined): Date | string {
 
@@ -401,7 +395,7 @@ export function formatDate(date: string | Date | number, locale?: string | undef
  *                        or doesn't match the expected format
  *
  * @function parseToValidDate
- * @memberOf module:lib/helpers/utils
+ * @memberOf module:for-react
  */
 export function parseToValidDate(date: string | Date | number): Date | null {
   if (isValidDate(date))
@@ -440,7 +434,7 @@ export function parseToValidDate(date: string | Date | number): Date | null {
  * @returns {KeyValue} A new object with properties mapped according to the mapper object and including any additional properties
  *
  * @function itemMapper
- * @memberOf module:lib/helpers/utils
+ * @memberOf module:for-react
  */
 export function itemMapper(item: KeyValue, mapper: KeyValue, props?: KeyValue): KeyValue {
   return Object.entries(mapper).reduce((accum: KeyValue, [key, value]) => {
@@ -484,7 +478,7 @@ export function itemMapper(item: KeyValue, mapper: KeyValue, props?: KeyValue): 
  *                the original item is returned instead
  *
  * @function dataMapper
- * @memberOf module:lib/helpers/utils
+ * @memberOf module:for-react
  */
 export function dataMapper<T>(data: T[], mapper: KeyValue, props?: KeyValue): T[] {
   if (!data || !data.length) return [];
@@ -509,7 +503,7 @@ export function dataMapper<T>(data: T[], mapper: KeyValue, props?: KeyValue): T[
  * @return {void}
  *
  * @function removeFocusTrap
- * @memberOf module:for-angular
+ * @memberOf module:for-react
  */
 export function removeFocusTrap(): void {
   const doc = getWindowDocument();
@@ -529,7 +523,7 @@ export function removeFocusTrap(): void {
  * @return {string} The cleaned and normalized string
  *
  * @function cleanSpaces
- * @memberOf module:for-angular
+ * @memberOf module:for-react
  */
 export function cleanSpaces(value: string = "", lowercase: boolean = false): string {
   value = `${value}`.trim().replace(/\s+/g, ' ');
@@ -547,7 +541,7 @@ export function cleanSpaces(value: string = "", lowercase: boolean = false): str
  * @return {Promise<boolean>} True if the system is in dark mode, false otherwise
  *
  * @function isDarkMode
- * @memberOf module:for-angular
+ * @memberOf module:for-react
  */
 export async function isDarkMode(): Promise<boolean> {
   const {matches} = getWindow().matchMedia('(prefers-color-scheme: dark)');
@@ -565,7 +559,7 @@ export async function isDarkMode(): Promise<boolean> {
  * @returns {string} A string that contains or excludes the specified substring based on the `contain` parameter.
  *
  * @function filterString
- * @memberOf module:lib/helpers/utils
+ * @memberOf module:for-react
  */
 export function filterString(original: string | string[], value: string, contain: boolean = true): string {
   if (typeof original === Primitives.STRING)
@@ -574,4 +568,106 @@ export function filterString(original: string | string[], value: string, contain
     contain ?
       str.includes(value) : !str.includes(value)
   ) || []).join(' ');
+}
+
+/**
+ * @description Finds the icon for a menu entry by label.
+ * @summary Performs a case-insensitive lookup of the label in the supplied menu
+ * and returns the matching icon.
+ * @param {string} label - The menu label to look up.
+ * @param {IMenuItem[]} menu - The menu items to search.
+ * @returns {string} The matching icon, or an empty string when no entry matches or it has no icon.
+ * @memberOf module:for-react
+ */
+export function getMenuIcon(label: string, menu: IMenuItem[]): string {
+  const item = menu.find((m) => m.label?.toLowerCase() === label.toLowerCase());
+  return item?.icon || '';
+}
+
+/**
+ * @description Converts a string or Date value into a Date.
+ * @summary Returns Date instances unchanged and parses strings, appending a
+ * midnight time when only a date portion is present.
+ * @param {string | Date} value - The value to convert.
+ * @returns {Date} The resulting Date instance.
+ * @memberOf module:for-react
+ */
+export function dateFromString(value: string | Date): Date {
+  if (value instanceof Date) return value;
+  const dateArray = value.includes('T') ? value.split('T') : value.split(' ');
+  return new Date(dateArray.length === 1 ? `${value}T00:00:00` : value);
+}
+
+/**
+ * @description Checks whether a string is valid Base64 or a Base64 data URL.
+ * @summary Validates against standard Base64 and data-URL patterns.
+ * @param {string} value - The string to validate.
+ * @returns {boolean} True when the value matches a supported Base64 form.
+ * @memberOf module:for-react
+ */
+export function isValidBase64(value: string): boolean {
+  if (!value?.trim()?.length) return false;
+  const pure = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/;
+  const dataUrl =
+    /^data:([a-zA-Z0-9.+-]+\/[a-zA-Z0-9.+-]+);base64,[A-Za-z0-9+/]+={0,2}$/;
+  return pure.test(value) || dataUrl.test(value);
+}
+
+/**
+ * @description Removes HTML tags from a string.
+ * @summary Strips markup from string input and returns non-string values
+ * unchanged.
+ * @param {string} content - The content to strip.
+ * @returns {unknown} The stripped string, or the original non-string value.
+ * @memberOf module:for-react
+ */
+export function stripHTML(content: string): unknown {
+  if (typeof content === Primitives.STRING) {
+    return content.replace(/<[^>]*>/g, '');
+  }
+  return content;
+}
+
+/**
+ * @description Resolves a length from a number or array-like value.
+ * @summary Returns numeric input unchanged and otherwise reads the `length`
+ * property, defaulting to zero.
+ * @param {number | unknown[] | undefined} value - The value to measure.
+ * @returns {number} The resolved length.
+ * @memberOf module:for-react
+ */
+export function asLength(value: number | unknown[] | undefined): number {
+  if (typeof value === 'number') return value;
+  return value?.length || 0;
+}
+
+/**
+ * @description Reads a nested value by dot-notation path.
+ * @summary Walks the object along the path, returning undefined when any segment
+ * is missing.
+ * @param {Record<string, unknown>} obj - The object to read from.
+ * @param {string} path - The dot-separated path to resolve.
+ * @returns {unknown} The resolved value, or undefined when the path cannot be followed.
+ * @memberOf module:for-react
+ */
+export function getByPath(
+  obj: Record<string, unknown>,
+  path: string
+): unknown {
+  return path.split('.').reduce<unknown>((acc, key) => {
+    if (acc && typeof acc === 'object' && key in (acc as Record<string, unknown>))
+      return (acc as Record<string, unknown>)[key];
+    return undefined;
+  }, obj);
+}
+
+/**
+ * @description Checks whether a value represents a finite number.
+ * @summary Rejects empty strings and values that do not coerce to a finite number.
+ * @param {string | number} value - The value to test.
+ * @returns {boolean} True when the value is a finite number.
+ * @memberOf module:for-react
+ */
+export function isNumber(value: string | number): boolean {
+  return String(value) !== '' && Number.isFinite(Number(value));
 }

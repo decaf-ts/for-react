@@ -1,6 +1,6 @@
 import { FieldDefinition } from "@decaf-ts/ui-decorators";
-import { RgxComponentDirective } from "./RgxComponentDirective";
-import { KeyValue } from "./types";
+import { RgxComponentDirective } from "./RgxComponentDirective.js";
+import { KeyValue } from "./types.js";
 
 /**
  * React equivalent of the Angular NgxParentComponentDirective.

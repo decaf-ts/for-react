@@ -1,8 +1,14 @@
 import React, { useMemo } from "react";
-import { RgxComponentRegistry } from "../../engine/ComponentRegistry";
-import { ReactEngineKeys, BaseComponentProps } from "../../engine/constants";
-import { KeyValue } from "../../engine/types";
+import { RgxComponentRegistry } from "../../engine/ComponentRegistry.js";
+import { ReactEngineKeys, BaseComponentProps } from "../../engine/constants.js";
+import { KeyValue } from "../../engine/types.js";
 
+/**
+ * @description Props accepted by {@link RgxComponentRenderer}.
+ * @summary Identifies the registered component tag and supplies the globals,
+ * children, parent context and extra classes used when rendering it.
+ * @memberOf module:for-react
+ */
 export interface RgxComponentRendererProps {
   tag: string;
   globals?: KeyValue;
@@ -13,8 +19,12 @@ export interface RgxComponentRendererProps {
 }
 
 /**
- * React equivalent of the Angular `ComponentRendererComponent`.
- * Dynamically looks up components in the registry and renders them with the provided props.
+ * @description React equivalent of the Angular `ComponentRendererComponent`.
+ * @summary Dynamically looks up a component in the registry by tag and renders
+ * it with props derived from the supplied globals.
+ * @param {RgxComponentRendererProps} props - The tag, globals and rendering options.
+ * @returns {React.ReactElement | null} The resolved component, or null when no component is registered for the tag.
+ * @memberOf module:for-react
  */
 export const RgxComponentRenderer: React.FC<RgxComponentRendererProps> = ({
   tag,

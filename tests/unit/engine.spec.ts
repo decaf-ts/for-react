@@ -32,7 +32,8 @@ describe("RgxComponentRegistry", () => {
 
 describe("RgxRenderingEngine", () => {
   it("renders a field definition using the registry", () => {
-    const Tag = ({ children }: { children?: React.ReactNode }) => <div data-testid="rendered">{children}</div>;
+    const Tag = ({ children }: { children?: React.ReactNode }) =>
+      React.createElement("div", { "data-testid": "rendered" }, children);
     RgxComponentRegistry.register("demo", Tag);
     const engine = new RgxRenderingEngine();
     engine.initialize();

@@ -1,9 +1,9 @@
 import { CrudOperations, OperationKeys } from "@decaf-ts/db-decorators";
-import { ICrudFormEvent } from "./interfaces";
-import { DefaultFormReactiveOptions } from "./constants";
-import { RgxParentComponentDirective } from "./RgxParentComponentDirective";
-import { RgxFormService } from "./RgxFormService";
-import { RgxEventEmitter } from "./RgxEventHandler";
+import { ICrudFormEvent } from "./interfaces.js";
+import { DefaultFormReactiveOptions } from "./constants.js";
+import { RgxParentComponentDirective } from "./RgxParentComponentDirective.js";
+import { RgxFormService } from "./RgxFormService.js";
+import { RgxEventEmitter } from "./RgxEventHandler.js";
 
 /**
  * React equivalent of the Angular NgxFormDirective.

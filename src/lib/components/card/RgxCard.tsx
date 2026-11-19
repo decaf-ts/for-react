@@ -1,9 +1,24 @@
 import React from "react";
-import "./card.component.css";
 
+/**
+ * @description Visual variants supported by {@link RgxCard}.
+ * @summary Selects a flat (`clear`) or elevated (`shadow`) card appearance.
+ * @memberOf module:for-react
+ */
 export type RgxCardType = "clear" | "shadow";
+/**
+ * @description Body spacing variants for {@link RgxCard}.
+ * @summary Controls the padding applied to the card content area.
+ * @memberOf module:for-react
+ */
 export type RgxCardBody = "small" | "default" | "blank";
 
+/**
+ * @description Props accepted by {@link RgxCard}.
+ * @summary Configures the card variant, header text, body spacing, borders,
+ * inline content and custom classes.
+ * @memberOf module:for-react
+ */
 export interface RgxCardProps {
   type?: RgxCardType;
   title?: string;
@@ -19,7 +34,12 @@ export interface RgxCardProps {
 }
 
 /**
- * React port of the Decaf card component used throughout the Angular UI kit.
+ * @description React port of the Decaf card component.
+ * @summary Renders a styled card with an optional header, subtitle and inline
+ * content positioned above or below the children, mirroring the Angular UI kit.
+ * @param {RgxCardProps} props - The card configuration and children.
+ * @returns {React.ReactElement} The rendered card element.
+ * @memberOf module:for-react
  */
 export const RgxCard: React.FC<RgxCardProps> = ({
   type = "clear",

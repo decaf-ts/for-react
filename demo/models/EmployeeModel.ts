@@ -1,0 +1,62 @@
+import { pk } from "@decaf-ts/core";
+import { OperationKeys, timestamp } from "@decaf-ts/db-decorators";
+import { Model, model, required } from "@decaf-ts/decorator-validation";
+import type { ModelArg } from "@decaf-ts/decorator-validation";
+import {
+  HTML5InputTypes,
+  uielement,
+  uilistmodel,
+  uilistprop,
+  uimodel,
+} from "@decaf-ts/ui-decorators";
+
+@uilistmodel("ngx-decaf-list-item", { icon: "ti-user" })
+@uimodel("ngx-decaf-crud-form", { rows: 1, cols: 1 })
+@model()
+export class EmployeeModel extends Model {
+  @uilistprop("uid")
+  @uielement("ngx-decaf-crud-field", {
+    label: "employee.id.label",
+    placeholder: "employee.id.placeholder",
+  })
+  @pk({ type: "Number" })
+  id!: number;
+
+  @required()
+  @uielement("ngx-decaf-crud-field", {
+    label: "employee.name.label",
+    placeholder: "employee.name.placeholder",
+  })
+  @uilistprop("title")
+  name!: string;
+
+  @required()
+  @uielement("ngx-decaf-crud-field", {
+    label: "employee.occupation.label",
+    placeholder: "employee.occupation.placeholder",
+    type: HTML5InputTypes.SELECT,
+    options: [
+      { text: "Software Engineer", value: "Software Engineer" },
+      { text: "Frontend Developer", value: "Frontend Developer" },
+      { text: "Backend Developer", value: "Backend Developer" },
+      { text: "QA Engineer", value: "QA Engineer" },
+      { text: "Product Manager", value: "Product Manager" },
+    ],
+  })
+  occupation!: string;
+
+  @uilistprop("info")
+  birthdate!: Date | string;
+
+  hiredAt!: Date;
+
+  @timestamp([OperationKeys.CREATE])
+  createdAt!: Date;
+
+  @timestamp()
+  updateAt!: Date;
+
+  constructor(args: ModelArg<EmployeeModel> = {}) {
+    super(args);
+  }
+}

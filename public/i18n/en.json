@@ -1,0 +1,305 @@
+{
+  "common": {
+    "back": "Back",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "language": "Language",
+    "toggle_theme": "Toggle color scheme",
+    "tabs": "Tabs",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "menu": {
+    "dashboard": "Dashboard",
+    "crud": "CRUD form",
+    "fieldset": "Fieldset form",
+    "steps_form": "Stepped form",
+    "model": "Model page",
+    "list_model": "Model lists",
+    "model_builder": "Model builder",
+    "components": "Components",
+    "login": "Login",
+    "not_found": "Not found"
+  },
+  "operations": {
+    "read": {
+      "title": "Read"
+    },
+    "create": {
+      "title": "Create"
+    },
+    "update": {
+      "title": "Update"
+    },
+    "delete": {
+      "title": "Delete"
+    }
+  },
+  "category": {
+    "id": {
+      "label": "Identifier",
+      "placeholder": "Auto-generated"
+    },
+    "name": {
+      "label": "Name",
+      "placeholder": "Category name"
+    },
+    "period": {
+      "label": "Period"
+    },
+    "description": {
+      "label": "Description",
+      "placeholder": "Describe the category"
+    },
+    "created": {
+      "label": "Created at",
+      "placeholder": "Creation timestamp"
+    }
+  },
+  "user": {
+    "id": {
+      "label": "Identifier",
+      "placeholder": "User id"
+    },
+    "username": {
+      "label": "Username",
+      "placeholder": "User name"
+    },
+    "secret": {
+      "label": "Secret"
+    }
+  },
+  "demo": {
+    "id": {
+      "label": "Identifier",
+      "placeholder": "1 to 100"
+    },
+    "name": {
+      "label": "Name",
+      "placeholder": "At least 5 characters"
+    },
+    "gender": {
+      "label": "Gender"
+    },
+    "contact": {
+      "label": "Preferred contact"
+    },
+    "birthdate": {
+      "label": "Birth date"
+    },
+    "email": {
+      "label": "Email",
+      "placeholder": "name@example.com"
+    },
+    "website": {
+      "label": "Website"
+    },
+    "password": {
+      "label": "Password"
+    },
+    "agree": {
+      "label": "I agree with the terms"
+    }
+  },
+  "employee": {
+    "id": {
+      "label": "Identifier",
+      "placeholder": "Employee id"
+    },
+    "name": {
+      "label": "Name",
+      "placeholder": "Employee name"
+    },
+    "occupation": {
+      "label": "Occupation",
+      "placeholder": "Select an occupation"
+    }
+  },
+  "aivendors": {
+    "name": {
+      "label": "Vendor",
+      "placeholder": "Choose a vendor"
+    },
+    "models": {
+      "label": "Models",
+      "placeholder": "Choose models"
+    }
+  },
+  "aimodel": {
+    "name": {
+      "label": "Model",
+      "placeholder": "Model name"
+    },
+    "features": {
+      "label": "Features",
+      "placeholder": "Select features"
+    }
+  },
+  "login": {
+    "title": "Sign in",
+    "subtitle": "Use the demo credentials to continue",
+    "username": {
+      "label": "Username",
+      "placeholder": "Your username"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Your password"
+    },
+    "submit": "Sign in",
+    "success": "Signed in successfully"
+  },
+  "dashboard": {
+    "title": "Demo dashboard",
+    "subtitle": "Metadata-driven layout rendered by the React engine",
+    "first_line": {
+      "title": "Overview"
+    },
+    "second_line": {
+      "title": "People"
+    },
+    "third_line": {
+      "title": "Categories"
+    },
+    "main": {
+      "title": "Welcome",
+      "subtitle": "Full-width empty-state component"
+    },
+    "second": {
+      "title": "Second component",
+      "subtitle": "Another empty-state component"
+    },
+    "save": "Save",
+    "delete": "Delete",
+    "remove": "Remove",
+    "confirm_remove": "Remove this component?",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "empty": "Empty dashboard"
+  },
+  "crud": {
+    "title": "CRUD form",
+    "subtitle": "Declarative form backed by RgxFormService",
+    "submitted": "Submitted payload"
+  },
+  "fieldset": {
+    "title": "Fieldset form",
+    "subtitle": "Repeating child model rendered as a fieldset",
+    "add": "Add",
+    "add_first": "Add first",
+    "show_form": "Show form",
+    "clear_items": "Clear items",
+    "hidden_form": "Show",
+    "edit_item": "Edit",
+    "remove_item": "Remove",
+    "create_item": "Add item",
+    "cancel": "Cancel",
+    "max_items": "Maximum {0} items",
+    "max_items_reached": "Maximum of {0} items reached",
+    "not_unique": "This item already exists"
+  },
+  "stepped-form": {
+    "step1": {
+      "title": "Category",
+      "description": "Pick a category"
+    },
+    "step2": {
+      "title": "Details",
+      "description": "Who is filling the form"
+    },
+    "step3": {
+      "title": "Confirmation",
+      "description": "Review and accept"
+    }
+  },
+  "steps_form": {
+    "title": "Stepped form",
+    "subtitle": "Multi-page model rendered as RgxSteppedForm"
+  },
+  "steppedForm": {
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "step_of": "Step {current} of {total}"
+  },
+  "model_builder": {
+    "title": "Model builder",
+    "subtitle": "Build a model definition interactively",
+    "definition": "Generated definition"
+  },
+  "component": {
+    "model_builder": {
+      "add_property": "Add property",
+      "build_model": "Build model",
+      "empty_properties": "No properties yet",
+      "live_preview": "Preview",
+      "preview_empty": "Build a model to preview it",
+      "model_name": "Model name",
+      "invalid": "Every property needs a name"
+    }
+  },
+  "list_model": {
+    "title": "Model lists",
+    "subtitle": "Infinite vendor list and paginated model list",
+    "infinite": "AI vendors (infinite)",
+    "paginated": "AI models (paginated)"
+  },
+  "list": {
+    "search": "Search",
+    "create": "Create",
+    "refresh": "Refresh",
+    "load_more": "Load more"
+  },
+  "model": {
+    "title": "Model page",
+    "subtitle": "Operation-aware metadata rendering"
+  },
+  "components": {
+    "title": "Components",
+    "subtitle": "Ports of the for-angular demo components",
+    "products": "Products",
+    "expiry": "Expiry date",
+    "all": "All",
+    "recalled": "Recalled",
+    "no_selection": {
+      "title": "No product selected",
+      "subtitle": "Choose an action on a product to see it here"
+    }
+  },
+  "product": {
+    "gtin": "GTIN",
+    "internalMaterialCode": {
+      "label": "Material code"
+    },
+    "nameMedicinalProduct": {
+      "label": "Medicinal product"
+    },
+    "importLicenseNumber": {
+      "label": "Import license"
+    },
+    "recalled": {
+      "label": "Recalled",
+      "yes": "Yes",
+      "no": "No"
+    },
+    "batches": "Batches"
+  },
+  "expiry": {
+    "date": {
+      "label": "Expiry date"
+    },
+    "day_selection": {
+      "label": "Select a specific day"
+    },
+    "gs1": {
+      "label": "GS1 value"
+    },
+    "empty": "not set"
+  },
+  "not_found": {
+    "title": "Page not found",
+    "subtitle": "The requested demo route does not exist",
+    "back": "Back to dashboard"
+  }
+}

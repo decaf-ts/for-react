@@ -1,9 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "paths": {
+      "@decaf-ts/core/ram": ["./node_modules/@decaf-ts/core/lib/ram/index.d.ts"]
+    },
+    "target": "es2022",
+    "lib": ["dom", "dom.iterable", "es2022"],
     "allowJs": true,
-    "declaration": true /* Generates corresponding '.d.ts' file. */,
+    "declaration": true,
     "declarationMap": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -12,12 +15,11 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "experimentalDecorators": true /* Enables experimental support for ES7 decorators. */,
+    "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    //    "noEmit": true,
     "jsx": "react-jsx"
   },
   "include": ["src"]

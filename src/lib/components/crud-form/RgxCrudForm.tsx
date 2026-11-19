@@ -1,10 +1,15 @@
 import React from "react";
 import { OperationKeys } from "@decaf-ts/db-decorators";
-import { ICrudFormOptions } from "../../engine/interfaces";
-import { DefaultFormReactiveOptions } from "../../engine/constants";
-import { RgxFormService } from "../../engine/RgxFormService";
-import "./crud-form.component.css";
+import { ICrudFormOptions } from "../../engine/interfaces.js";
+import { DefaultFormReactiveOptions } from "../../engine/constants.js";
+import { RgxFormService } from "../../engine/RgxFormService.js";
 
+/**
+ * @description Public props accepted by {@link RgxCrudForm}.
+ * @summary Configures the form operation, the backing {@link RgxFormService},
+ * button options and the submit/delete/cancel callbacks.
+ * @memberOf module:for-react
+ */
 export interface RgxCrudFormProps {
   operation?: OperationKeys;
   formProvider?: RgxFormService;
@@ -21,6 +26,25 @@ export interface RgxCrudFormProps {
 const isReadOnlyOperation = (operation?: OperationKeys) =>
   operation === OperationKeys.READ || operation === OperationKeys.DELETE;
 
+/**
+ * @description CRUD form shell that wires a form provider to action buttons.
+ * @summary Defaults to the `CREATE` operation and renders a `<form>` for
+ * editable operations, or a read-only `<section>` for `READ`/`DELETE`. Submit
+ * prevents the default event and forwards the data returned by
+ * `formProvider.submit()` to `onSubmit`; a `null` result (failed validation)
+ * skips the callback. The clear button calls `formProvider.reset()` and
+ * `onCancel`, while delete forwards `formProvider.getParsedData()` to
+ * `onDelete`. Submit is shown for `CREATE`/`UPDATE`, delete for `DELETE`, and
+ * clear only when configured in `options.buttons.clear`; button labels and
+ * icons are merged with {@link DefaultFormReactiveOptions}.
+ * @param {RgxCrudFormProps} props - Form configuration, callbacks and children.
+ * @returns {React.ReactElement} The rendered form or read-only section.
+ * @memberOf module:for-react
+ * @example
+ * <RgxCrudForm operation={OperationKeys.CREATE} formProvider={form} onSubmit={save}>
+ *   <RgxCrudField name="title" formProvider={form} />
+ * </RgxCrudForm>
+ */
 export const RgxCrudForm: React.FC<RgxCrudFormProps> = ({
   operation = OperationKeys.CREATE,
   formProvider,
@@ -49,8 +73,12 @@ export const RgxCrudForm: React.FC<RgxCrudFormProps> = ({
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    const data = getFormData();
-    formProvider?.submit();
+    if (!formProvider) {
+      onSubmit?.({});
+      return;
+    }
+    const data = formProvider.submit();
+    if (data === null) return;
     onSubmit?.(data);
   };
 

@@ -1,9 +1,16 @@
 import React from "react";
-import { RgxCard, RgxCardProps } from "../card/RgxCard";
-import { RgxIcon } from "../icon/RgxIcon";
-import { stringToBoolean } from "../../utils/helpers";
-import "./empty-state.component.css";
+import { escapeHtml } from "@decaf-ts/ui-decorators";
+import { RgxCard, RgxCardProps } from "../card/RgxCard.js";
+import { RgxIcon } from "../icon/RgxIcon.js";
+import { stringToBoolean } from "../../utils/helpers.js";
+import { translateKey } from "../../services/RgxTranslateService.js";
 
+/**
+ * @description Public props accepted by {@link RgxEmptyState}.
+ * @summary Extends {@link RgxCardProps} with optional icon, title/subtitle,
+ * search-highlight text and a call-to-action button configuration.
+ * @memberOf module:for-react
+ */
 export interface RgxEmptyStateProps extends RgxCardProps {
   title?: string;
   titleColor?: string;
@@ -26,6 +33,21 @@ export interface RgxEmptyStateProps extends RgxCardProps {
 
 const normalizeBool = (value?: boolean | string) => stringToBoolean((value ?? true) as any);
 
+/**
+ * @description Empty-state card shown when a collection has no content.
+ * @summary Renders optional icon, translated title and subtitle inside a
+ * {@link RgxCard}, forwarding remaining props to the card. When both
+ * `searchValue` and `searchSubtitle` are set, the subtitle's `{0}` placeholder
+ * is replaced with the search value wrapped in a `dcf-highlight` span (rendered
+ * as HTML). A button is shown when `buttonLink` is provided or
+ * `enableCreationByModelRoute` is set; clicking it invokes a function link or
+ * opens a string link in the current window, then calls `onButtonClick`.
+ * @param {RgxEmptyStateProps} props - Empty-state content, styling and button configuration.
+ * @returns {React.ReactElement} The rendered empty-state card.
+ * @memberOf module:for-react
+ * @example
+ * <RgxEmptyState title="No records" subtitle="Create your first record" buttonText="Create" buttonLink="/new" />
+ */
 export const RgxEmptyState: React.FC<RgxEmptyStateProps> = ({
   title = "title",
   titleColor = "gray-6",
@@ -51,7 +73,7 @@ export const RgxEmptyState: React.FC<RgxEmptyStateProps> = ({
   const displayIcon = normalizeBool(showIcon);
   const effectiveSubtitle =
     searchValue && searchSubtitle
-      ? searchSubtitle.replace("{0}", `<span class="dcf-highlight">${searchValue}</span>`)
+      ? searchSubtitle.replace("{0}", `<span class="dcf-highlight">${escapeHtml(searchValue)}</span>`)
       : subtitle;
 
   const handleButton = () => {
@@ -69,12 +91,12 @@ export const RgxEmptyState: React.FC<RgxEmptyStateProps> = ({
           </div>
         )}
         {title && (
-          <h4 className={`dcf-ititle ${titleColor}`} dangerouslySetInnerHTML={{ __html: title }} />
+          <h4 className={`dcf-ititle ${titleColor}`} dangerouslySetInnerHTML={{ __html: translateKey(title) }} />
         )}
         {effectiveSubtitle && (
           <p
             className={`dcf-subtitle ${subtitleColor}`}
-            dangerouslySetInnerHTML={{ __html: effectiveSubtitle }}
+            dangerouslySetInnerHTML={{ __html: translateKey(effectiveSubtitle) }}
           />
         )}
         {children}
@@ -85,7 +107,7 @@ export const RgxEmptyState: React.FC<RgxEmptyStateProps> = ({
               type="button"
               onClick={handleButton}
             >
-              {buttonText}
+              {buttonText ? translateKey(buttonText) : buttonText}
             </button>
           </div>
         )}

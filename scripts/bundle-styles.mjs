@@ -1,0 +1,43 @@
+#!/usr/bin/env node
+import fs from "node:fs";
+import path from "node:path";
+
+const root = process.cwd();
+const sourceRoot = path.join(root, "src", "lib");
+const outFile = path.join(root, "lib", "styles.css");
+
+function walk(dir) {
+  return fs
+    .readdirSync(dir, { withFileTypes: true })
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .flatMap((entry) => {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) return walk(full);
+      if (entry.isFile() && entry.name.endsWith(".css")) return [full];
+      return [];
+    });
+}
+
+if (!fs.existsSync(sourceRoot)) {
+  console.error(`[bundle-styles] missing source directory: ${sourceRoot}`);
+  process.exit(1);
+}
+
+if (!fs.existsSync(path.join(root, "lib"))) {
+  console.error("[bundle-styles] missing lib directory; run build-scripts first");
+  process.exit(1);
+}
+
+const files = walk(sourceRoot);
+const parts = [
+  "/* @decaf-ts/for-react component styles (generated) */",
+  ...files.map((file) => {
+    const relative = path.relative(root, file).split(path.sep).join("/");
+    return `\n/* ${relative} */\n${fs.readFileSync(file, "utf8").trim()}\n`;
+  }),
+];
+
+fs.writeFileSync(outFile, `${parts.join("\n")}\n`, "utf8");
+console.log(
+  `[bundle-styles] wrote ${path.relative(root, outFile)} from ${files.length} stylesheets`
+);
