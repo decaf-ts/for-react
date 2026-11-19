@@ -21,6 +21,7 @@ import "../src/calendar/calendar.css";
 import "../src/kanban/kanban.css";
 import "../src/scrum/scrum.css";
 import "../src/storyboard/storyboard.css";
+import "../src/charts/charts.css";
 import {
   registerDefaultComponents,
   RgxI18nProvider,

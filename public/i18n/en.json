@@ -27,7 +27,8 @@
     "calendar": "Calendar",
     "kanban": "Kanban",
     "scrum": "Scrum",
-    "storyboard": "Storyboard tutorial"
+    "storyboard": "Storyboard tutorial",
+    "charts": "Charts"
   },
   "calendar": {
     "title": "Calendar",
@@ -586,5 +587,36 @@
     "builder_label": "Cron builder",
     "builder_field_label": "Schedule",
     "note": "Descriptions come from cronstrue and re-render when the demo language changes. Ionic React is loaded only by the /cron subpath."
+  },
+  "charts": {
+    "title": "Charts",
+    "intro": "Edit the dataset and the chart configuration to see every chart family update live. The curve editor below samples its own formula and control points.",
+    "type_label": "Chart family",
+    "type_line": "Line",
+    "type_bar": "Bar",
+    "type_pie": "Pie",
+    "type_scatter": "Scatter",
+    "data_title": "Dataset",
+    "add_row": "Add row",
+    "remove_row": "Remove row {index}",
+    "column_category": "Category",
+    "column_value": "Value",
+    "column_weight": "Weight",
+    "column_series": "Series",
+    "smooth_label": "Smooth line",
+    "area_label": "Fill area",
+    "stack_label": "Stack series",
+    "legend_label": "Show legend",
+    "tooltip_label": "Show tooltip",
+    "chart_title": "Live chart",
+    "chart_aria": "{type} chart preview",
+    "curve_title": "Curve editor",
+    "curve_intro": "Drag the control points on the canvas or type a formula in x. The formula and the interpolated curve stay in sync.",
+    "interpolation_label": "Interpolation",
+    "interpolation_linear": "Linear",
+    "interpolation_monotonic": "Monotonic cubic",
+    "formula_label": "Formula",
+    "formula_placeholder": "For example: x^2",
+    "points_count": "{count} control points"
   }
 }

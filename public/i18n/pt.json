@@ -27,7 +27,8 @@
     "calendar": "Calendário",
     "kanban": "Kanban",
     "scrum": "Scrum",
-    "storyboard": "Tutorial storyboard"
+    "storyboard": "Tutorial storyboard",
+    "charts": "Gráficos"
   },
   "calendar": {
     "title": "Calendário",
@@ -586,5 +587,36 @@
     "builder_label": "Construtor de cron",
     "builder_field_label": "Horário",
     "note": "As descrições vêm do cronstrue e são recalculadas quando o idioma da demonstração muda. O Ionic React só é carregado pela subpath /cron."
+  },
+  "charts": {
+    "title": "Gráficos",
+    "intro": "Edite o conjunto de dados e a configuração para ver cada família de gráficos a atualizar em tempo real. O editor de curvas abaixo calcula a partir da sua própria fórmula e pontos de controlo.",
+    "type_label": "Família de gráfico",
+    "type_line": "Linhas",
+    "type_bar": "Barras",
+    "type_pie": "Circular",
+    "type_scatter": "Dispersão",
+    "data_title": "Conjunto de dados",
+    "add_row": "Adicionar linha",
+    "remove_row": "Remover linha {index}",
+    "column_category": "Categoria",
+    "column_value": "Valor",
+    "column_weight": "Peso",
+    "column_series": "Série",
+    "smooth_label": "Linha suavizada",
+    "area_label": "Preencher área",
+    "stack_label": "Empilhar séries",
+    "legend_label": "Mostrar legenda",
+    "tooltip_label": "Mostrar dica",
+    "chart_title": "Gráfico em tempo real",
+    "chart_aria": "Pré-visualização do gráfico {type}",
+    "curve_title": "Editor de curvas",
+    "curve_intro": "Arraste os pontos de controlo na tela ou escreva uma fórmula em x. A fórmula e a curva interpolada mantêm-se sincronizadas.",
+    "interpolation_label": "Interpolação",
+    "interpolation_linear": "Linear",
+    "interpolation_monotonic": "Cúbica monótona",
+    "formula_label": "Fórmula",
+    "formula_placeholder": "Por exemplo: x^2",
+    "points_count": "{count} pontos de controlo"
   }
 }

@@ -120,6 +120,17 @@
       },
       "default": "./lib/esm/storyboard/index.js"
     },
+    "./charts": {
+      "import": {
+        "types": "./lib/types/charts/index.d.mts",
+        "default": "./lib/esm/charts/index.js"
+      },
+      "require": {
+        "types": "./lib/types/charts/index.d.cts",
+        "default": "./lib/cjs/charts/index.cjs"
+      },
+      "default": "./lib/esm/charts/index.js"
+    },
     "./diagrams/styles.css": "./lib/diagrams/styles.css",
     "./gantt/styles.css": "./lib/gantt/styles.css",
     "./cron/styles.css": "./lib/cron/styles.css",
@@ -127,6 +138,7 @@
     "./kanban/styles.css": "./lib/kanban/styles.css",
     "./scrum/styles.css": "./lib/scrum/styles.css",
     "./storyboard/styles.css": "./lib/storyboard/styles.css",
+    "./charts/styles.css": "./lib/charts/styles.css",
     "./styles.css": "./lib/styles.css"
   },
   "main": "./lib/cjs/index.cjs",
@@ -196,11 +208,13 @@
   "license": "MIT",
   "peerDependencies": {
     "@bwip-js/browser": "^4.11.4",
+    "@cortex-js/compute-engine": "^0.147.0",
     "@date-fns/tz": "^1.5.0",
     "@decaf-ts/as-graph": "^0.11.5",
     "@ionic/react": "^9.0.12",
     "cronstrue": "^3.43.0",
     "date-fns": "^4.1.0",
+    "echarts": "^6.1.0",
     "mathlive": "^0.111.1",
     "react": ">=18.0.0",
     "react-day-picker": "10.0.2",
@@ -208,6 +222,7 @@
   },
   "devDependencies": {
     "@bwip-js/browser": "^4.11.4",
+    "@cortex-js/compute-engine": "^0.147.0",
     "@date-fns/tz": "^1.5.0",
     "@decaf-ts/as-graph": "^0.11.5",
     "@decaf-ts/utils": "^2.3.0",
@@ -226,6 +241,7 @@
     "@types/react-dom": "^19.2.3",
     "cronstrue": "^3.43.0",
     "date-fns": "^4.1.0",
+    "echarts": "^6.1.0",
     "eslint": "8.57.1",
     "eslint-config-prettier": "^9.1.2",
     "globals": "^15.15.0",
@@ -276,6 +292,9 @@
     "LICENSE.md"
   ],
   "peerDependenciesMeta": {
+    "@cortex-js/compute-engine": {
+      "optional": true
+    },
     "@date-fns/tz": {
       "optional": true
     },
@@ -292,6 +311,9 @@
       "optional": true
     },
     "date-fns": {
+      "optional": true
+    },
+    "echarts": {
       "optional": true
     },
     "mathlive": {

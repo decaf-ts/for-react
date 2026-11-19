@@ -90,3 +90,9 @@ bundle(
   path.join(root, "lib", "storyboard", "styles.css"),
   "@decaf-ts/for-react/storyboard component styles"
 );
+
+bundle(
+  path.join(root, "src", "charts"),
+  path.join(root, "lib", "charts", "styles.css"),
+  "@decaf-ts/for-react/charts component styles"
+);

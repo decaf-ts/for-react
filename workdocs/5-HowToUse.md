@@ -51,6 +51,11 @@
   store with `useSyncExternalStore` hooks, the framework-agnostic engine,
   completion/action detection and the focus/message strategies. Importing the
   subpath adds no new dependency.
+- [`@decaf-ts/for-react/charts`](./src/charts/README.md) — CRD-ready line, bar,
+  pie and scatter chart components plus the controlled curve editor, over the
+  optional `echarts` and `@cortex-js/compute-engine` peers. Importing the
+  subpath is the only thing that loads either engine; the root package does not
+  include them.
 
 ### Diagrams
 
@@ -413,6 +418,52 @@ route:
 | Route | What it exercises |
 | --- | --- |
 | `/storyboard` | [`./storyboard`](./src/storyboard/README.md): the four-step translated feature tour over an interactive playground with a non-blocking soft-spotlight focus strategy, plus scenario switches for placements, timeout, click, input, keys and custom labels/panel message; start/next/previous/abort/end controls, live status/active-step/last-event projection |
+
+### Charts
+
+The `./charts` subpath is the React port of the Angular
+`@decaf-ts/for-angular/charts` entry point: CRD-ready chart layout components
+over Apache ECharts — the `<LineChart>`, `<BarChart>`, `<PieChart>` and
+`<ScatterChart>` family wrappers, with `BaseChart` (aliases
+`ChartComponent`/`RgxChart`) registered as `ngx-decaf-chart` and defaulting to
+a line chart — plus the fully controlled `<CurveEditor>` with its imperative
+`CurveEditorHandle` ref API, the `useECharts` hook and the `VirtualDataset`
+query pavement. See [`src/charts/README.md`](./src/charts/README.md) for the
+full props, callbacks, imperative API and helper contract.
+
+Install requirements:
+
+- `echarts@^6.1.0` and `@cortex-js/compute-engine@^0.147.0` are **optional
+  peers** of the package and are **required by this subpath**: install them
+  only in applications that import `./charts`; the root entry point never
+  loads them. The compute engine evaluates the curve editor's LaTeX formulas
+  against the control points; the editor still renders points when the formula
+  is empty.
+- The subpath is **dual ESM + CJS**: both `import` and `require` conditions are
+  published, so `require('@decaf-ts/for-react/charts')` works in CommonJS
+  hosts without a dynamic `import()`.
+
+Styles are consumer-wired — the subpath never imports CSS itself:
+
+```ts
+import "@decaf-ts/for-react/charts/styles.css"; // chart theme
+```
+
+Registration: importing the subpath runs `registerChartComponents()` once
+(idempotent), registering only the five chart tags — `ngx-decaf-chart`,
+`ngx-decaf-line-chart`, `ngx-decaf-bar-chart`, `ngx-decaf-pie-chart` and
+`ngx-decaf-scatter-chart` — with the component registry. In
+`CREATE`/`UPDATE` operation the chart components render their decorated
+configuration model through the standard React rendering engine, so hosts that
+use the config form must also call `registerDefaultComponents()` from the root
+entry point (as the demo app does); importing `./charts` never registers
+those.
+
+The demo app (`npm run dev`, `http://localhost:8111`) ships the charts route:
+
+| Route | What it exercises |
+| --- | --- |
+| `/charts` | [`./charts`](./src/charts/README.md): the four chart families over an editable row grid (category/value/weight/series with add/remove row) with per-family option toggles (smoothing, area, stacking, legend, tooltip), plus the controlled `<CurveEditor>` with draggable control points, monotonic/linear interpolation and LaTeX formula sampling — with the label strings resolved by the demo page through its own i18n |
 
 ### Dashboard builder demo
 
