@@ -84,7 +84,7 @@
 
 .dcf-storyboard-tutorial__bubble-progress {
   font-size: 0.75rem;
-  opacity: 0.6;
+  color: var(--dcf-muted-text, #5f6670);
 }
 
 .dcf-storyboard-tutorial__bubble-actions {
@@ -109,14 +109,14 @@
 }
 
 .dcf-storyboard-tutorial__bubble-primary {
-  border-color: var(--dcf-primary, #5b8def);
-  background: var(--dcf-primary, #5b8def);
+  border-color: var(--dcf-primary, #2563eb);
+  background: var(--dcf-primary, #2563eb);
   color: var(--dcf-on-primary, #fff);
 }
 
 .dcf-storyboard-tutorial__bubble-abort {
   border-color: transparent;
-  opacity: 0.7;
+  color: var(--dcf-muted-text, #5f6670);
 }
 
 .dcf-storyboard-tutorial__target--focused {

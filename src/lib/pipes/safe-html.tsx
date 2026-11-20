@@ -87,6 +87,7 @@ const ALLOWED_URL_SCHEMES = new Set(["http:", "https:"]);
 const DATA_IMAGE_PREFIX = /^data:image\//i;
 const BLOCKED_ELEMENTS = new Set([
   "animate",
+  "animatecolor",
   "animatemotion",
   "animatetransform",
   "applet",
@@ -248,11 +249,11 @@ function sanitizeElement(element: Element): void {
 function sanitizeHtmlFallback(value: string): string {
   return value
     .replace(
-      /<\s*(script|style|iframe|frame|frameset|object|embed|applet|template|noscript|base|link|meta|form|input|button|textarea|select|option|animate|animatemotion|animatetransform|set|discard)\b[^>]*>[\s\S]*?<\s*\/\s*\1\s*>/gi,
+      /<\s*(script|style|iframe|frame|frameset|object|embed|applet|template|noscript|base|link|meta|form|input|button|textarea|select|option|animate|animatecolor|animatemotion|animatetransform|set|discard)\b[^>]*>[\s\S]*?<\s*\/\s*\1\s*>/gi,
       ""
     )
     .replace(
-      /<\s*(script|style|iframe|frame|frameset|object|embed|applet|template|noscript|base|link|meta|form|input|button|textarea|select|option|animate|animatemotion|animatetransform|set|discard)\b[^>]*\/?\s*>/gi,
+      /<\s*(script|style|iframe|frame|frameset|object|embed|applet|template|noscript|base|link|meta|form|input|button|textarea|select|option|animate|animatecolor|animatemotion|animatetransform|set|discard)\b[^>]*\/?\s*>/gi,
       ""
     )
     .replace(/\s+on[a-z]+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s"'>]+)/gi, "")
@@ -272,8 +273,9 @@ function sanitizeHtmlFallback(value: string): string {
  *
  * - drops `script`, `style`, `iframe`, `object`, `embed`, `form`, `input`,
  *   `button`, `textarea`, `select`, `base`, `link`, `meta`, `template`,
- *   `noscript`, the SMIL animation elements `animate`, `set`, `animateMotion`,
- *   `animateTransform` and `discard`, and related active elements, plus
+ *   `noscript`, the SMIL animation elements `animate`, `animateColor`,
+ *   `set`, `animateMotion`, `animateTransform` and `discard`, and related
+ *   active elements, plus
  *   namespaced tags;
  * - removes every `on*` event-handler attribute and the `srcdoc`/`formaction`
  *   attributes;

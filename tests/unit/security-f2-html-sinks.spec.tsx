@@ -134,6 +134,7 @@ describe("[SAA-2140 F2] RgxEmptyState title/subtitle sanitization", () => {
 
 const SMIL_TAGS = new Set([
   "animate",
+  "animatecolor",
   "animatemotion",
   "animatetransform",
   "discard",
@@ -146,11 +147,15 @@ const SMIL_PAYLOAD =
 const SMIL_ELEMENT_PAYLOAD =
   "<svg>" +
   '<animate attributeName="href" values="javascript:alert(1)"/>' +
+  '<animateColor attributeName="href" to="javascript:alert(1)"/>' +
   '<set attributeName="href" to="javascript:alert(1)"/>' +
   '<animateMotion dur="1s" repeatCount="indefinite"/>' +
   '<animateTransform attributeName="transform" type="rotate" values="0;360"/>' +
   '<discard begin="1s"/>' +
   "</svg>";
+
+const ANIMATE_COLOR_PAYLOAD =
+  '<svg><a><animateColor attributeName="href" to="javascript:alert(1)"/></a></svg>';
 
 /**
  * SAA-2138 reproduction (F8): SMIL animation elements mutate another element's
@@ -193,5 +198,19 @@ describe("[SAA-2144 F8] SMIL animation-element bypass sanitization", () => {
     const title = container.querySelector<HTMLElement>("h4.dcf-ititle");
     expect(title).not.toBeNull();
     expectNoSmilMutation(title as HTMLElement);
+  });
+
+  it("strips the legacy <animateColor> href-mutation payload from RgxCard inlineContent", () => {
+    const { container } = render(
+      <RgxCard inlineContent={ANIMATE_COLOR_PAYLOAD}>
+        <span>body</span>
+      </RgxCard>
+    );
+
+    const content = container.querySelector<HTMLElement>(".dcf-card-content");
+    expect(content).not.toBeNull();
+    expectNoSmilMutation(content as HTMLElement);
+    expect(content?.querySelector("animatecolor")).toBeNull();
+    expect(content?.innerHTML.toLowerCase()).not.toContain("animatecolor");
   });
 });
