@@ -241,7 +241,7 @@
     "@decaf-ts/as-graph": "^0.11.5",
     "@decaf-ts/utils": "^2.3.0",
     "@eslint/js": "^8.57.1",
-    "@faker-js/faker": "^8.4.1",
+    "@faker-js/faker": "^10.0.0",
     "@ionic/react": "^9.0.12",
     "@playwright/test": "^1.65.1",
     "@swc/core": "^1.16.22",
